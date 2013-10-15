@@ -48,7 +48,7 @@ def date_convert(x):
 
 # <codecell>
 
-dat = pd.read_csv("./Line list & epi stats - Line list.csv", parse_dates=True)
+dat = pd.read_csv("../Line list & epi stats - Line list.csv", parse_dates=True)
 dat['Cluster ID'] = dat['Cluster ID'].replace(np.nan, 'single')
 dat.index = dat['Cluster ID']
 
@@ -127,7 +127,7 @@ clusters, mx = cluster_builder(dat, 'Cluster ID', 'Case #', 'dates', 'Health sta
 
 # <codecell>
 
-mx.save('./cluster_network.pkl')
+mx.save('../cluster_network.pkl')
 
 # <codecell>
 

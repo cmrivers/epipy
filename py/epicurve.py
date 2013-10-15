@@ -43,7 +43,7 @@ def _date_convert(x, frmt):
 
 # <codecell>
 
-epi = pd.read_csv("./Line list & epi stats - Line list.csv", parse_dates=True)
+epi = pd.read_csv("../Line list & epi stats - Line list.csv", parse_dates=True)
 epi['onset_date'] = epi['Approx onset date'].map(lambda x: _date_convert(x, '%Y-%m-%d'))
 epi['report_date'] = epi['Approx reporting date'].map(lambda x: _date_convert(x, '%Y-%m-%d'))
 epi['dates'] = epi['onset_date'].combine_first(epi['report_date']) #Combine onset and reported date columns, with onset preferential

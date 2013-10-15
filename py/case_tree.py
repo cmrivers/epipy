@@ -48,7 +48,7 @@ style.use('ggplot')
 # <codecell>
 
 def example_data():
-    epi = pd.load('./network.pkl')
+    epi = pd.load('../cluster_network.pkl')
     epi.time = pd.to_datetime(epi.time)
     epi['pltdate'] = [mpl.dates.date2num(i) for i in epi.time]
 
@@ -214,7 +214,7 @@ G = build_graph(df, color='color', case_id='case_id', source='source_node', inde
 testplot = plotting(G,  node_size='on')
 plt.title('MERS-CoV clusters')
 plt.ylabel('Generations')
-plt.savefig('/Users/cmrivers/Desktop/casetree.png', bbox_inches='tight')
+plt.savefig('../casetree.png', bbox_inches='tight')
 
 # <codecell>
 
