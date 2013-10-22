@@ -38,8 +38,10 @@ from random import choice
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import networkx as nx
-from mpltools import style
-style.use('ggplot')
+
+#optional, if you have mpltools installed
+#from mpltools import style 
+#style.use('ggplot')
 
 # <markdowncell>
 
