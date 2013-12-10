@@ -1,142 +1,170 @@
-Case #,Approx onset date,Approx reporting date,Age,Sex,Probable infection place,Health status,Approx death date,Region,HCW,Reported comorbidities,Cluster ID,Notes
-1,2012-04-01,,45,F,Jordan,Dead,,,,,hospital A,
-2,2012-04-01,,25,M,Jordan,Dead,,Bisha/Jeddah,,,hospital A,
-3,2012-06-13,,60,M,Saudi Arabia,Dead,,Jeddah,,,,
-4,2012-09-03,,49,M,Saudi Arabia,Alive,,,,,,
-5,2012-10-10,,45,M,Saudi Arabia,Alive,,Riyadh,,,,
-6,2012-10-12,,45,M,Qatar,Alive,,,,,,
-7,2012-11-05,,31,M,Saudi Arabia,Alive,,Riyadh,,,Family A,
-8,2012-10-28,,39,M,Saudi Arabia,Dead,,,,,Family A,
-9,2012-10-01,,,M,Saudi Arabia,Dead,,,,,Family A,
-10,2013-01-24,,60,M,Saudi Arabia,Dead,2013-03-19,,,,Family B,
-11,2013-02-06,,,M,United Kingdom,Dead,2013-02-17,,,,Family B,
-12,2013-02-05,,,F,United Kingdom,Mild,,,,,,
-13,2013-01-29,,,F,Saudi Arabia,Dead,2013-02-10,,,,,
-14,2013-02-10,,69,M,Saudi Arabia,Dead,2013-02-19,,,,,
-15,2013-02-24,,39,M,Saudi Arabia,Dead,2013-03-02,Riyadh,,,Group 2,
-16,2013-03-02,,40,M,Saudi Arabia,Mild,,Riyadh,,,Group 2,
-17,2013-03-19,,73,M,UAE,Dead,2013-03-26,,,,,Hospitalized in Germany
-18,2013-04-14,,59,M,Saudi Arabia,Dead,2013-03-19,Eastern,,Y,Eastern cluster,
-19,2013-04-17,,24,M,Saudi Arabia,Dead,2013-05-31,Eastern,,Y,Eastern cluster,
-20,2013-04-17,,87,M,Saudi Arabia,Dead,2013-05-28,Eastern,,Y,Eastern cluster,
-21,2013-04-22,,58,M,Saudi Arabia,Critical,,Eastern,,Y,Eastern cluster,
-22,2013-04-22,,94,M,Saudi Arabia,Dead,2013-04-26,Eastern,,Y,Eastern cluster,
-23,2013-04-22,,56,M,Saudi Arabia,Dead,2013-04-30,Eastern,,Y,Eastern cluster,
-24,2013-04-22,,56,M,Saudi Arabia,Dead,2013-04-29,Eastern,,Y,Eastern cluster,
-25,2013-04-27,,53,F,Saudi Arabia,Dead,2013-07-06,,,Y,,
-26,2013-04-30,,50,M,Saudi Arabia,Alive,,,,Y,,
-27,2013-04-28,,33,M,Saudi Arabia,Alive,,,,Y,,
-28,2013-04-19,,62,F,Saudi Arabia,Dead,2013-05-03,Eastern,,Y,Eastern cluster,
-29,2013-04-15,,71,M,Saudi Arabia,Dead,2013-05-03,Eastern,,Y,Eastern cluster,
-30,2013-05-01,,58,F,Saudi Arabia,Critical,,Eastern,,Y,Eastern cluster,
-31,2013-04-23,,65,M,France,Dead,,Eastern,,,Eastern cluster,
-32,2013-04-29,,48,M,Saudi Arabia,Alive,,Eastern,,Y,Eastern cluster,
-33,2013-04-06,,58,M,Saudi Arabia,Recovered,,Eastern,,Y,Eastern cluster,
-34,2013-04-27,,50,M,France,,,,,Y,Group 6,Hospital roommate of case
-35,2013-04-25,,69,F,Saudi Arabia,Dead,,Eastern,,Y,Eastern cluster,
-36,2013-04-24,,48,M,Saudi Arabia,Critical,,Eastern,,Y,Eastern cluster,
-37,2013-04-26,,81,M,Saudi Arabia,Critical,,Eastern,,Y,Eastern cluster,Possibly dead
-38,2013-05-07,,56,M,Saudi Arabia,Alive,,Eastern,,Y,Eastern cluster,
-39,2013-05-02,,45,M,Saudi Arabia,Critical,,,Y,,Hospital B,
-40,2013-05-08,,43,F,Saudi Arabia,Alive,,,Y,,Hospital B,
-41,2013-04-28,,81,F,Saudi Arabia,Dead,,Eastern,,Y,Eastern cluster,
-42,,2013-04-20,35,F,Saudi Arabia,Mild,,,,,Family C,"Their 66yo father was index case, can't find him on line list"
-43,,2013-04-20,34,M,Saudi Arabia,Mild,,,,,Family C,"Their 66yo father was index case, can't find him on line list"
-44,2013-05-15,,63,M,Saudi Arabia,Dead,2013-05-20,Al-Qaseem,,Y,,
-45,2013-05-12,,56,M,Saudi Arabia,Dead,2013-05-20,Eastern,,Y,Eastern cluster,
-46,2013-05-17,,85,F,Saudi Arabia,Critical,,Eastern,,Y,Eastern cluster,
-47,2013-05-24,,76,F,Saudi Arabia,Recovered,,Eastern,,Y,Eastern cluster,
-48,2013-05-19,,77,M,Saudi Arabia,Dead,2013-05-26,Eastern,,Y,Eastern cluster,
-49,2013-05-18,,73,M,Saudi Arabia,Dead,2013-05-26,Eastern,,Y,Eastern cluster,
-50,,2013-05-29,61,M,Saudi Arabia,Alive,,Riyadh,,Y,,
-51,,2013-05-31,45,M,Italy,Alive,,,,,Cluster A,Travel hx to Jordan
-52,,2013-06-01,2,F,Italy,Alive,,,,,Cluster A,
-53,,2013-06-01,40,F,Italy,Alive,,,,,Cluster A,
-54,2013-05-29,,14,F,Saudi Arabia,Alive,,Eastern,,Y,Eastern cluster,
-55,,2013-06-04,83,M,Saudi Arabia,Dead,2013-05-06,Eastern,,Y,Eastern cluster,
-56,,2013-06-11,63,F,Saudi Arabia,Alive,,Eastern,,Y,Eastern cluster,
-57,,2013-06-11,75,M,Saudi Arabia,Dead,2013-05-05,Eastern,,Y,Eastern cluster,
-58,,2013-06-11,21,M,Saudi Arabia,Dead,2013-05-11,Hafar Al-Batin,,,,
-59,,2013-06-14,65,M,Saudi Arabia,Dead,,Mecca,,Y,,
-60,,2013-06-14,68,F,Saudi Arabia,Dead,,Mecca,,Y,,
-61,,2013-06-14,46,M,Saudi Arabia,Dead,2013-06-08,Riyadh,,,,
-62,,2013-06-17,42,M,Saudi Arabia,Alive,,Eastern,,Y,Eastern cluster,
-63,,2013-06-17,63,F,Saudi Arabia,Dead,,Riyadh,,Y,,
-64,,2013-06-17,2,,Saudi Arabia,Dead,,Mecca,,Y,,
-65,,2013-06-22,43,F,Saudi Arabia,Recovered,,Eastern,,,Eastern cluster,
-66,,2013-06-22,29,F,Saudi Arabia,Asymptomatic,,Taif,Y,,Hospital C,"Two of the three cases announced on 6/22 are asymptomatic, but it's not clear which two."
-67,,2013-06-22,39,F,Saudi Arabia,Asymptomatic,,Taif,Y,,Hospital C,"Two of the three cases announced on 6/22 are asymptomatic, but it's not clear which two."
-68,,2013-06-22,45,F,Saudi Arabia,Alive,,Taif,Y,,Hospital C,"Two of the three cases announced on 6/22 are asymptomatic, but it's not clear which two."
-69,,2013-06-21,41,F,Saudi Arabia,Alive,,Riyadh,,,,
-70,,2013-06-21,32,M,Saudi Arabia,Dead,2013-06-23,Eastern,,Y,Eastern cluster,
-71,,2013-06-23,10,,Saudi Arabia,Asymptomatic,,Riyadh,,,,Real range is 7-15
-72,,2013-06-23,10,,Saudi Arabia,Asymptomatic,,Riyadh,,,,Real range is 7-15
-73,,2013-06-23,10,,Saudi Arabia,Asymptomatic,,Riyadh,,,,Real range is 7-15
-74,,2013-06-23,10,,Saudi Arabia,Asymptomatic,,Riyadh,,,,Real range is 7-15
-75,,2013-06-23,,F,Saudi Arabia,Asymptomatic,,Eastern,,,Eastern cluster,
-76,,2013-06-23,,F,Saudi Arabia,Asymptomatic,,Eastern,,,Eastern cluster,
-77,,2013-06-23,50,F,Saudi Arabia,Alive,,Eastern,,,Eastern cluster,
-78,2013-06-28,,69,M,Saudi Arabia,Critical,,Riyadh,,,,
-79,2013-06-28,,66,M,Saudi Arabia,Critical,,Riyadh,,,,
-80,,2013-07-06,56,F,Saudi Arabia,,,Hafr Al-Batin,Y,,,
-81,,2013-07-08,66,M,Saudi Arabia,Dead,2013-07-22,Asir,,,,
-82,,2013-07-12,82,M,UAE,Critical,,,,Y,UAE Hospital,
-83,,2013-07-17,26,M,Saudi Arabia,Mild,,Asir,,,Group A,Contact w/ previous  case
-84,,2013-07-17,42,F,Saudi Arabia,Mild,,Asir,Y,,Group A,Probably healthcare cluster
-85,,2013-07-18,28,M,UAE,Asymptomatic,,,Y,,UAE Hospital,
-86,,2013-07-18,30,F,UAE,Asymptomatic,,,Y,,UAE Hospital,
-87,,2013-07-18,30,F,UAE,Mild,,,,,UAE Hospital,
-88,,2013-07-18,40,F,UAE,Mild,,,,,UAE Hospital,
-89,2013-07-15,,41,M,Saudi Arabia,Critical,,Riyadh,,,,No known exposure to animals or infected humans
-90,2013-07-11,,59,F,Saudi Arabia,Critical,,Eastern,,,Eastern cluster,No known exposure to animals or infected humans
-91,2013-07-17,,83,M,Saudi Arabia,,,Asir,,,,
-92,2013-07-25,,67,F,Saudi Arabia,Critical,,Riyadh,,Y,,No known exposure to animals or infected humans
-93,,2013-08-01,39,F,Saudi Arabia,Mild,,Asir,Y,,,
-94,,2013-08-01,,F,Saudi Arabia,Mild,,Riyadh,Y,,,
-95,2013-08-01,2013-08-19,50,F,Saudi Arabia,Critical,,Riyadh,,Y,,
-96,2013-07-23,2013-08-19,59,F,Saudi Arabia,Critical,,Riyadh,,Y,,
-97,2013-08-15,2013-08-20,59,M,Qatar,Alive,,,,Y,,recently returned from KSA
-98,,2013-08-22,50,F,Saudi Arabia,Critical,,Riyadh,,Y,,
-99,,2013-08-22,70,M,Saudi Arabia,Critical,,Riyadh,,Y,,
-100,,2013-08-22,31,M,Saudi Arabia,Critical,,Asir,,Y,,
-101,,2013-08-22,55,M,Saudi Arabia,Asymptomatic,,Asir,,,Unknown 2,
-102,,2013-08-22,51,,Saudi Arabia,Dead,2013-08-22,Riyadh,,Y,,
-103,,2013-08-22,54,,Saudi Arabia,Dead,2013-08-22,Riyadh,,Y,,
-104,,2013-08-26,29,M,Qatar,,,,,Y,,No travel history
-105,2013-08-17,,55,M,Saudi Arabia,Critical,,Medina,,Y,,
-106,2013-08-08,,38,M,Saudi Arabia,Dead,2013-08-17,Hafar Al-batin,,Y,Family D,
-107,,2013-08-30,16,M,Saudi Arabia,Asymptomatic,,Hafar Al-batin,,,Family D,
-108,,2013-08-30,7,F,Saudi Arabia,Asymptomatic,,Hafar Al-batin,,,Family D,
-109,,2013-09-01,26,,,Recovered,,Hafar Al-batin,,,Family D,
-110,,2013-09-01,19,,,Recovered,,Hafar Al-batin,,,Family D,
-111,2013-08-18,,56,F,Qatar,Dead,2013-08-31,,,Y,,
-112,2013-09-01,,30,M,Saudi Arabia,Critical,,Riyadh,Y,,Cluster E,
-113,2013-08-23,,47,M,Saudi Arabia,Critical,,Hafar Al-batin,,Y,Unknown 3,
-114,2013-08-15,,41,F,Saudi Arabia,Dead,2013-08-31,Riyadh,Y,,Cluster E,
-115,2013-08-21,,79,F,Saudi Arabia,Dead,2013-09-02,Hafar Al-batin,,Y,Cluster E,
-116,2013-05-01,,66,M,Tunisia,Dead,2013-05-10,,,,Family C,Travel hx to Qatar and KSA
-117,,2013-09-07,18,M,Saudi Arabia,Asymptomatic,,Hafar Al-batin,,,,
-118,,2013-09-07,3,F,Saudi Arabia,Asymptomatic,,Hafar Al-batin,,,,
-119,,2013-09-07,56,,Saudi Arabia,Dead,,Medina,Y,,,
-120,,2013-09-07,53,,Saudi Arabia,Dead,,Riyadh,,Y,,
-121,,2013-09-08,74,F,Saudi Arabia,Critical,,Hafar Al-batin,,Y,Unknown 4,
-122,,2013-09-08,64,F,Saudi Arabia,Critical,,Riyadh,,Y,,
-123,,2013-09-08,75,F,Saudi Arabia,Alive,,Riyadh,,Y,,
-124,,2013-09-08,74,M,Saudi Arabia,Dead,,Medina,,,Unknown 5,
-125,,2013-09-10,22,,Saudi Arabia,Asymptomatic,,Medina,,,,
-126,,2013-09-10,24,,Saudi Arabia,Asymptomatic,,Medina,,,,
-127,,2013-09-10,60,,Saudi Arabia,Asymptomatic,,Riyadh,,,,
-128,,2013-09-10,47,,Saudi Arabia,Alive,,Riyadh,Y,,,
-129,,2013-09-11,51,F,Saudi Arabia,Alive,,,,,Unknown 6,
-130,,2013-09-11,47,F,Saudi Arabia,Mild,,,Y,,Unknown 6,
-131,,2013-09-11,39,F,Saudi Arabia,Mild,,,Y,,Unknown 6,
-132,,2013-09-11,38,M,Saudi Arabia,Alive,,,Y,,Unknown 6,
-133,,2013-09-18,75,F,Saudi Arabia,Dead,,Medina,,Y,Unknown 7,
-134,,2013-09-18,35,M,Saudi Arabia,Critical,,Medina,,,Unknown 8,
-135,,2013-09-18,83,M,Saudi Arabia,Dead,,Riyadh,,Y,,
-136,,2013-09-27,78,F,Saudi Arabia,Critical,,Riyadh,,Y,,
-137,,2013-09-27,35,M,Saudi Arabia,Critical,,Riyadh,,Y,,
-138,,2013-09-27,63,M,Saudi Arabia,Critical,,Riyadh,,Y,,
-139,,2013-10-01,79,M,Saudi Arabia,Alive,,Riyadh,,Y,Unknown 9,
-140,,2013-10-01,14,M,Saudi Arabia,Alive,,Riyadh,,,Unknown 10,
-141,,2013-10-01,45,M,Saudi Arabia,Critical,,Riyadh,,Y,Unknown 11,
+Case #,Approx onset date,Approx reporting date,Age,Sex,Probable infection place,Health status,Approx death date,Region,HCW,Reported comorbidities,Cluster ID,Notes, Zoonotic
+1,2012-04-01,,45,F,Jordan,Dead,,,,,hospital A,,H
+2,2012-04-01,,25,M,Jordan,Dead,,Bisha/Jeddah,,,hospital A,,L
+3,2012-06-13,,60,M,Saudi Arabia,Dead,,Jeddah,,,,,H
+4,2012-09-03,,49,M,Saudi Arabia,Alive,,,,,,,H
+5,2012-10-10,,45,M,Saudi Arabia,Alive,,Riyadh,,,,,H
+6,2012-10-12,,45,M,Qatar,Alive,,,,,,,H
+7,2012-11-05,,31,M,Saudi Arabia,Alive,,Riyadh,,,Family A,,H
+8,2012-10-28,,39,M,Saudi Arabia,Dead,,,,,Family A,,L
+9,2012-10-01,,,M,Saudi Arabia,Dead,,,,,Family A,,L
+10,2013-01-24,,60,M,Saudi Arabia,Dead,2013-03-19,,,,Family B,,H
+11,2013-02-06,,,M,United Kingdom,Dead,2013-02-17,,,,Family B,,L
+12,2013-02-05,,,F,United Kingdom,Mild,,,,,,,H
+13,2013-01-29,,,F,Saudi Arabia,Dead,2013-02-10,,,,,,H
+14,2013-02-10,,69,M,Saudi Arabia,Dead,2013-02-19,,,,,,H
+15,2013-02-24,,39,M,Saudi Arabia,Dead,2013-03-02,Riyadh,,,Group 2,,H
+16,2013-03-02,,40,M,Saudi Arabia,Mild,,Riyadh,,,Group 2,,L
+17,2013-03-19,,73,M,UAE,Dead,2013-03-26,,,,,Hospitalized in Germany,H
+18,2013-04-14,,59,M,Saudi Arabia,Dead,2013-03-19,Eastern,,Y,Eastern cluster,,H
+19,2013-04-17,,24,M,Saudi Arabia,Dead,2013-05-31,Eastern,,Y,Eastern cluster,,L
+20,2013-04-17,,87,M,Saudi Arabia,Dead,2013-05-28,Eastern,,Y,Eastern cluster,,L
+21,2013-04-22,,58,M,Saudi Arabia,Critical,,Eastern,,Y,Eastern cluster,,L
+22,2013-04-22,,94,M,Saudi Arabia,Dead,2013-04-26,Eastern,,Y,Eastern cluster,,L
+23,2013-04-22,,56,M,Saudi Arabia,Dead,2013-04-30,Eastern,,Y,Eastern cluster,,L
+24,2013-04-22,,56,M,Saudi Arabia,Dead,2013-04-29,Eastern,,Y,Eastern cluster,,L
+25,2013-04-27,,53,F,Saudi Arabia,Dead,2013-07-06,,,Y,,,H
+26,2013-04-30,,50,M,Saudi Arabia,Alive,,,,Y,,,H
+27,2013-04-28,,33,M,Saudi Arabia,Alive,,,,Y,,,H
+28,2013-04-19,,62,F,Saudi Arabia,Dead,2013-05-03,Eastern,,Y,Eastern cluster,,L
+29,2013-04-15,,71,M,Saudi Arabia,Dead,2013-05-03,Eastern,,Y,Eastern cluster,,L
+30,2013-05-01,,58,F,Saudi Arabia,Critical,,Eastern,,Y,Eastern cluster,,L
+31,2013-04-23,,65,M,France,Dead,,Eastern,,,Eastern cluster,,L
+32,2013-04-29,,48,M,Saudi Arabia,Alive,,Eastern,,Y,Eastern cluster,,L
+33,2013-04-06,,58,M,Saudi Arabia,Recovered,,Eastern,,Y,Eastern cluster,,L
+34,2013-04-27,,50,M,France,,,,,Y,Group 6,Hospital roommate of case,L
+35,2013-04-25,,69,F,Saudi Arabia,Dead,,Eastern,,Y,Eastern cluster,,L
+36,2013-04-24,,48,M,Saudi Arabia,Critical,,Eastern,,Y,Eastern cluster,,L
+37,2013-04-26,,81,M,Saudi Arabia,Critical,,Eastern,,Y,Eastern cluster,Possibly dead,L
+38,2013-05-07,,56,M,Saudi Arabia,Alive,,Eastern,,Y,Eastern cluster,,L
+39,2013-05-02,,45,M,Saudi Arabia,Critical,,,Y,,Hospital B,,H
+40,2013-05-08,,43,F,Saudi Arabia,Alive,,,Y,,Hospital B,,L
+41,2013-04-28,,81,F,Saudi Arabia,Dead,,Eastern,,Y,Eastern cluster,,L
+42,,2013-04-20,35,F,Saudi Arabia,Mild,,,,,Family C,"Their 66yo father was index case, can't find him on line list",L
+43,,2013-04-20,34,M,Saudi Arabia,Mild,,,,,Family C,"Their 66yo father was index case, can't find him on line list",L
+44,2013-05-15,,63,M,Saudi Arabia,Dead,2013-05-20,Al-Qaseem,,Y,,,H
+45,2013-05-12,,56,M,Saudi Arabia,Dead,2013-05-20,Eastern,,Y,Eastern cluster,,L
+46,2013-05-17,,85,F,Saudi Arabia,Critical,,Eastern,,Y,Eastern cluster,,L
+47,2013-05-24,,76,F,Saudi Arabia,Recovered,,Eastern,,Y,Eastern cluster,,L
+48,2013-05-19,,77,M,Saudi Arabia,Dead,2013-05-26,Eastern,,Y,Eastern cluster,,L
+49,2013-05-18,,73,M,Saudi Arabia,Dead,2013-05-26,Eastern,,Y,Eastern cluster,,L
+50,,2013-05-29,61,M,Saudi Arabia,Alive,,Riyadh,,Y,,,H
+51,,2013-05-31,45,M,Italy,Alive,,,,,Cluster A,Travel hx to Jordan,H
+52,,2013-06-01,2,F,Italy,Alive,,,,,Cluster A,,L
+53,,2013-06-01,40,F,Italy,Alive,,,,,Cluster A,,L
+54,2013-05-29,,14,F,Saudi Arabia,Alive,,Eastern,,Y,Eastern cluster,,L
+55,,2013-06-04,83,M,Saudi Arabia,Dead,2013-05-06,Eastern,,Y,Eastern cluster,,L
+56,,2013-06-11,63,F,Saudi Arabia,Alive,,Eastern,,Y,Eastern cluster,,L
+57,,2013-06-11,75,M,Saudi Arabia,Dead,2013-05-05,Eastern,,Y,Eastern cluster,,L
+58,,2013-06-11,21,M,Saudi Arabia,Dead,2013-05-11,Hafar Al-Batin,,,,,H
+59,,2013-06-14,65,M,Saudi Arabia,Dead,,Mecca,,Y,,,H
+60,,2013-06-14,68,F,Saudi Arabia,Dead,,Mecca,,Y,,,H
+61,,2013-06-14,46,M,Saudi Arabia,Dead,2013-06-08,Riyadh,,,,,H
+62,,2013-06-17,42,M,Saudi Arabia,Alive,,Eastern,,Y,Eastern cluster,,L
+63,,2013-06-17,63,F,Saudi Arabia,Dead,,Riyadh,,Y,,,H
+64,,2013-06-17,2,,Saudi Arabia,Dead,,Mecca,,Y,,,H
+65,,2013-06-22,43,F,Saudi Arabia,Recovered,,Eastern,,,Eastern cluster,,H
+66,,2013-06-22,29,F,Saudi Arabia,Asymptomatic,,Taif,Y,,Hospital C,"Two of the three cases announced on 6/22 are asymptomatic, but it's not clear which two.",H
+67,,2013-06-22,39,F,Saudi Arabia,Asymptomatic,,Taif,Y,,Hospital C,"Two of the three cases announced on 6/22 are asymptomatic, but it's not clear which two.",L
+68,,2013-06-22,45,F,Saudi Arabia,Alive,,Taif,Y,,Hospital C,"Two of the three cases announced on 6/22 are asymptomatic, but it's not clear which two.",L
+69,,2013-06-21,41,F,Saudi Arabia,Alive,,Riyadh,,,,,H
+70,,2013-06-21,32,M,Saudi Arabia,Dead,2013-06-23,Eastern,,Y,Eastern cluster,,L
+71,,2013-06-23,10,,Saudi Arabia,Asymptomatic,,Riyadh,,,,Real range is 7-15,L
+72,,2013-06-23,10,,Saudi Arabia,Asymptomatic,,Riyadh,,,,Real range is 7-15,L
+73,,2013-06-23,10,,Saudi Arabia,Asymptomatic,,Riyadh,,,,Real range is 7-15,L
+74,,2013-06-23,10,,Saudi Arabia,Asymptomatic,,Riyadh,,,,Real range is 7-15,L
+75,,2013-06-23,,F,Saudi Arabia,Asymptomatic,,Eastern,,,Eastern cluster,,L
+76,,2013-06-23,,F,Saudi Arabia,Asymptomatic,,Eastern,,,Eastern cluster,,L
+77,,2013-06-23,50,F,Saudi Arabia,Alive,,Eastern,,,Eastern cluster,,L
+78,2013-06-28,,69,M,Saudi Arabia,Critical,,Riyadh,,,,,H
+79,2013-06-28,,66,M,Saudi Arabia,Critical,,Riyadh,,,,,H
+80,,2013-07-06,56,F,Saudi Arabia,,,Hafr Al-Batin,Y,,,,H
+81,,2013-07-08,66,M,Saudi Arabia,Dead,2013-07-22,Asir,,,,,H
+82,,2013-07-12,82,M,UAE,Critical,,,,Y,UAE Hospital,,H
+83,,2013-07-17,26,M,Saudi Arabia,Mild,,Asir,,,Group A,Contact w/ previous  case,H
+84,,2013-07-17,42,F,Saudi Arabia,Mild,,Asir,Y,,Group A,Probably healthcare cluster,L
+85,,2013-07-18,28,M,UAE,Asymptomatic,,,Y,,UAE Hospital,,L
+86,,2013-07-18,30,F,UAE,Asymptomatic,,,Y,,UAE Hospital,,L
+87,,2013-07-18,30,F,UAE,Mild,,,,,UAE Hospital,,L
+88,,2013-07-18,40,F,UAE,Mild,,,,,UAE Hospital,,L
+89,2013-07-15,,41,M,Saudi Arabia,Critical,,Riyadh,,,,No known exposure to animals or infected humans,H
+90,2013-07-11,,59,F,Saudi Arabia,Critical,,Eastern,,,Eastern cluster,No known exposure to animals or infected humans,H
+91,2013-07-17,,83,M,Saudi Arabia,,,Asir,,,,,H
+92,2013-07-25,,67,F,Saudi Arabia,Critical,,Riyadh,,Y,,No known exposure to animals or infected humans,H
+93,,2013-08-01,39,F,Saudi Arabia,Mild,,Asir,Y,,,,H
+94,,2013-08-01,,F,Saudi Arabia,Mild,,Riyadh,Y,,,,H
+95,2013-08-01,2013-08-19,50,F,Saudi Arabia,Critical,,Riyadh,,Y,,,H
+96,2013-07-23,2013-08-19,59,F,Saudi Arabia,Critical,,Riyadh,,Y,,,H
+97,2013-08-15,2013-08-20,59,M,Qatar,Alive,,,,Y,,recently returned from KSA,H
+98,,2013-08-22,50,F,Saudi Arabia,Critical,,Riyadh,,Y,,,H
+99,,2013-08-22,70,M,Saudi Arabia,Critical,,Riyadh,,Y,,,H
+100,,2013-08-22,31,M,Saudi Arabia,Critical,,Asir,,Y,,,H
+101,,2013-08-22,55,M,Saudi Arabia,Asymptomatic,,Asir,,,Unknown 2,,L
+102,,2013-08-22,51,,Saudi Arabia,Dead,2013-08-22,Riyadh,,Y,,,H
+103,,2013-08-22,54,,Saudi Arabia,Dead,2013-08-22,Riyadh,,Y,,,H
+104,,2013-08-26,29,M,Qatar,,,,,Y,,No travel history,H
+105,2013-08-17,,55,M,Saudi Arabia,Critical,,Medina,,Y,,,H
+106,2013-08-08,,38,M,Saudi Arabia,Dead,2013-08-17,Hafar Al-batin,,Y,Family D,,H
+107,,2013-08-30,16,M,Saudi Arabia,Asymptomatic,,Hafar Al-batin,,,Family D,,L
+108,,2013-08-30,7,F,Saudi Arabia,Asymptomatic,,Hafar Al-batin,,,Family D,,L
+109,,2013-09-01,26,,,Recovered,,Hafar Al-batin,,,Family D,,L
+110,,2013-09-01,19,,,Recovered,,Hafar Al-batin,,,Family D,,L
+111,2013-08-18,,56,F,Qatar,Dead,2013-08-31,,,Y,,,L
+112,2013-09-01,,30,M,Saudi Arabia,Critical,,Riyadh,Y,,Cluster E,,H
+113,2013-08-23,,47,M,Saudi Arabia,Critical,,Hafar Al-batin,,Y,Unknown 3,,L
+114,2013-08-15,,41,F,Saudi Arabia,Dead,2013-08-31,Riyadh,Y,,Cluster E,,L
+115,2013-08-21,,79,F,Saudi Arabia,Dead,2013-09-02,Hafar Al-batin,,Y,Cluster E,,L
+116,2013-05-01,,66,M,Tunisia,Dead,2013-05-10,,,,Family C,Travel hx to Qatar and KSA,L
+117,,2013-09-07,18,M,Saudi Arabia,Asymptomatic,,Hafar Al-batin,,,,,H
+118,,2013-09-07,3,F,Saudi Arabia,Asymptomatic,,Hafar Al-batin,,,,,H
+119,,2013-09-07,56,,Saudi Arabia,Dead,,Medina,Y,,,,H
+120,,2013-09-07,53,,Saudi Arabia,Dead,,Riyadh,,Y,,,H
+121,,2013-09-08,74,F,Saudi Arabia,Critical,,Hafar Al-batin,,Y,Unknown 4,,L
+122,,2013-09-08,64,F,Saudi Arabia,Critical,,Riyadh,,Y,,,H
+123,,2013-09-08,75,F,Saudi Arabia,Alive,,Riyadh,,Y,,,H
+124,,2013-09-08,74,M,Saudi Arabia,Dead,,Medina,,,Unknown 5,,L
+125,,2013-09-10,22,,Saudi Arabia,Asymptomatic,,Medina,,,,,H
+126,,2013-09-10,24,,Saudi Arabia,Asymptomatic,,Medina,,,,,H
+127,,2013-09-10,60,,Saudi Arabia,Asymptomatic,,Riyadh,,,,,H
+128,,2013-09-10,47,,Saudi Arabia,Alive,,Riyadh,Y,,,,H
+129,,2013-09-11,51,F,Saudi Arabia,Alive,,,,,Hospital6,,L
+130,,2013-09-11,47,F,Saudi Arabia,Mild,,,Y,,Hospital6,,L
+131,,2013-09-11,39,F,Saudi Arabia,Mild,,,Y,,Hospital6,,L
+132,,2013-09-11,38,M,Saudi Arabia,Alive,,,Y,,Hospital6,,L
+133,,2013-09-18,75,F,Saudi Arabia,Dead,,Medina,,Y,Unknown 7,,L
+134,,2013-09-18,35,M,Saudi Arabia,Critical,,Medina,,,Unknown 8,,H
+135,,2013-09-18,83,M,Saudi Arabia,Dead,,Riyadh,,Y,,,H
+136,,2013-09-27,78,F,Saudi Arabia,Critical,,Riyadh,,Y,,,H
+137,,2013-09-27,35,M,Saudi Arabia,Critical,,Riyadh,,Y,,,H
+138,,2013-09-27,63,M,Saudi Arabia,Critical,,Riyadh,,Y,,,H
+139,,2013-10-01,79,M,Saudi Arabia,Alive,,Riyadh,,Y,OctRiyadh,,H
+140,,2013-10-01,14,M,Saudi Arabia,Alive,,Riyadh,,,OctRiyadh,,L
+141,,2013-10-01,45,M,Saudi Arabia,Critical,,Riyadh,,Y,OctRiyadh,,L
+142,,2013-10-09,78,M,Saudi Arabia,Dead,,Riyadh,,Y,,,H
+143,,2013-10-09,55,M,Saudi Arabia,Dead,,Riyadh,,Y,,,H
+144,2013-10-11,,61,M,Qatar,Alive,,Qatar,,Y,Qatar1,No hx of travel. No contact w/ confirmed case. Owns a farm,H
+145,,2013-10-18,73,,Saudi Arabia,Critical,,Riyadh,,Y,,,H
+146,,2013-10-19,54,,Saudi Arabia,Dead,2012-10-22,Jubail,,Y,Jubail,,H
+147,,2013-10-26,83,F,Saudi Arabia,Dead,,Eastern,,Y,Jubail,,L
+148,,2013-10-26,54,M,Saudi Arabia,Alive,,Eastern,Y,Y,,,H
+149,,2013-10-26,49,M,Saudi Arabia,Critical,,Eastern,,Y,,,H
+150,,2013-10-27,23,M,Qatar,Asymptomatic,,,,,Qatar1,,L
+151,2013-10-26,,68,M,Oman,Dead,,Al Dahkliya,,Y,,diabetes. no recent travel hx,H
+152,2013-10-26,,56,F,Saudi Arabia,Dead,2013-10-30,Eastern,,Y,Jubail,,L
+153,2013-10-15,,61,F,France,Alive,,,,,Roomies,Believed to have traveled to KSA during Hajj. No known contact w/ animals or confirmed cases.,H
+154,,2013-11-07,75,,UAE,Dead,2013-11-08,Abu Dhabi,,Y,,Onset in October. Cancer. Citizen of Oman,H
+155,,,72,M,Saudi Arabia,Alive,,,,Y,,,
+156,,,43,M,Saudi Arabia,Critical,,Jeddah,,,,,
+157,2013-10-25,,48,M,Qatar,Dead,2013-11-21,,,Y,,,
+158,2013-10-30,,47,M,Kuwait,Critical,,,,,,kuwait cases supposedly not related,
+159,2013-11-07,,52,M,Kuwait,Critical,,Adalan,,Y,,kuwait cases supposedly not related; travel hx to KSA,
+160,2013-11-04,,61,M,Qatar,Dead,2013-11-15,,,Y,,hx of animal contact,
+161,2013-11-12,,73,F,Saudi Arabia,Dead,2013-11-18,Riyadh,,Y,,,
+162,2013-11-04,,65,M,Saudi Arabia,Critical,,AlJouf,,Y,,,
+163,2013-11-09,,37,M,Saudi Arabia,Dead,2013-11-18,Riyadh,,,,,
+164,2013-11-15,2013-11-15,38,M,UAE,Critical,,Abu Dhabi,,,FamilyPregnant,,
+165,,2013-11-28,32,F,UAE,Dead,2013-12-02,,,,FamilyPregnant,,
+166,,2013-12-01,8,M,UAE,Mild,,,,,FamilyPregnant,,
+167,,2013-11-22,,F,,Alive,,,,,Roomies,,
+168,,,26,,Saudi Arabia,Asymptomatic,,Riyadh,Y,,Unknown10,,
+169,,,51,,,Critical,,,,Y,,,
