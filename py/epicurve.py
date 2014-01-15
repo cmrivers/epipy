@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-# <nbformat>3.0</nbformat>
-
-# <markdowncell>
 
 # # Epicurves
 # ____
@@ -10,21 +7,17 @@
 # * [cmrivers@vbi.vt.edu](cmrivers@vbi.vt.edu)
 # 
 # Epicurve creates weekly, monthly, and daily epicurves (count of new cases over time) from line lists.
-# 
-# Wish list for improvements:
-# 
-# * FIX DATETIME HANDLING FOR DAILY EPICURVE
-
-# <codecell>
 
 import pandas as pd
 from __future__ import division
 import matplotlib.pyplot as plt
-from datetime import datetime
-from mpltools import style
-style.use('ggplot')
+from datetime import datetime, timedelta
+try:
+    from mpltools import style
+    style.use('ggplot')
+except:
+    pass
 
-# <codecell>
 
 def _date_convert(x, frmt):
     '''
@@ -37,18 +30,6 @@ def _date_convert(x, frmt):
         
     return y
 
-# <markdowncell>
-
-# Example data are available in cmrivers/epipy
-
-# <codecell>
-
-epi = pd.read_csv("../Line list & epi stats - Line list.csv", parse_dates=True)
-epi['onset_date'] = epi['Approx onset date'].map(lambda x: _date_convert(x, '%Y-%m-%d'))
-epi['report_date'] = epi['Approx reporting date'].map(lambda x: _date_convert(x, '%Y-%m-%d'))
-epi['dates'] = epi['onset_date'].combine_first(epi['report_date']) #Combine onset and reported date columns, with onset preferential
-
-# <codecell>
 
 def epicurve(df, date_col, freq, title=None, date_format="%Y-%m-%d"):
     '''
@@ -60,12 +41,12 @@ def epicurve(df, date_col, freq, title=None, date_format="%Y-%m-%d"):
     title = optional
     date_format = datetime string format, default is "%Y-%m-%d"
     '''
+    df= df[df[date_col].isnull() == False]
     freq = freq.lower()[0]  # 'day' -> 'd', 'month' -> 'm', or 'year' -> 'y'; 'd' -> 'd', ...
-    df.new_col = df[date_col] #df[date_col].map(lambda x: _date_convert(x, date_format))
+    df.new_col = df[date_col]
 
     #count the number of cases per time period
     if freq == 'd':
-        #broken. datetimes are tricky.
         counts = epi['dates'].value_counts()
         epicurve = pd.DataFrame(df[date_col].value_counts(), columns=['count'])
 
@@ -80,7 +61,6 @@ def epicurve(df, date_col, freq, title=None, date_format="%Y-%m-%d"):
         
     _plot(epicurve, freq, title=date_col)
 
-# <codecell>
 
 def _plot(freq_table, freq, title):
     '''
@@ -89,11 +69,12 @@ def _plot(freq_table, freq, title):
     freq = inherited from epicurve
     '''
     fig, ax = plt.subplots()
+    axprop =  ax.axis()
     freq_table['plotdates'] = freq_table.index 
 
     # care about date formatting
     if freq == 'd':
-        wid = .1
+        wid = ((1.5*axprop[1]-axprop[0])/axprop[1])
         ax.xaxis_date()
         fig.autofmt_xdate()
         
@@ -110,21 +91,21 @@ def _plot(freq_table, freq, title):
         ax.set_xticklabels(labels)
                 
     ax.bar(freq_table['plotdates'].values, freq_table['count'].values, width=wid, align='center')
-    ax.set_title(title)
+    ax.set_title(title);
 
-# <codecell>
+
+epi = pd.read_csv("../Line list & epi stats - Line list.csv", parse_dates=True)
+epi['onset_date'] = epi['Approx onset date'].map(lambda x: _date_convert(x, '%Y-%m-%d'))
+epi['report_date'] = epi['Approx reporting date'].map(lambda x: _date_convert(x, '%Y-%m-%d'))
+epi['dates'] = epi['onset_date'].combine_first(epi['report_date']) #Combine onset and reported date columns, with onset preferential
 
 epicurve(epi, date_col='dates', freq='day')
-plt.title('Approximate onset or report date')
-#plt.savefig('./day.png')
-
-# <codecell>
+plt.title('Approximate onset or report date');
+plt.savefig('./day.png')
 
 epicurve(epi, 'dates', freq='y')
-
-# <codecell>
+plt.title('Approximate onset or report date');
 
 epicurve(epi, 'dates', freq='month')
 plt.title('Approximate onset or report date')
 plt.savefig('./month.png')
-

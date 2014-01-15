@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-# <nbformat>3.0</nbformat>
-
-# <markdowncell>
-
 # # Basic transmission tree builder
 # 
 # * Caitlin Rivers
@@ -12,25 +8,31 @@
 # * cmrivers@vbi.vt.edu
 # 
 # -------
-# 
-# Given a line listing with dates and basic information about cluster membership, this script will estimate who transmitted an infectious disease to whom based on case onset dates.
+#
+# Given a line listing with dates and basic information about cluster
+# membership, this script will estimate who transmitted an infectious
+# disease to whom based on case onset dates.
 # 
 # Wish list for improvements:
 # 
 # * Make algorithm that determines who infected whom more sophisticated.
 # 
-# * Find a way to keep single cases (e.g. those not part of a cluster) in the data set so they can be plotted on the casetree.
-# 
-# * Fix plot_cluster() function so it is functional.
+# * Find a way to keep single cases (e.g. those not part of a cluster)
+#   in the data set so they can be plotted on the casetree.
 
-# <codecell>
 
 from matplotlib import pyplot as plt
 import numpy as np
 from datetime import datetime, timedelta
 import pandas as pd
+from itertools import cycle
 
-# <codecell>
+try:
+    from mpltools import style, layout
+    style.use('ggplot')
+except:
+    pass
+
 
 def date_convert(x):
     """ Convert dates to datetime object
@@ -42,28 +44,12 @@ def date_convert(x):
         
     return y
 
-# <markdowncell>
-
-# Data (from 2013 MERS outbreak) are available in cmrivers/epipy repo on Github.
-
-# <codecell>
-
-dat = pd.read_csv("../Line list & epi stats - Line list.csv", parse_dates=True)
-dat['Cluster ID'] = dat['Cluster ID'].replace(np.nan, 'single')
-dat.index = dat['Cluster ID']
-
-# <codecell>
-
-dat['onset_date'] = dat['Approx onset date'].map(date_convert)
-dat['report_date'] = dat['Approx reporting date'].map(date_convert)
-dat['dates'] = dat['onset_date'].combine_first(dat['report_date']) #combines onset and report date columns, with onset date preferential
-
-# <codecell>
 
 def _group_clusters(df, cluster_id, date_col):
     ''' Use pandas to group clusters by basic cluster membership information
     df = pandas dataframe
-    cluster_id = column that identifies cluster membership, which can be a basic string like "hospital cluster A"
+    cluster_id = column that identifies cluster membership, which can
+	be a basic string like "hospital cluster A"
     date_col = onset or report date column
     '''
     clusters = df[df[cluster_id] != 'single']
@@ -73,32 +59,35 @@ def _group_clusters(df, cluster_id, date_col):
     
     return groups
 
-# <codecell>
 
-def cluster_builder(df, cluster_id, case_id, date_col, color_col, inc_mean, inc_sd):
+def cluster_builder(df, cluster_id, case_id, date_col, color_col, gen_mean, gen_sd):
     '''
-    Given a line listing with dates and basic information about cluster membership,
-    this script will estimate who transmitted an infectious disease to whom based on case onset dates.
+    Given a line listing with dates and basic info about cluster membership,
+    this script will estimate who transmitted an infectious disease to
+    whom based on case onset dates.
 
     df = pandas dataframe of line listing
-    cluster_id = col that identifies cluster membership, which can be a basic string like "hospital cluster A"
+    cluster_id = col that identifies cluster membership, which can be a
+	basic string like "hospital cluster A"
     case_id = col with unique case identifier
     date_col = onset or report date column
-    color_col = column that will be used to color nodes based on attribute, e.g. case severity or gender
-    inc_mean = incubation period mean
-    inc_sd = incubation period standard deviation
+    color_col = column that will be used to color nodes based on
+	attribute, e.g. case severity or gender
+    gen_mean = generation time mean
+    gen_sd = generation time standard deviation
 
-    retuns clusters (pandas dataframe) and mx (network x object)
+    returns networkx object
     '''
     clusters = _group_clusters(df, cluster_id, date_col)
     
-    mmin = timedelta(inc_mean - (1 * inc_sd), 0)
-    mmax = timedelta(inc_mean + (1 * inc_sd), 0)
+    mmin = timedelta((gen_mean - gen_sd), 0)
+    mmax = timedelta((gen_mean + gen_sd), 0)
     
     mx = []
     for key, group in clusters:
-        row = [tmp[1:4] for tmp in group[[case_id, date_col, color_col]].sort('dates').itertuples()] #suspect this will be buggy with dif data sets, woudl like to improve
-        mx.append(row)
+        if len(group) > 1:
+            row = [tmp[1:4] for tmp in group[[case_id, date_col, color_col]].sort(date_col).itertuples()]
+            mx.append(row)
 
     network = []
     for ix in range(0, len(mx)):
@@ -109,9 +98,11 @@ def cluster_builder(df, cluster_id, case_id, date_col, color_col, inc_mean, inc_
             time = mx[ix][inx][1]
             color = mx[ix][inx][2]
             
-            if len(mx[ix]) > 1:
-               if mx[ix][inx][1] - mx[ix][inx-1][1] > mmin:
-                    source_node = mx[ix][inx-1][0]
+            interval = mx[ix][inx][1] - mx[ix][inx-1][1]
+            if (interval > mmin) & (interval < mmax):
+                source_node = mx[ix][inx-1][0] 
+            elif (interval > mmax):
+                print mx[ix][inx][1], mx[ix][inx][0], mx[ix][inx-1][1], mx[ix][inx-1][0]   
         
             result = (case_id, color, index_node, source_node, time)
             network.append(result)
@@ -119,57 +110,76 @@ def cluster_builder(df, cluster_id, case_id, date_col, color_col, inc_mean, inc_
     df_out = pd.DataFrame(network, columns=['case_id', 'color', 'index_node', 'source_node', 'time'])
     df_out.index = df_out.case_id
     
-    return clusters, mx
+    return df_out
 
-# <codecell>
 
-clusters, mx = cluster_builder(dat, 'Cluster ID', 'Case #', 'dates', 'Health status', 7, 5)
-
-# <codecell>
-
-mx.save('../cluster_network.pkl')
-
-# <codecell>
-
-def plot_cluster(df, cluster_id, date_col):
-    """Broken. Date-handling patience gone.
-
-    Should display a plot with time along x axis, cluster ID along y axis,
-    and case ID plotted like a scatterplot accordingly.
-    """
-    grpnames = np.unique(df[cluster_id]).dropna().values
+def plot_cluster(df, clusters, cluster_id, date_col):
     
-    fig, ax = plt.subplots()
-    fig.set_size_inches(8, 5)
+    cols = cycle([color for i, color in enumerate(plt.rcParams['axes.color_cycle'])])
+    
+    clusters = _group_clusters(dat, 'Cluster ID', 'dates')
+    
+    fig, ax = plt.subplots(figsize=(12, 10))
     ax.xaxis_date()
     ax.set_aspect('auto')
-    axprop =  plt.axis()
-    fig.autofmt_xdate()
+    axprop =  ax.axis()
     
+    grpnames = [key for key, group in clusters if len(group) > 1]
     plt.ylim(1, len(grpnames))
     plt.yticks(np.arange(len(grpnames)), grpnames)
     
-    for key, group in clusters:
-        for date in date_col:
-            xtog = timedelta(((10*axprop[1]-axprop[0])/axprop[1]), 0, 0)
-            x1 = [date, date+xtog]
+    xtog = timedelta(((10*axprop[1]-axprop[0])/axprop[1]), 0, 0)
+    counter = 0
     
-            for i in range(len(grpnames)):
-                if key == grpnames[i]:
-                    y1 = np.array([i, i])
-                    y2 = y1+0.5
-                    plt.fill_between(x1, y1, y2, color=color, alpha=.3)
+    for key, group in clusters:
+        if len(group) > 1:
+            color = next(cols)
+            casenums = cycle([int(num) for num in group['Case #']])
+            
+            positions = []
+            for casedate in group.dates.order():
+                x1 = casedate
+                x2 = casedate + xtog
+                positions.append(x2)
+                
+                y1 = np.array([counter, counter])
+                y2 = y1 + 1
+                
+                plt.fill_between([x1, x2], y1, y2, color=color, alpha=.3)
+                yposition = y1[0] + .5
+                
+                try:
+                    if x1 <= positions[-2]:
+                        yposition = yposition + np.random.uniform(-.4, .4, 1)
+                except:
+                    pass
                     
-                    xspot= x1[0] + timedelta((x1[1] - x1[0]).days/2.0, 0, 0)
-                    
-                    plt.text(xspot, y1[1]+.25, next(casenums), horizontalalignment='center', verticalalignment='center', fontsize=9)
-                    
-    return fig
+                textspot= x1 + timedelta((x2 - x1).days/2.0, 0, 0)
+                
+                plt.text(textspot, yposition, next(casenums), horizontalalignment='center', 
+                         verticalalignment='center', fontsize=9)    
+                
+            counter += 1
+            
+    fig.autofmt_xdate()
+    fig.tight_layout()
+    
+    return fig, ax
 
-# <codecell>
 
-plot_cluster(dat, 'Cluster ID', 'dates')
+# Data (from 2013 MERS outbreak) are available in cmrivers/epipy repo on Github.
 
-# <codecell>
+dat = pd.read_csv("../Line list & epi stats - Line list.csv", parse_dates=True)
+dat['Cluster ID'] = dat['Cluster ID'].replace(np.nan, 'single')
+dat.index = dat['Case #']
 
+dat['onset_date'] = dat['Approx onset date'].map(date_convert)
+dat['report_date'] = dat['Approx reporting date'].map(date_convert)
+dat['dates'] = dat['onset_date'].combine_first(dat['report_date']) #combines onset and report date columns, with onset date preferential
 
+clusters = cluster_builder(dat, 'Cluster ID', 'Case #', 'dates', 'Cluster ID', 8, 4)
+clusters.to_pickle('../cluster_network.pkl')
+
+fig, ax = plot_cluster(dat, clusters, 'Cluster ID', 'dates')
+ax.set_title("MERS-CoV clusters")
+fig.savefig('../cluster_checkerboard.png')
