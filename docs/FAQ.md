@@ -32,6 +32,5 @@ of a network it shows a simple time series for each human to human cluster.
 The number in the center of each check is the case id that corresponds
 to the the line listing.
 
-** Why is this code or plot broken/ugly/not to my liking? **
-Contact me at cmrivers@vbi.vt.edu, or @cmyeaton. Or even better, fork it
-and help me to make it better!
+** I have a question/complaint/compliment. **
+Contact me at cmrivers@vbi.vt.edu, or @cmyeaton. Feel free to contribute!
