@@ -1,4 +1,3 @@
-Caitlin Rivers (cmrivers@vbi.vt.edu)
 Jan 15, 2014
 
 # FAQ
