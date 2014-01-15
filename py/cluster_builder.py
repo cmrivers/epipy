@@ -26,7 +26,6 @@ import numpy as np
 from datetime import datetime, timedelta
 import pandas as pd
 from itertools import cycle
-
 try:
     from mpltools import style, layout
     style.use('ggplot')
@@ -114,9 +113,8 @@ def cluster_builder(df, cluster_id, case_id, date_col, color_col, gen_mean, gen_
 
 
 def plot_cluster(df, clusters, cluster_id, date_col):
-    
-    cols = cycle([color for i, color in enumerate(plt.rcParams['axes.color_cycle'])])
-    
+    '''
+    '''
     clusters = _group_clusters(dat, 'Cluster ID', 'dates')
     
     fig, ax = plt.subplots(figsize=(12, 10))
@@ -130,6 +128,7 @@ def plot_cluster(df, clusters, cluster_id, date_col):
     
     xtog = timedelta(((10*axprop[1]-axprop[0])/axprop[1]), 0, 0)
     counter = 0
+    cols = cycle([color for i, color in enumerate(plt.rcParams['axes.color_cycle'])])
     
     for key, group in clusters:
         if len(group) > 1:
@@ -155,14 +154,12 @@ def plot_cluster(df, clusters, cluster_id, date_col):
                     pass
                     
                 textspot= x1 + timedelta((x2 - x1).days/2.0, 0, 0)
-                
                 plt.text(textspot, yposition, next(casenums), horizontalalignment='center', 
                          verticalalignment='center', fontsize=9)    
                 
             counter += 1
             
     fig.autofmt_xdate()
-    fig.tight_layout()
     
     return fig, ax
 
@@ -170,9 +167,9 @@ def plot_cluster(df, clusters, cluster_id, date_col):
 # Data (from 2013 MERS outbreak) are available in cmrivers/epipy repo on Github.
 
 dat = pd.read_csv("../Line list & epi stats - Line list.csv", parse_dates=True)
+
 dat['Cluster ID'] = dat['Cluster ID'].replace(np.nan, 'single')
 dat.index = dat['Case #']
-
 dat['onset_date'] = dat['Approx onset date'].map(date_convert)
 dat['report_date'] = dat['Approx reporting date'].map(date_convert)
 dat['dates'] = dat['onset_date'].combine_first(dat['report_date']) #combines onset and report date columns, with onset date preferential
