@@ -166,7 +166,7 @@ def plot_cluster(df, clusters, cluster_id, date_col):
 
 # Data (from 2013 MERS outbreak) are available in cmrivers/epipy repo on Github.
 
-dat = pd.read_csv("../Line list & epi stats - Line list.csv", parse_dates=True)
+dat = pd.read_csv("../data/Line list & epi stats - Line list.csv", parse_dates=True)
 
 dat['Cluster ID'] = dat['Cluster ID'].replace(np.nan, 'single')
 dat.index = dat['Case #']
@@ -175,8 +175,8 @@ dat['report_date'] = dat['Approx reporting date'].map(date_convert)
 dat['dates'] = dat['onset_date'].combine_first(dat['report_date']) #combines onset and report date columns, with onset date preferential
 
 clusters = cluster_builder(dat, 'Cluster ID', 'Case #', 'dates', 'Cluster ID', 8, 4)
-clusters.to_pickle('../cluster_network.pkl')
+clusters.to_pickle('../data/cluster_network.pkl')
 
 fig, ax = plot_cluster(dat, clusters, 'Cluster ID', 'dates')
 ax.set_title("MERS-CoV clusters")
-fig.savefig('../cluster_checkerboard.png')
+fig.savefig('../figs/cluster_checkerboard.png')

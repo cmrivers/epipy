@@ -41,7 +41,7 @@ except:
 
 
 def example_data():
-    epi = pd.read_pickle('../cluster_network.pkl')
+    epi = pd.read_pickle('../data/cluster_network.pkl')
     epi.time = pd.to_datetime(epi.time)
     epi[['case_id', 'source_node']] = epi[['case_id', 'source_node']].astype('int')
     epi['pltdate'] = [mpl.dates.date2num(i) for i in epi.time]
@@ -177,4 +177,4 @@ fig, ax = plotting(G,  node_size=200)
 ax.set_title('MERS-CoV clusters')
 ax.set_ylabel('Generations')
 ax.grid(True)
-fig.savefig('../casetree.png', bbox_inches='tight')
+fig.savefig('../figs/casetree.png', bbox_inches='tight')

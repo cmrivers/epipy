@@ -8,8 +8,9 @@
 # 
 # Epicurve creates weekly, monthly, and daily epicurves (count of new cases over time) from line lists.
 
-import pandas as pd
 from __future__ import division
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 try:
@@ -94,18 +95,19 @@ def _plot(freq_table, freq, title):
     ax.set_title(title);
 
 
-epi = pd.read_csv("../Line list & epi stats - Line list.csv", parse_dates=True)
+epi = pd.read_csv("../data/Line list & epi stats - Line list.csv", parse_dates=True)
 epi['onset_date'] = epi['Approx onset date'].map(lambda x: _date_convert(x, '%Y-%m-%d'))
 epi['report_date'] = epi['Approx reporting date'].map(lambda x: _date_convert(x, '%Y-%m-%d'))
 epi['dates'] = epi['onset_date'].combine_first(epi['report_date']) #Combine onset and reported date columns, with onset preferential
 
 epicurve(epi, date_col='dates', freq='day')
 plt.title('Approximate onset or report date');
-plt.savefig('./day.png')
+plt.savefig('../figs/day_epicurve.png')
 
 epicurve(epi, 'dates', freq='y')
-plt.title('Approximate onset or report date');
+plt.title('Approximate onset or report date')
+plt.savefig('../figs/year_epicurve.png');
 
 epicurve(epi, 'dates', freq='month')
 plt.title('Approximate onset or report date')
-plt.savefig('./month.png')
+plt.savefig('../figs/month_epicurve.png')
