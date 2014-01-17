@@ -101,7 +101,10 @@ def cluster_builder(df, cluster_id, case_id, date_col, color_col, gen_mean, gen_
             if (interval > mmin) & (interval < mmax):
                 source_node = mx[ix][inx-1][0] 
             elif (interval > mmax):
-                print mx[ix][inx][1], mx[ix][inx][0], mx[ix][inx-1][1], mx[ix][inx-1][0]   
+                # need to properly address connected cases that fall outside
+                # 1 SD of mean generation time
+                # mx[ix][inx][1], mx[ix][inx][0], mx[ix][inx-1][1], mx[ix][inx-1][0]   
+                source_node = mx[ix][inx-1][0] 
         
             result = (case_id, color, index_node, source_node, time)
             network.append(result)
