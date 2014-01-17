@@ -160,6 +160,7 @@ def plot_cluster(df, clusters, cluster_id, date_col):
             counter += 1
             
     fig.autofmt_xdate()
+    fig.tight_layout()
     
     return fig, ax
 
