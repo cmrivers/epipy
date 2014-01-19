@@ -82,34 +82,33 @@ def cluster_builder(df, cluster_id, case_id, date_col, color_col, gen_mean, gen_
     gen_min = timedelta((gen_mean - gen_sd), 0)
     gen_max = timedelta((gen_mean + gen_sd), 0)
     
-    mx = []
+    cluster_obj = []
     for key, group in clusters:
         if len(group) > 1:
             row = [tmp[1:4] for tmp in group[[case_id, date_col, color_col]].sort(date_col, ).itertuples()]
-            mx.append(row)
-    #print mx[::-1]
-    global mx
+            cluster_obj.append(row)
+
+    global cluster_obj
     network = []
-    for cluster in mx:  # range(0, len(mx)):
-        #index_node = cluster.pop()[0]  # get id number
-	cluster = np.array(cluster[::-1])
+    for cluster in cluster_obj:
+	cluster = np.array(cluster[::-1]) #reverse dates, last case first
 	ids = cluster[:, 0]
 	dates = cluster[:, 1]
-	names = cluster[:, 2]
-	
-        start_nodes = []
-        for date, idx in zip(dates, ids):
+	colors = cluster[:, 2]
+
+        index_node = ids[-1]
+        source_nodes = []
+        for i, (date, idx) in enumerate(zip(dates, ids)):
             start_date = date - gen_max
             start_node = ids[dates >= start_date][-1]
-            start_nodes.append(start_node)
 
-        index_node = start_nodes[-1]
-	source_node = start_nodes
-	time = dates
-	color = 'color'
+	    if start_node == idx and idx != index_node:
+                start_node = ids[i+1]
+	    
+            source_nodes.append(start_node)
+
         for i in range(len(ids)):
-	    result = (ids[i], color, index_node, source_node[i], time[i])
-            #result = (ids, color, index_node, source_node, time)
+	    result = (ids[i], colors[i], index_node, source_nodes[i], dates[i])
             network.append(result)
             
     df_out = pd.DataFrame(network, columns=['case_id', 'color', 'index_node', 'source_node', 'time'])
@@ -173,28 +172,28 @@ def plot_cluster(df, case_id, clusters, cluster_id, date_col):
 
 # Data (from 2013 MERS outbreak) are available in cmrivers/epipy repo on Github.
 
-#dat = pd.read_csv("../data/Line list & epi stats - Line list.csv", parse_dates=True)
+dat = pd.read_csv("../data/Line list & epi stats - Line list.csv", parse_dates=True)
 
-#dat['Cluster ID'] = dat['Cluster ID'].replace(np.nan, 'single')
-#dat.index = dat['Case #']
-#dat['onset_date'] = dat['Approx onset date'].map(date_convert)
-#dat['report_date'] = dat['Approx reporting date'].map(date_convert)
-#dat['dates'] = dat['onset_date'].combine_first(dat['report_date']) #combines onset and report date columns, with onset date preferential
+dat['Cluster ID'] = dat['Cluster ID'].replace(np.nan, 'single')
+dat.index = dat['Case #']
+dat['onset_date'] = dat['Approx onset date'].map(date_convert)
+dat['report_date'] = dat['Approx reporting date'].map(date_convert)
+dat['dates'] = dat['onset_date'].combine_first(dat['report_date']) #combines onset and report date columns, with onset date preferential
 
-#clusters = cluster_builder(dat, 'Cluster ID', 'Case #', 'dates', 'Cluster ID', 8, 4)
-#clusters.to_pickle('../data/cluster_network.pkl')
+clusters = cluster_builder(dat, 'Cluster ID', 'Case #', 'dates', 'Cluster ID', 8, 4)
+clusters.to_pickle('../data/cluster_network.pkl')
 
-#fig, ax = plot_cluster(dat, clusters, 'Cluster ID', 'dates')
-#ax.set_title("MERS-CoV clusters")
-#fig.savefig('../figs/cluster_checkerboard.png')
+fig, ax = plot_cluster(dat, clusters, 'Case #', 'Cluster ID', 'dates')
+ax.set_title("MERS-CoV clusters")
+fig.savefig('../figs/cluster_checkerboard.png')
 
-dat = pd.read_pickle('test_cluster.pkl')
-dat.index=dat['ID']
-clusters = cluster_builder(dat, 'Cluster', 'ID', 'Date', 'Cluster', 5, 1)
-clusters.to_pickle('../data/test_cluster.pkl')
+#dat = pd.read_pickle('test_cluster.pkl')
+#dat.index=dat['ID']
+#clusters = cluster_builder(dat, 'Cluster', 'ID', 'Date', 'Cluster', 5, 1)
+#clusters.to_pickle('../data/test_cluster.pkl')
 
-fig, ax = plot_cluster(dat, clusters, 'ID', 'Cluster', 'Date')
-ax.set_title("test clusters")
-fig.savefig('../figs/test_clusters.png')
+#fig, ax = plot_cluster(dat, clusters, 'ID', 'Cluster', 'Date')
+#ax.set_title("test clusters")
+#fig.savefig('../figs/test_clusters.png')
 
 

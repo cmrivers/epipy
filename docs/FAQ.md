@@ -32,8 +32,10 @@ the sex of the patient, etc.
 
 Checkerboard plots display similar data as a case tree plot, but instead
 of a network it shows a simple time series for each human to human cluster.
+
 The number in the center of each check is the case id that corresponds
-to the the line listing.
+to the the line listing. I have not yet figured out how to display these
+numbers so they don't overlap. Sorry.
 
 ###I have a question/complaint/compliment.
 

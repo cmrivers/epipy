@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import numpy as np
 import pandas as pd
 import itertools
 import string
@@ -17,7 +17,7 @@ def init(cluster_size, outbreak_len, clusters, generation_time):
         
         rng = int(np.random.normal(cluster_size, 2, 1))
         for n in range(rng):
-            date = date_choice(ix_date[0], generation_time*rng)[0]            
+            date = date_choice(ix_date[0], generation_time*2)[0]            
             sex =  np.random.choice(['M', 'F'], size=1)[0]
             line_list.append((len(line_list), date, cluster_name, sex))
 
@@ -30,7 +30,7 @@ def date_choice(ix_date, generation_time):
     
     return date
 
-lst = init(5, 50, 25, 5)
+lst = init(cluster_size=5, outbreak_len=100, clusters=10, generation_time=5)
 lst.to_pickle('test_cluster.pkl')
 
 
