@@ -175,13 +175,13 @@ def _layout(G, axprop):
         
     return dict(zip(G, np.array(positions)))
 
-df = example_data(dataset='cluster_network')
+df = example_data(dataset='test_network')
 G = build_graph(df, color='color', case_id='case_id', source='source_node', index='index_node', date='pltdate')
 
 fig, ax = plotting(G,  node_size=100)
-ax.set_title('MERS-CoV clusters')
+ax.set_title('Example outbreak data')
 ax.set_ylabel('Generations')
 ax.grid(True)
-fig.savefig('../figs/casetree.png', bbox_inches='tight')
-#fig.savefig('../figs/test.png', bbox_inches='tight')
+#fig.savefig('../figs/casetree.png', bbox_inches='tight')
+fig.savefig('../figs/test_casetree.png', bbox_inches='tight')
 plt.show()
