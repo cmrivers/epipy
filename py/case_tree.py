@@ -25,12 +25,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 
-try:
-    from mpltools import style
-    style.use('ggplot')
-except:
-    pass
-
 
 def build_graph(df, case_id, color, index, source, date):
     """
