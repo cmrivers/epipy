@@ -88,6 +88,11 @@ def cluster_builder(df, cluster_id, case_id, date_col, color_col, gen_mean, gen_
             network.append(result)
             
     df_out = pd.DataFrame(network, columns=['case_id', 'color', 'index_node', 'source_node', 'time'])
+    df_out.time = pd.to_datetime(df_out.time)
+    
+    df_out[['case_id', 'source_node', 'index_node']] = df_out[['case_id', 'source_node', 'index_node']].astype('int')
+    df_out['pltdate'] = [mpl.dates.date2num(i) for i in df_out.time]
+    
     df_out.index = df_out.case_id
     
     return df_out
