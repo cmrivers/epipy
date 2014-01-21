@@ -26,7 +26,8 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 
-def build_graph(df, case_id, color, index, source, date):
+def build_graph(df, case_id='case_id', color='color', index='index_node',
+		source='source_node', date='pltdate'):
     """
     Generate a directed graph from data on transmission tree.
     Node color is determined by node attributes, e.g. case severity or gender.
