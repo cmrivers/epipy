@@ -13,8 +13,6 @@
  My wish list for improvements includes:
  * add an option to include nodes that have no children, i.e. are not
    part of a human to human cluster
- * create a legend to label which colors correspond to which node
-   attributes
  * improve color choice reliabely produces an attractive color palette
 
  ^ I have seen similar examples in the literature,
@@ -65,7 +63,6 @@ def case_tree_plot(G, node_size=100, loc='best', legend=True):
 
     coords = _layout(G)
     plt.ylim(ymin=-.05, ymax=max([val[1] for val in coords.itervalues()])+1)
-
 
     colormap, color_floats = _colors(G, 'color')
 
