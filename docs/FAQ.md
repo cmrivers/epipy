@@ -17,26 +17,27 @@ non-epi example.
 
 ###How do I read a case tree plot?
 
-The x axis is time, and the y axis is generation. Nodes along the x axis
-are index nodes. In the case of a zoonotic disease, the index node is
-a human case acquired from an animal source. If that human were to pass
+The x axis is time of illness onset or diagnosis, and the y axis is
+generation. Nodes at generation 1 are known as index nodes.
+In the case of a zoonotic disease, the index node is a human case
+acquired from an animal source. If that human were to pass
 the disease to two other humans, those two subsequent cases are both
 generation 2.
 
 The meaning of the color of the node varies based on the node attribute.
-In many cases, color just signifies membership to a human to human
-cluster. However, it could also represent health status (e.g. alive, dead),
+In many cases, color just signifies membership to a particular human to
+human cluster. However, it could also represent health status (e.g. alive, dead),
 the sex of the patient, etc. 
 
 ###What is a checkerboard plot?
 
 Checkerboard plots display similar data as a case tree plot, but instead
 of a network it shows a simple time series for each human to human cluster.
+It does not attempt to determine the structure of the transmission network.
 
 The number in the center of each check is the case id that corresponds
 to the the line listing. I have not yet figured out how to display these
 numbers so they don't overlap. Sorry.
 
 ###I have a question/complaint/compliment.
-
 Contact me at cmrivers@vbi.vt.edu, or @cmyeaton. Feel free to contribute!
