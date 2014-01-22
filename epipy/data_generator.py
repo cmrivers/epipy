@@ -32,8 +32,8 @@ def generate_example_data(cluster_size, outbreak_len, clusters, gen_time, attrib
     line_list = []
     used = []
     for i in range(clusters):
-        cluster_letter = np.random.choice([i for i in string.letters if i not in used])[0]
-        cluster_name = 'Cluster' + cluster_letter.upper()
+        cluster_letter = np.random.choice([i for i in string.ascii_uppercase if i not in used])[0]
+        cluster_name = 'Cluster' + cluster_letter
         used.append(cluster_name)
 
         ix_rng = pd.date_range('1/1/2014', periods=outbreak_len, freq='D')
