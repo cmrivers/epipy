@@ -4,10 +4,10 @@ A python package for epidemiology. Features a case tree plot for displaying dise
 
 Features
 ------------
-### Case tree plot
+**Case tree plot**
 ![Casetree plot](http://github.com/cmrivers/epipy/blob/master/figs/test_casetree.png?raw=true)
 
-### Checkerboard plot
+**Checkerboard plot**
 ![Checkerboard plot](https://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png?raw=true)
 
 
