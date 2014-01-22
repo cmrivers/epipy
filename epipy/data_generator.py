@@ -8,25 +8,48 @@ import string
 def _date_choice(ix_date, generation_time):
     date_rng = pd.date_range(ix_date, periods=generation_time*2, freq='D')
     date = np.random.choice(date_rng, 1)
-    
+
     return date
 
-def generate_example_data(cluster_size, outbreak_len, clusters, generation_time):
-    line_list = []    
+def generate_example_data(cluster_size, outbreak_len, clusters, gen_time, attribute='sex'):
+    """
+    Generates example outbreak data
+
+    PARAMETERS
+    ------------------------------
+    cluster_size = mean number of cases in cluster. Build in sd of 2
+    outbreak_len = duration of outbreak in days
+    clusters = number of clusters to begenerated
+    gen_time = number of days between each generation in a cluster
+    attribute = case attribute. Options are 'sex' (returns M, F) and
+                'health' (returns asymptomatic, alive, critical, dead)
+
+    RETURNS
+    ------------------------------
+    pandas dataframe with columns ['ID', 'Date', 'Cluster', 'Sex']
+
+    """
+    line_list = []
     used = []
     for i in range(clusters):
-        cluster_name = np.random.choice([i for i in string.letters if i not in used])[0]
+        cluster_letter = np.random.choice([i for i in string.letters if i not in used])[0]
+        cluster_name = 'Cluster' + cluster_letter.upper()
         used.append(cluster_name)
-        
+
         ix_rng = pd.date_range('1/1/2014', periods=outbreak_len, freq='D')
         ix_date = np.random.choice(ix_rng, size=1)
-        
+
         rng = int(np.random.normal(cluster_size, 2, 1))
         for n in range(rng):
-            date = _date_choice(ix_date[0], generation_time*2)[0]            
-            sex =  np.random.choice(['M', 'F'], size=1)[0]
-            line_list.append((len(line_list), date, cluster_name, sex))
+            date = _date_choice(ix_date[0], gen_time*2)[0]
 
-    return pd.DataFrame(line_list, columns=['ID', 'Date', 'Cluster', 'Sex'])
+            if attribute.lower() == 'sex':
+                attr =  np.random.choice(['M', 'F'], size=1)[0]
+            elif attribute.lower() == 'health':
+                attr = np.random.choice(['asymptomatic', 'alive', 'critical', 'dead'], size=1)[0]
+
+            line_list.append((len(line_list), date, cluster_name, attr))
+
+    return pd.DataFrame(line_list, columns=['ID', 'Date', 'Cluster', attribute])
 
 
