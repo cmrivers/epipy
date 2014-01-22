@@ -99,7 +99,7 @@ def _colors(G, color):
         categories.append(G.node[node][color])
 
     # create color map of attributes and colors
-    colors = cm.spectral(np.linspace(0, 1, len(categories)))
+    colors = cm.rainbow(np.linspace(0, 1, num=len(categories)))
     colordict = dict(zip(categories, colors))
 
     color_floats = []
