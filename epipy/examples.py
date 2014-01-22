@@ -25,10 +25,9 @@ dir = os.path.dirname(__file__)
 # GENERATE AN EXAMPLE LINE LIST #
 #################################
 
-example_df = epipy.generate_example_data(cluster_size=6, outbreak_len=90, clusters=5,
+example_df = epipy.generate_example_data(cluster_size=6, outbreak_len=90, clusters=8,
                                          gen_time=5, attribute='health')
-
-test_clusters = epipy.cluster_builder(example_df, 'Cluster', 'ID', 'Date', 'Cluster', 5, 1)
+test_clusters = epipy.cluster_builder(example_df, 'health', 'ID', 'Date', 'Cluster', 5, 1)
 test_G = epipy.build_graph(test_clusters)
 fig, ax = epipy.case_tree_plot(test_G,  node_size=100)
 ax.set_title('Example outbreak data')
