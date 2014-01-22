@@ -5,7 +5,13 @@ import itertools
 import string
 
 
-def init(cluster_size, outbreak_len, clusters, generation_time):
+def _date_choice(ix_date, generation_time):
+    date_rng = pd.date_range(ix_date, periods=generation_time*2, freq='D')
+    date = np.random.choice(date_rng, 1)
+    
+    return date
+
+def generate_example_data(cluster_size, outbreak_len, clusters, generation_time):
     line_list = []    
     used = []
     for i in range(clusters):
@@ -17,20 +23,10 @@ def init(cluster_size, outbreak_len, clusters, generation_time):
         
         rng = int(np.random.normal(cluster_size, 2, 1))
         for n in range(rng):
-            date = date_choice(ix_date[0], generation_time*2)[0]            
+            date = _date_choice(ix_date[0], generation_time*2)[0]            
             sex =  np.random.choice(['M', 'F'], size=1)[0]
             line_list.append((len(line_list), date, cluster_name, sex))
 
     return pd.DataFrame(line_list, columns=['ID', 'Date', 'Cluster', 'Sex'])
-
-
-def date_choice(ix_date, generation_time):
-    date_rng = pd.date_range(ix_date, periods=generation_time*2, freq='D')
-    date = np.random.choice(date_rng, 1)
-    
-    return date
-
-lst = init(cluster_size=5, outbreak_len=100, clusters=10, generation_time=5)
-lst.to_pickle('test_cluster.pkl')
 
 

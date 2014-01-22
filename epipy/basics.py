@@ -10,8 +10,10 @@
 import pandas as pd
 from datetime import datetime, timedelta
 import numpy as np
+import matplotlib as mpl
 
-def date_convert(date, str_format):
+
+def date_convert(date, str_format='%Y-%m-%d'):
     """ Convert dates to datetime object
     """
     try:

@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 """
  CASE TREE PLOT
@@ -24,6 +25,7 @@ from __future__ import division
 import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
+from random import choice
 
 
 def build_graph(df, case_id='case_id', color='color', index='index_node',
@@ -46,7 +48,7 @@ def build_graph(df, case_id='case_id', color='color', index='index_node',
     return G
     
 
-def plotting(G, node_size=100):
+def case_tree_plot(G, node_size=100):
     """ 
     Plot casetree
     G = networkx object
@@ -85,7 +87,7 @@ def _colors(G, color):
     possibilities = [i for i in np.random.rand(len(vals), 1)]
     val_map = {}
     for node in G.nodes():
-        pick = np.random.choice(possibilities)
+        pick = choice(possibilities)
         val_map[G.node[node]['color']] = pick        
         possibilities.remove(pick)
 

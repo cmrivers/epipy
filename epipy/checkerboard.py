@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
   -------------
@@ -14,7 +15,7 @@ from datetime import timedelta
 from itertools import cycle
 import numpy as np
 
-def plot_cluster(df, case_id, cluster_id, date_col):
+def checkerboard_plot(df, case_id, cluster_id, date_col):
     '''
     df = pandas dataframe
     case_id = unique identifier of the cases

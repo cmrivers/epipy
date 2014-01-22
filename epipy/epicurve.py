@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
 '''
@@ -9,12 +10,12 @@
  (count of new cases over time) from a line list.
 '''
 from __future__ import division
-from epipy import date_convert
+from .basics import date_convert
 import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def epicurve(df, date_col, freq, title=None):
+def epicurve_plot(df, date_col, freq, title=None):
     '''
     Creates an epicurve (count of new cases over time)
 
