@@ -10,8 +10,7 @@ A python package for epidemiology. Features a case tree plot for displaying dise
 
 Installation
 ------------
-You may also use Git to clone the repository from
-Github and install it manually:
+To install epipy, clone the repository and install using setup.py:
 
     git clone https://github.com/cmrivers/epipy.git
     python setup.py install
