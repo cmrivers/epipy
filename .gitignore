@@ -1,0 +1,15 @@
+*.pyc
+build/
+
+# packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+
+
+# ipython
+.ipynb_checkpoints
