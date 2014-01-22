@@ -20,7 +20,7 @@ def date_convert(date, str_format='%Y-%m-%d'):
         y = datetime.strptime(date, str_format)
     except:
         y = np.nan
-        
+
     return y
 
 
@@ -54,12 +54,12 @@ def cluster_builder(df, cluster_id, case_id, date_col, color_col, gen_mean, gen_
     gen_mean = generation time mean
     gen_sd = generation time standard deviation
 
-    returns pandas groupby dataframe 
+    returns pandas groupby dataframe
     '''
     clusters = group_clusters(df, cluster_id, date_col)
-    
+
     gen_max = timedelta((gen_mean + gen_sd), 0)
-    
+
     cluster_obj = []
     for key, group in clusters:
         if len(group) > 1:
@@ -69,7 +69,7 @@ def cluster_builder(df, cluster_id, case_id, date_col, color_col, gen_mean, gen_
     network = []
     for cluster in cluster_obj:
         #reverse dates, last case first
-        cluster = np.array(cluster[::-1]) 
+        cluster = np.array(cluster[::-1])
         ids = cluster[:, 0]
         dates = cluster[:, 1]
         colors = cluster[:, 2]
@@ -82,19 +82,19 @@ def cluster_builder(df, cluster_id, case_id, date_col, color_col, gen_mean, gen_
 
             if start_node == idx and idx != index_node:
                 start_node = ids[i+1]
-            
+
             source_nodes.append(start_node)
 
         for i in range(len(ids)):
             result = (ids[i], colors[i], index_node, source_nodes[i], dates[i])
             network.append(result)
-            
+
     df_out = pd.DataFrame(network, columns=['case_id', 'color', 'index_node', 'source_node', 'time'])
     df_out.time = pd.to_datetime(df_out.time)
-    
+
     df_out[['case_id', 'source_node', 'index_node']] = df_out[['case_id', 'source_node', 'index_node']].astype('int')
     df_out['pltdate'] = [mpl.dates.date2num(i) for i in df_out.time]
-    
     df_out.index = df_out.case_id
-    
+    df_out = df_out.sort('pltdate')
+
     return df_out

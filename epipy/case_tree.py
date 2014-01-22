@@ -49,38 +49,39 @@ def build_graph(df, case_id='case_id', color='color', index='index_node',
     return G
 
 
-def case_tree_plot(G, node_size=100):
+def case_tree_plot(G, node_size=100, loc='best', legend=True):
     """
     Plot casetree
     G = networkx object
     node_size = on (display node) or off (display edge only). Default is on.
+    loc = legend location. See matplotlib args.
     """
     fig, ax = plt.subplots(figsize=(12, 8))
     ax.xaxis_date()
     ax.set_aspect('auto')
     axprop =  ax.axis()
+    ax.set_ylabel('Generations')
+    fig.autofmt_xdate()
 
     coords = _layout(G)
     plt.ylim(ymin=-.05, ymax=max([val[1] for val in coords.itervalues()])+1)
 
 
     colormap, color_floats = _colors(G, 'color')
-    print colormap
 
-    x_val = G.nodes()[0]
-    lines = []
+    if legend == True:
+        x_val = G.nodes()[0]
+        lines = []
 
-    for key, value in colormap.iteritems():
-        plt.scatter(G.node[x_val]['pltdate'], value[0], color=value, alpha=0)
-        line = plt.Line2D(range(1), range(1), color=value, marker='o', markersize=10, alpha=.6, label=key)
-        lines.append(line)
+        for key, value in colormap.iteritems():
+            plt.scatter(G.node[x_val]['pltdate'], value[0], color=value, alpha=0)
+            line = plt.Line2D(range(1), range(1), color=value, marker='o', markersize=6, alpha=.5, label=key)
+            lines.append(line)
 
-    ax.legend(lines, [k for k in colormap.iterkeys()])
+        ax.legend(lines, [k for k in colormap.iterkeys()], loc=loc)
 
     nx.draw_networkx(G, ax=ax, with_labels=False, pos=coords, node_color=color_floats,
-                     node_size=node_size, alpha=.6)
-
-    fig.autofmt_xdate()
+                     node_size=node_size, alpha=.5)
 
     return fig, ax
 
@@ -98,7 +99,7 @@ def _colors(G, color):
         categories.append(G.node[node][color])
 
     # create color map of attributes and colors
-    colors = cm.Accent(np.linspace(0, 1, len(categories)))
+    colors = cm.spectral(np.linspace(0, 1, len(categories)))
     colordict = dict(zip(categories, colors))
 
     color_floats = []
@@ -156,11 +157,3 @@ def _layout(G):
         positions.append([xcord, generation])
 
     return dict(zip(G, np.array(positions)))
-
-import epipy
-import pandas as pd
-test_df = pd.read_pickle('../data/test_cluster.pkl')
-test_clusters = epipy.cluster_builder(test_df, 'Cluster', 'ID', 'Date', 'Cluster', 5, 1)
-test_G = epipy.build_graph(test_clusters)
-fig, ax = case_tree_plot(test_G, node_size=100)
-fig.show()

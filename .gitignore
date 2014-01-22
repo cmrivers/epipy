@@ -1,5 +1,6 @@
 *.pyc
 build/
+epipy/example_data
 .DS_Store
 # packages
 *.egg
