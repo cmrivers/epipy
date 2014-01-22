@@ -42,7 +42,7 @@ def checkerboard_plot(df, case_id, cluster_id, date_col, labels='on'):
     plt.ylim(1, len(grpnames))
     plt.yticks(np.arange(len(grpnames)), grpnames)
 
-    xtog = timedelta(((3*axprop[1]-axprop[0])/axprop[1]), 0, 0)
+    xtog = timedelta(((4*axprop[1]-axprop[0])/axprop[1]), 0, 0)
     counter = 0
     cols = cycle([color for i, color in enumerate(plt.rcParams['axes.color_cycle'])])
 
@@ -70,7 +70,7 @@ def checkerboard_plot(df, case_id, cluster_id, date_col, labels='on'):
                 if curr_casenum == min(casenums) or curr_casenum == max(casenums):
                     textspot = x1 + timedelta((x2 - x1).days/2.0, 0, 0)
                     plt.text(textspot, ypos, curr_casenum, horizontalalignment='center',
-                    verticalalignment='center', fontsize=11, weight='bold')
+                    verticalalignment='center')
 
 
             counter += 1
