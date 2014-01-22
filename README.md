@@ -18,4 +18,5 @@ To install epipy, clone the repository and install using setup.py:
     git clone https://github.com/cmrivers/epipy.git
     python setup.py install
 
-EpiPy is in development. Please feel free to contribute. Contact me at cmrivers@vbi.vt.edu with any questions.
+EpiPy is in development. Please feel free to contribute.
+Contact me at cmrivers@vbi.vt.edu or @cmyeaton with any questions.
