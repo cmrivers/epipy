@@ -45,7 +45,8 @@ try:
     test_df = pd.read_pickle(os.path.join(dir, '../data/test_cluster.pkl'))
 except:
     from data_generator import generate_example_data
-    test_df = generate_example_data(cluster_size=5, outbreak_len=100, clusters=10, generation_time=5)
+    test_df = generate_example_data(cluster_size=5, outbreak_len=180,
+                clusters=10, gen_time=5, attribute='health')
     test_df.to_pickle(os.path.join(dir, '../data/test_cluster.pkl'))
 
 test_clusters = epipy.cluster_builder(test_df, 'Cluster', 'ID', 'Date', 'Cluster', 5, 1)
