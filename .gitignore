@@ -1,6 +1,6 @@
 *.pyc
 build/
-
+.DS_Store
 # packages
 *.egg
 *.egg-info
