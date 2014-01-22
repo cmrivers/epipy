@@ -25,22 +25,22 @@ dir = os.path.dirname(__file__)
 # GENERATE AN EXAMPLE LINE LIST #
 #################################
 
-example_df = epipy.generate_example_data(cluster_size=6, outbreak_len=90, clusters=8,
+example_df = epipy.generate_example_data(cluster_size=6, outbreak_len=180, clusters=8,
                                          gen_time=5, attribute='health')
-test_clusters = epipy.cluster_builder(example_df, 'health', 'ID', 'Date', 'Cluster', 5, 1)
+test_clusters = epipy.cluster_builder(example_df, 'Cluster', 'ID', 'Date', 'health', 5, 1)
 test_G = epipy.build_graph(test_clusters)
 fig, ax = epipy.case_tree_plot(test_G,  node_size=100)
 ax.set_title('Example outbreak data')
 ax.set_ylabel('Generations')
 ax.grid(True)
-fig.savefig(os.path.join(dir, '../figs/test_casetree.png'), bbox_inches='tight')
+fig.savefig(os.path.join(dir, '../figs/example_casetree.png'), bbox_inches='tight')
 
 
 #####################
 # TEST DATA EXAMPLE #
 #####################
 
-# load in example data
+# if you have in data to load instead of generating it
 try:
     test_df = pd.read_pickle(os.path.join(dir, '../data/test_cluster.pkl'))
 except:
@@ -56,7 +56,7 @@ fig, ax = epipy.case_tree_plot(test_G,  node_size=100)
 ax.set_title('Example outbreak data')
 ax.set_ylabel('Generations')
 ax.grid(True)
-#fig.savefig(os.path.join(dir, '../figs/test_casetree.png'), bbox_inches='tight')
+fig.savefig(os.path.join(dir, '../figs/test_casetree.png'), bbox_inches='tight')
 
 # Checkerboard plot
 fig, ax = epipy.checkerboard_plot(test_df, 'ID', 'Cluster', 'Date')
