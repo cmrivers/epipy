@@ -28,8 +28,8 @@ dir = os.path.dirname(__file__)
 example_df = epipy.generate_example_data(cluster_size=6, outbreak_len=180, clusters=8,
                                          gen_time=5, attribute='health')
 test_clusters = epipy.cluster_builder(example_df, 'Cluster', 'ID', 'Date', 'health', 5, 1)
-test_G = epipy.build_graph(test_clusters)
-fig, ax = epipy.case_tree_plot(test_G,  node_size=100)
+test_G = epipy.build_graph(test_clusters, color='health')
+fig, ax = epipy.case_tree_plot(test_G, color='health')
 ax.set_title('Example outbreak data')
 ax.set_ylabel('Generations')
 ax.grid(True)
@@ -52,8 +52,8 @@ except:
 test_clusters = epipy.cluster_builder(test_df, 'Cluster', 'ID', 'Date', 'Cluster', 5, 1)
 
 # Case tree plot
-test_G = epipy.build_graph(test_clusters)
-fig, ax = epipy.case_tree_plot(test_G,  node_size=100)
+test_G = epipy.build_graph(test_clusters, color='Cluster')
+fig, ax = epipy.case_tree_plot(test_G, color='Cluster')
 ax.set_title('Example outbreak data')
 ax.set_ylabel('Generations')
 ax.grid(True)
@@ -82,8 +82,8 @@ mers_clusters = epipy.cluster_builder(mers_df, 'Cluster ID', 'Case #',
 		'dates', 'Cluster ID', 8, 4)
 
 # Case tree plot
-mers_G = epipy.build_graph(mers_clusters)
-fig, ax = epipy.case_tree_plot(mers_G, node_size=100, loc='upper left')
+mers_G = epipy.build_graph(mers_clusters, color='Cluster ID')
+fig, ax = epipy.case_tree_plot(mers_G, color='Cluster ID', loc='upper left')
 ax.set_title('Example outbreak data')
 ax.grid(True)
 fig.savefig(os.path.join(dir, '../figs/mers_casetree.png'), bbox_inches='tight')
@@ -130,7 +130,7 @@ plt.savefig(os.path.join(dir, '../figs/month_epicurve.png'))
 example_df = epipy.generate_example_data(cluster_size=6, outbreak_len=180, clusters=8,
                                          gen_time=5, attribute='health')
 test_clusters = epipy.cluster_builder(example_df, 'Cluster', 'ID', 'Date', 'health', 5, 1)
-test_G = epipy.build_graph(test_clusters)
+test_G = epipy.build_graph(test_clusters, color='health')
 
 # Analyze attribute by generation
 fig, ax = epipy.generation_analysis(test_G, attribute='health',
@@ -138,7 +138,6 @@ fig, ax = epipy.generation_analysis(test_G, attribute='health',
 fig.savefig(os.path.join(dir, '../figs/generation_hist.png'))
 
 # Basic reproduction numbers
-fig, ax, R = epipy.reproduction_number(test_G, index_cases=True, summary=True,
-                                plot=True)
+fig, ax, R = epipy.reproduction_number(test_G, index_cases=True, summary=True, plot=True)
 fig.savefig(os.path.join(dir, '../figs/r0_hist.png'))
-print R.median() # the series object returned can be manipulated further
+print 'R0 median: {}'.format(R.median()) # the series object returned can be manipulated further
