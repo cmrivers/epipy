@@ -36,9 +36,9 @@ ax.grid(True)
 fig.savefig(os.path.join(dir, '../figs/example_casetree.png'), bbox_inches='tight')
 
 
-#####################
-# TEST DATA EXAMPLE #
-#####################
+############################
+#### TEST DATA EXAMPLE #####
+############################
 
 # if you have in data to load instead of generating it
 try:
@@ -65,9 +65,9 @@ ax.set_title("Test data")
 fig.savefig(os.path.join(dir, '../figs/test_checkerboard.png'), bbox_inches='tight')
 
 
-#########################
-# MERS-CoV DATA EXAMPLE #
-#########################
+############################
+## MERS-CoV DATA EXAMPLE ###
+############################
 
 mers_df = pd.read_csv(os.path.join(dir, '../data/mers_line_list.csv'))
 
@@ -121,3 +121,24 @@ plt.figure()
 epipy.epicurve_plot(epi, 'dates', freq='month')
 plt.title('Approximate onset or report date')
 plt.savefig(os.path.join(dir, '../figs/month_epicurve.png'))
+
+#################
+### ANALYSES ####
+#################
+
+# Generate example data
+example_df = epipy.generate_example_data(cluster_size=6, outbreak_len=180, clusters=8,
+                                         gen_time=5, attribute='health')
+test_clusters = epipy.cluster_builder(example_df, 'Cluster', 'ID', 'Date', 'health', 5, 1)
+test_G = epipy.build_graph(test_clusters)
+
+# Analyze attribute by generation
+fig, ax = epipy.generation_analysis(test_G, attribute='health',
+            table=True, plot=True)
+fig.savefig(os.path.join(dir, '../figs/generation_hist.png'))
+
+# Basic reproduction numbers
+fig, ax, R = epipy.reproduction_number(test_G, index_cases=True, summary=True,
+                                plot=True)
+fig.savefig(os.path.join(dir, '../figs/r0_hist.png'))
+print R.median() # the series object returned can be manipulated further
