@@ -18,8 +18,15 @@
  ^ I have seen similar examples in the literature,
    e.g. Antia et al (Nature 2003)
 """
+from __future__ import division
+from itertools import cycle
+import numpy as np
+import matplotlib.pyplot as plt
+import networkx as nx
+from random import choice
+from matplotlib import cm
 
-def build_graph(df, case_id='case_id', color='color', index='index_node',
+def build_graph(df, color, case_id='case_id', index='index_node',
 		source='source_node', date='pltdate'):
     """
     Generate a directed graph from data on transmission tree.
@@ -42,7 +49,7 @@ def build_graph(df, case_id='case_id', color='color', index='index_node',
     return G
 
 
-def case_tree_plot(G, node_size=100, loc='best', legend=True):
+def case_tree_plot(G, color, node_size=100, loc='best', legend=True):
     """
     Plot casetree
     G = networkx object
@@ -59,7 +66,7 @@ def case_tree_plot(G, node_size=100, loc='best', legend=True):
     coords = _layout(G)
     plt.ylim(ymin=-.05, ymax=max([val[1] for val in coords.itervalues()])+1)
 
-    colormap, color_floats = _colors(G, 'health')
+    colormap, color_floats = _colors(G, color)
 
     if legend == True:
         x_val = G.nodes()[0]
