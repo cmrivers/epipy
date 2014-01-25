@@ -98,7 +98,6 @@ def two_x_two(df, row, column, value=False, OR='yes', RR='yes'):
     TODO
     ------------------------
     would be nice to add:
-    [] confidence intervals for RR
     [] chi square and p value
     """
     
@@ -112,6 +111,7 @@ def two_x_two(df, row, column, value=False, OR='yes', RR='yes'):
     c = table.ix[1][0]
     d = table.ix[1][1]
 
+    
     if OR == 'yes':
         ratio = (a*d)/(b*c)
         or_se = np.sqrt((1/a)+(1/b)+(1/c)+(1/d))
@@ -124,7 +124,15 @@ def two_x_two(df, row, column, value=False, OR='yes', RR='yes'):
         
     if RR == 'yes':
         rr = (a/(a+b))/(c/(c+d))
-        print 'Relative risk: ', rr
+        n1 = a+b
+        n2 = c+d
+        rr_se = np.sqrt(((1/a)+(1/c)) - ((1/(a+b)) + (1/(c+d))))
+        _rr_LCI = np.log(rr)-1.96*rr_se
+        _rr_UCI = np.log(rr)+1.96*rr_se
+        rr_LCI = round(np.exp(_rr_LCI), 2)
+        rr_UCI = round(np.exp(_rr_UCI), 2)
+
+        print 'Relative risk: {} (95% CI: {}, {})'.format(round(rr, 2), rr_LCI, rr_UCI)
 
     return table
 
