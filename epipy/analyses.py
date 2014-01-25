@@ -7,6 +7,48 @@ from scipy.stats import chi2_contingency
 import pandas as pd
 import matplotlib.pyplot as plt
 
+def _ordered_table(table):
+    """
+    Returns classic a, b, c, d labels for contingency table calcs.
+    """
+    a = table.ix[0][0]
+    b = table.ix[0][1]
+    c = table.ix[1][0]
+    d = table.ix[1][1]
+
+    return a, b, c, d
+
+
+def _table_type(table):
+    """
+    Determine type of table input. Find classic a, b, c, d labels
+    for contigency table calculations.
+    """
+    if type(table) is list:
+        a = table[0]
+        b = table[1]
+        c = table[2]
+        d = table[4]
+    elif type(table) is pd.core.frame.DataFrame:
+        a, b, c, d = _ordered_table(table)
+    elif type(table) is np.ndarray:
+        a, b, c, d = _ordered_table(table)
+    else:
+        raise TypeError('table format not recognized')
+
+    return a, b, c, d
+
+
+def _conf_interval(ratio, std_error):
+    _lci = np.log(ratio) - 1.96*std_error
+    _uci = np.log(ratio) + 1.96*std_error
+
+    lci = round(np.exp(_lci), 2)
+    uci = round(np.exp(_uci), 2)
+
+    return (lci, uci)
+
+
 def reproduction_number(G, index_cases=True, summary=True, plot=True):
     """ 
     Finds each case's basic reproduction number, which is the number of secondary
@@ -97,11 +139,6 @@ def two_x_two(df, row, column, row_order, col_order):
     RETURNS
     ------------------------
     pandas dataframe of 2x2 table. Prints odds ratio and relative risk.
-
-    TODO
-    ------------------------
-    [] organize cols and rows in yes/no order
-    [] chi square and p value
     """
     if type(col_order) != list or type(row_order) != list:
         raise TypeError('row_order and col_order must each be lists of length 2')
@@ -125,62 +162,72 @@ def two_x_two(df, row, column, row_order, col_order):
 
     return table
 
-def _ordered_table(table):
-    a = table.ix[0][0]
-    b = table.ix[0][1]
-    c = table.ix[1][0]
-    d = table.ix[1][1]
-
-    return a, b, c, d
-
-def _table_type(table):
-    if type(table) is list:
-        a = table[0]
-        b = table[1]
-        c = table[2]
-        d = table[4]
-    elif type(table) is pd.core.frame.DataFrame:
-        a, b, c, d = _ordered_table(table)
-    elif type(table) is np.ndarray:
-        a, b, c, d = _ordered_table(table)
-    else:
-        raise TypeError('table format not recognized')
-
-    return a, b, c, d
 
 def odds_ratio(table):
+    """
+    Calculates the odds ratio and 95% confidence interval.
+
+    PARAMETERS
+    ----------------------
+    table = accepts pandas dataframe, numpy array, or list in [a, b, c, d] format.
+
+    RETURNS
+    ----------------------
+    returns and prints odds ratio and tuple of 95% confidence interval
+    """
     a, b, c, d = _table_type(table)
 
     ratio = (a*d)/(b*c)
     or_se = np.sqrt((1/a)+(1/b)+(1/c)+(1/d))
-    or_ci = conf_interval(ratio, or_se)
+    or_ci = _conf_interval(ratio, or_se)
     print 'Odds ratio: {} (95% CI: {})'.format(round(ratio, 2), or_ci)
+
+    return ratio, or_ci
 
     
 def relative_risk(a, b, c, d):
+    """
+    Calculates the relative risk and 95% confidence interval.
+    
+    PARAMETERS
+    ----------------------
+    table = accepts pandas dataframe, numpy array, or list in [a, b, c, d] format.
+
+    RETURNS
+    ----------------------
+    returns and prints relative risk and tuple of 95% confidence interval
+    """
     a, b, c, d = _table_type(table)
     
     rr = (a/(a+b))/(c/(c+d))
     rr_se = np.sqrt(((1/a)+(1/c)) - ((1/(a+b)) + (1/(c+d))))
-    rr_ci = conf_interval(rr, rr_se)
+    rr_ci = _conf_interval(rr, rr_se)
     print 'Relative risk: {} (95% CI: {})\n'.format(round(rr, 2), rr_ci)
+
+    return rr, rr_ci
 
 
 def chi2(table):
+    """
+    Scipy.stats function to calculate chi square.
+    PARAMETERS
+    ----------------------
+    table = accepts pandas dataframe or numpy array
+
+    RETURNS
+    ----------------------
+    returns chi square, p value, degrees of freedom, and array of expected values.
+    prints all but expected values.
+    """
     chi2, p, dof, expected = chi2_contingency(table)
     print 'Chi square: {}'.format(chi2)
     print 'p value: {}'.format(p)
     print 'DF: {}'.format(dof)
 
+    return chi2, p, dof, expected
 
-def conf_interval(ratio, std_error):
-    _lci = np.log(ratio) - 1.96*std_error
-    _uci = np.log(ratio) + 1.96*std_error
 
-    lci = round(np.exp(_lci), 2)
-    uci = round(np.exp(_uci), 2)
 
-    return (lci, uci)
 
 
     
