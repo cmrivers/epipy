@@ -87,6 +87,10 @@ def two_x_two(df, row, column, value=False, OR='yes', RR='yes'):
     row = name of exposure row as string
     column = name of outcome column as string
     value = optional, if column values need to be filtered
+
+    would be nice to add:
+    [] confidence intervals for OR and RR
+    [] chi square and p value
     """
     
     if value == False:
@@ -108,8 +112,5 @@ def two_x_two(df, row, column, value=False, OR='yes', RR='yes'):
         print 'RR: ', rr
 
     return table
-
-# odds ratio & RR
-# 2 x 2 ratio
 
 
