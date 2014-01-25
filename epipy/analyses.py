@@ -125,7 +125,7 @@ def generation_analysis(G, attribute, table=True, plot=True):
     return fig, ax
 
 
-def two_x_two(df, row, column, row_order, col_order):
+def create_2x2(df, row, column, row_order, col_order):
     """
     2x2 table of disease and exposure
 
@@ -156,16 +156,33 @@ def two_x_two(df, row, column, row_order, col_order):
     table = pd.DataFrame(_table, index=[trow, brow, 'All'], columns=[tcol, bcol, 'All'])
     a, b, c, d = _ordered_table(table)
 
+    return table
+
+
+def analyze_2x2(table):
+    """Prints odds ratio, relative risk, and chi square.
+    See also create_2x2(), odds_ratio(), relative_risk(), and chi2()
+
+    PARAMETERS
+    --------------------
+    2x2 table as pandas dataframe, numpy array, or list in format [a, b, c, d]
+
+    Table format:
+                Disease
+    Exposure    YES     NO
+    YES         a       b
+    NO          c       d
+    
+    """
     odds_ratio(table)
     relative_risk(table)
     chi2(table)
 
-    return table
-
 
 def odds_ratio(table):
     """
-    Calculates the odds ratio and 95% confidence interval.
+    Calculates the odds ratio and 95% confidence interval. See also
+    analyze_2x2()
 
     PARAMETERS
     ----------------------
@@ -187,7 +204,8 @@ def odds_ratio(table):
     
 def relative_risk(a, b, c, d):
     """
-    Calculates the relative risk and 95% confidence interval.
+    Calculates the relative risk and 95% confidence interval. See also
+    analyze_2x2().
     
     PARAMETERS
     ----------------------
@@ -212,7 +230,8 @@ def chi2(table):
     Scipy.stats function to calculate chi square.
     PARAMETERS
     ----------------------
-    table = accepts pandas dataframe or numpy array
+    table = accepts pandas dataframe or numpy array. See also
+    analyze_2x2().
 
     RETURNS
     ----------------------
