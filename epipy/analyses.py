@@ -127,14 +127,22 @@ def generation_analysis(G, attribute, table=True, plot=True):
 
 def create_2x2(df, row, column, row_order, col_order):
     """
-    2x2 table of disease and exposure
+    2x2 table of disease and exposure in traditional epi order.
+
+    Table format:
+                Disease
+    Exposure    YES     NO
+    YES         a       b
+    NO          c       d
 
     PARAMETERS
     -----------------------
     row = name of exposure row as string
     column = name of outcome column as string
-    row_order = list of rows
-    col_order = list of columns
+    row_order = list of length 2 of row values in yes/no order.
+                Example: ['Exposed', 'Unexposed']
+    col_order = list of length 2 column values in yes/no order.
+                Example: ['Sick', 'Not sick']
 
     RETURNS
     ------------------------
