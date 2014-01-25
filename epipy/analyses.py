@@ -81,7 +81,8 @@ def generation_analysis(G, attribute, table=True, plot=True):
         
     return fig, ax
 
-def two_x_two(df, row, column, value=False, OR='yes', RR='yes'):
+
+def two_x_two(df, row, column, row_order, col_order):
     """
     2x2 table of disease and exposure
 
@@ -89,7 +90,8 @@ def two_x_two(df, row, column, value=False, OR='yes', RR='yes'):
     -----------------------
     row = name of exposure row as string
     column = name of outcome column as string
-    value = optional, if column values need to be filtered
+    row_order = list of rows
+    col_order = list of columns
 
     RETURNS
     ------------------------
@@ -97,43 +99,47 @@ def two_x_two(df, row, column, value=False, OR='yes', RR='yes'):
 
     TODO
     ------------------------
-    would be nice to add:
+    [] organize cols and rows in yes/no order
     [] chi square and p value
     """
+    if type(col_order) != list or type(row_order) != list:
+        raise TypeError('columns and rows must be lists')
+        
+    if len(col_order) != 2 or len(row_order) != 2:
+        raise AssertionError('must have two columns and two rows')
+
+    _table = pd.crosstab(df[row], df[column], margins=True).to_dict()
+
+    trow = row_order[0]
+    brow = row_order[1]
+    tcol = col_order[0]
+    bcol = col_order[1]
     
-    if value == False:
-        table = pd.DataFrame(pd.crosstab(df[row], df[column], margins=True))
-    else:
-        table = pd.DataFrame(pd.crosstab(df[row], df[column][df[column]==value], margins=True))
+    table = pd.DataFrame(_table, index=[trow, brow, 'All'], columns=[tcol, bcol, 'All'])
 
     a = table.ix[0][0]
     b = table.ix[0][1]
     c = table.ix[1][0]
     d = table.ix[1][1]
 
-    
-    if OR == 'yes':
-        ratio = (a*d)/(b*c)
-        or_se = np.sqrt((1/a)+(1/b)+(1/c)+(1/d))
-        _or_LCI = np.log(ratio)-1.96*or_se
-        _or_UCI = np.log(ratio)+1.96*or_se
-        or_LCI = round(np.exp(_or_LCI), 2)
-        or_UCI = round(np.exp(_or_UCI), 2)
+    ratio = (a*d)/(b*c)
+    or_se = np.sqrt((1/a)+(1/b)+(1/c)+(1/d))
+    or_ci = conf_interval(ratio, or_se)
+    print 'Odds ratio: {} (95% CI: {})'.format(round(ratio, 2), or_ci)
         
-        print 'Odds ratio: {} (95% CI: {}, {})'.format(round(ratio, 2), or_LCI, or_UCI)
-        
-    if RR == 'yes':
-        rr = (a/(a+b))/(c/(c+d))
-        n1 = a+b
-        n2 = c+d
-        rr_se = np.sqrt(((1/a)+(1/c)) - ((1/(a+b)) + (1/(c+d))))
-        _rr_LCI = np.log(rr)-1.96*rr_se
-        _rr_UCI = np.log(rr)+1.96*rr_se
-        rr_LCI = round(np.exp(_rr_LCI), 2)
-        rr_UCI = round(np.exp(_rr_UCI), 2)
-
-        print 'Relative risk: {} (95% CI: {}, {})'.format(round(rr, 2), rr_LCI, rr_UCI)
+    rr = (a/(a+b))/(c/(c+d))
+    rr_se = np.sqrt(((1/a)+(1/c)) - ((1/(a+b)) + (1/(c+d))))
+    rr_ci = conf_interval(rr, rr_se)
+    print 'Relative risk: {} (95% CI: {})'.format(round(rr, 2), rr_ci)
 
     return table
 
 
+def conf_interval(ratio, std_error):
+    _lci = np.log(ratio) - 1.96*std_error
+    _uci = np.log(ratio) + 1.96*std_error
+
+    lci = round(np.exp(_lci), 2)
+    uci = round(np.exp(_uci), 2)
+
+    return (lci, uci)
