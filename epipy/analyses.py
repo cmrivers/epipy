@@ -3,6 +3,7 @@
 
 from __future__ import division
 import numpy as np
+from scipy.stats import chi2_contingency
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -103,10 +104,10 @@ def two_x_two(df, row, column, row_order, col_order):
     [] chi square and p value
     """
     if type(col_order) != list or type(row_order) != list:
-        raise TypeError('columns and rows must be lists')
+        raise TypeError('row_order and col_order must each be lists of length 2')
         
     if len(col_order) != 2 or len(row_order) != 2:
-        raise AssertionError('must have two columns and two rows')
+        raise AssertionError('row_order and col_order must each be lists of length 2')
 
     _table = pd.crosstab(df[row], df[column], margins=True).to_dict()
 
@@ -116,23 +117,60 @@ def two_x_two(df, row, column, row_order, col_order):
     bcol = col_order[1]
     
     table = pd.DataFrame(_table, index=[trow, brow, 'All'], columns=[tcol, bcol, 'All'])
+    a, b, c, d = _ordered_table(table)
 
+    odds_ratio(table)
+    relative_risk(table)
+    chi2(table)
+
+    return table
+
+def _ordered_table(table):
     a = table.ix[0][0]
     b = table.ix[0][1]
     c = table.ix[1][0]
     d = table.ix[1][1]
 
+    return a, b, c, d
+
+def _table_type(table):
+    if type(table) is list:
+        a = table[0]
+        b = table[1]
+        c = table[2]
+        d = table[4]
+    elif type(table) is pd.core.frame.DataFrame:
+        a, b, c, d = _ordered_table(table)
+    elif type(table) is np.ndarray:
+        a, b, c, d = _ordered_table(table)
+    else:
+        raise TypeError('table format not recognized')
+
+    return a, b, c, d
+
+def odds_ratio(table):
+    a, b, c, d = _table_type(table)
+
     ratio = (a*d)/(b*c)
     or_se = np.sqrt((1/a)+(1/b)+(1/c)+(1/d))
     or_ci = conf_interval(ratio, or_se)
     print 'Odds ratio: {} (95% CI: {})'.format(round(ratio, 2), or_ci)
-        
+
+    
+def relative_risk(a, b, c, d):
+    a, b, c, d = _table_type(table)
+    
     rr = (a/(a+b))/(c/(c+d))
     rr_se = np.sqrt(((1/a)+(1/c)) - ((1/(a+b)) + (1/(c+d))))
     rr_ci = conf_interval(rr, rr_se)
-    print 'Relative risk: {} (95% CI: {})'.format(round(rr, 2), rr_ci)
+    print 'Relative risk: {} (95% CI: {})\n'.format(round(rr, 2), rr_ci)
 
-    return table
+
+def chi2(table):
+    chi2, p, dof, expected = chi2_contingency(table)
+    print 'Chi square: {}'.format(chi2)
+    print 'p value: {}'.format(p)
+    print 'DF: {}'.format(dof)
 
 
 def conf_interval(ratio, std_error):
@@ -143,3 +181,6 @@ def conf_interval(ratio, std_error):
     uci = round(np.exp(_uci), 2)
 
     return (lci, uci)
+
+
+    
