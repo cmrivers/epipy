@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import division
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -79,3 +80,36 @@ def generation_analysis(G, attribute, table=True, plot=True):
         ax.legend(loc='best');
         
     return fig, ax
+
+def two_x_two(df, row, column, value=False, OR='yes', RR='yes'):
+    """
+    2x2 table of disease and exposure
+    row = name of exposure row as string
+    column = name of outcome column as string
+    value = optional, if column values need to be filtered
+    """
+    
+    if value == False:
+        table = pd.DataFrame(pd.crosstab(df[row], df[column], margins=True))
+    else:
+        table = pd.DataFrame(pd.crosstab(df[row], df[column][df[column]==value], margins=True))
+
+    a = table.ix[0][0]
+    b = table.ix[0][1]
+    c = table.ix[1][0]
+    d = table.ix[1][1]
+    
+    if OR == 'yes':
+        ratio = (a*d)/(b*c)
+        print 'OR: ', ratio
+
+    if RR == 'yes':
+        rr = (a/(a+b))/(c/(c+d))
+        print 'RR: ', rr
+
+    return table
+
+# odds ratio & RR
+# 2 x 2 ratio
+
+
