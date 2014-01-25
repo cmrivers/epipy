@@ -84,12 +84,21 @@ def generation_analysis(G, attribute, table=True, plot=True):
 def two_x_two(df, row, column, value=False, OR='yes', RR='yes'):
     """
     2x2 table of disease and exposure
+
+    PARAMETERS
+    -----------------------
     row = name of exposure row as string
     column = name of outcome column as string
     value = optional, if column values need to be filtered
 
+    RETURNS
+    ------------------------
+    pandas dataframe of 2x2 table. Prints odds ratio and relative risk.
+
+    TODO
+    ------------------------
     would be nice to add:
-    [] confidence intervals for OR and RR
+    [] confidence intervals for RR
     [] chi square and p value
     """
     
@@ -102,14 +111,20 @@ def two_x_two(df, row, column, value=False, OR='yes', RR='yes'):
     b = table.ix[0][1]
     c = table.ix[1][0]
     d = table.ix[1][1]
-    
+
     if OR == 'yes':
         ratio = (a*d)/(b*c)
-        print 'OR: ', ratio
-
+        or_se = np.sqrt((1/a)+(1/b)+(1/c)+(1/d))
+        _or_LCI = np.log(ratio)-1.96*or_se
+        _or_UCI = np.log(ratio)+1.96*or_se
+        or_LCI = round(np.exp(_or_LCI), 2)
+        or_UCI = round(np.exp(_or_UCI), 2)
+        
+        print 'Odds ratio: {} (95% CI: {}, {})'.format(round(ratio, 2), or_LCI, or_UCI)
+        
     if RR == 'yes':
         rr = (a/(a+b))/(c/(c+d))
-        print 'RR: ', rr
+        print 'Relative risk: ', rr
 
     return table
 
