@@ -82,21 +82,37 @@ def test_create2x2():
     assert table.ix[1][1] == 1
 
 
-def test_generation_analysis():
-    G = nx.Graph()
+def _create_graph():
+    G = nx.DiGraph()
     G.add_nodes_from([0, 1, 2])
     G.node[0]['generation'] = 0
-    G.node[1]['generation'] = 0
+    G.node[1]['generation'] = 1
     G.node[2]['generation'] = 1
     G.node[0]['health'] = 'alive'
     G.node[1]['health'] = 'dead'
     G.node[2]['health'] = 'alive'
+    G.add_edges_from([(0, 1), (0, 2)])
+    
+    return G
+
+    
+def test_generation_analysis():
+    G = _create_graph()
 
     table = analyses.generation_analysis(G, 'health', plot=False)
 
     assert table.ix[0][0] == 1
-    assert table.ix[0][1] == 1
+    assert table.ix[0][1] == 0
     assert table.ix[1][0] == 1
-    assert table.ix[1][1] == 0
-    
+    assert table.ix[1][1] == 1
 
+    
+def test_reproduction_number():
+    G = _create_graph()
+
+    R = analyses.reproduction_number(G, index_cases=True, plot=False)
+
+    assert R[0] == 2
+    assert R[1] == 0
+    assert R[2] == 0
+    
