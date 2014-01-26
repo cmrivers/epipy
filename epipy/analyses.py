@@ -7,32 +7,29 @@ from scipy.stats import chi2_contingency
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def _ordered_table(table):
+def _get_table_labels(table):
     """
     Returns classic a, b, c, d labels for contingency table calcs.
     """
-    a = table.ix[0][0]
-    b = table.ix[0][1]
-    c = table.ix[1][0]
-    d = table.ix[1][1]
+    a = table[0][0]
+    b = table[0][1]
+    c = table[1][0]
+    d = table[1][1]
 
     return a, b, c, d
 
 
-def _table_type(table):
+def _ordered_table(table):
     """
     Determine type of table input. Find classic a, b, c, d labels
     for contigency table calculations.
     """
     if type(table) is list:
-        a = table[0]
-        b = table[1]
-        c = table[2]
-        d = table[4]
+        a, b, c, d = _get_table_labels(table)
     elif type(table) is pd.core.frame.DataFrame:
-        a, b, c, d = _ordered_table(table)
+        a, b, c, d = _get_table_labels(table.values)
     elif type(table) is np.ndarray:
-        a, b, c, d = _ordered_table(table)
+        a, b, c, d = _get_table_labels(table)
     else:
         raise TypeError('table format not recognized')
 
@@ -40,6 +37,10 @@ def _table_type(table):
 
 
 def _conf_interval(ratio, std_error):
+    """
+    Calculate 95% confidence interval for odds ratio and relative risk.
+    """
+    
     _lci = np.log(ratio) - 1.96*std_error
     _uci = np.log(ratio) + 1.96*std_error
 
@@ -200,17 +201,17 @@ def odds_ratio(table):
     ----------------------
     returns and prints odds ratio and tuple of 95% confidence interval
     """
-    a, b, c, d = _table_type(table)
+    a, b, c, d = _ordered_table(table)
 
     ratio = (a*d)/(b*c)
     or_se = np.sqrt((1/a)+(1/b)+(1/c)+(1/d))
     or_ci = _conf_interval(ratio, or_se)
     print 'Odds ratio: {} (95% CI: {})'.format(round(ratio, 2), or_ci)
 
-    return ratio, or_ci
+    return round(ratio, 2), or_ci
 
     
-def relative_risk(a, b, c, d):
+def relative_risk(table):
     """
     Calculates the relative risk and 95% confidence interval. See also
     analyze_2x2().
@@ -223,7 +224,7 @@ def relative_risk(a, b, c, d):
     ----------------------
     returns and prints relative risk and tuple of 95% confidence interval
     """
-    a, b, c, d = _table_type(table)
+    a, b, c, d = _ordered_table(table)
     
     rr = (a/(a+b))/(c/(c+d))
     rr_se = np.sqrt(((1/a)+(1/c)) - ((1/(a+b)) + (1/(c+d))))
@@ -243,13 +244,13 @@ def chi2(table):
 
     RETURNS
     ----------------------
-    returns chi square, p value, degrees of freedom, and array of expected values.
-    prints all but expected values.
+    returns chi square with yates correction, p value,
+    degrees of freedom, and array of expected values.
+    prints chi square and p value
     """
     chi2, p, dof, expected = chi2_contingency(table)
     print 'Chi square: {}'.format(chi2)
     print 'p value: {}'.format(p)
-    print 'DF: {}'.format(dof)
 
     return chi2, p, dof, expected
 
