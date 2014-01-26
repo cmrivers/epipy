@@ -90,7 +90,7 @@ def reproduction_number(G, index_cases=True, plot=True):
         ax.set_xlabel('Secondary cases')
         ax.set_ylabel('Count')
         ax.grid(False)
-        return fig, ax, R
+        return R, fig, ax
 
     else:
         return R

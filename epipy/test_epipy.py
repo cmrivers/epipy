@@ -93,6 +93,18 @@ def test_create2x2():
     assert table.ix[1][1] == 1
 
 
+def test_2x2_errorRaises():
+    df = pd.DataFrame({'Exposed':['Y', 'Y', 'N', 'Y'], \
+                          'Sick':['Y', 'N', 'N', 'Y']})
+            
+    with pytest.raises(TypeError):
+        table = analyses.create_2x2(df, 'Exposed', 'Sick', ['Y', 'N'], \
+            'Y')
+
+    with pytest.raises(AssertionError):
+        table = analyses.create_2x2(df, 'Exposed', 'Sick', ['Y', 'N'], \
+            ['Y'])
+
 def _create_graph():
     G = nx.DiGraph()
     G.add_nodes_from([3, 4, 5])
@@ -134,4 +146,5 @@ def test_reproduction_number_noindex():
     assert len(R) == 2
     assert R.iget(0) == 0
     assert R.iget(1) == 0
+
     
