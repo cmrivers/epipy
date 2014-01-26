@@ -69,3 +69,14 @@ def test_chi2():
     assert np.allclose(chi2, 0.1786, atol=.01)
 
 
+def test_create2x2():
+    df = pd.DataFrame({'Exposed':['Y', 'Y', 'N', 'Y'], \
+                          'Sick':['Y', 'N', 'N', 'Y']})
+    table = analyses.create_2x2(df, 'Exposed', 'Sick', ['Y', 'N'], \
+            ['Y', 'N'])
+
+    assert table.ix[0][0] == 2
+    assert table.ix[0][1] == 1
+    assert table.ix[1][0] == 0
+    assert table.ix[1][1] == 1
+
