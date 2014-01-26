@@ -69,10 +69,17 @@ def reproduction_number(G, index_cases=True, plot=True):
     pandas series of case reproduction numbers and matplotlib figure
     and axis objects if plot=True
     """
-    R = pd.Series(G.out_degree())
 
-    if index_cases == False:
-        R = R[R > 0]
+    if index_cases == True:
+        R = pd.Series(G.out_degree())
+        
+    elif index_cases == False:
+        degrees = {}
+        
+        for n in G.node:
+            if G.node[n]['generation'] > 0:
+                degrees[n] = G.out_degree(n)
+        R = pd.Series(degrees)
     
     print 'Summary of reproduction numbers'
     print R.describe(), '\n'
