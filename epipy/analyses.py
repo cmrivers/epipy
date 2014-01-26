@@ -138,6 +138,7 @@ def create_2x2(df, row, column, row_order, col_order):
 
     PARAMETERS
     -----------------------
+    df = pandas dataframe of line listing
     row = name of exposure row as string
     column = name of outcome column as string
     row_order = list of length 2 of row values in yes/no order.
@@ -163,7 +164,6 @@ def create_2x2(df, row, column, row_order, col_order):
     bcol = col_order[1]
     
     table = pd.DataFrame(_table, index=[trow, brow, 'All'], columns=[tcol, bcol, 'All'])
-    a, b, c, d = _ordered_table(table)
 
     return table
 
