@@ -4,6 +4,7 @@
 import numpy as np
 import pandas as pd
 import networkx as nx
+import pytest
 import analyses
 
 def test_ordered_table_list():
@@ -41,6 +42,16 @@ def test_ordered_table_DataFrame():
     assert d == 3
 
 
+def test_ordered_table_typeError():
+    table = [(0, 1),
+             (2, 3)]
+    table = np.matrix(table)
+
+    with pytest.raises(TypeError):
+        a, b, c, d = analyses._ordered_table(table)
+    
+
+    
 def test_odds_ratio():
     table = [(1, 2),
              (3, 4)]
@@ -84,21 +95,20 @@ def test_create2x2():
 
 def _create_graph():
     G = nx.DiGraph()
-    G.add_nodes_from([0, 1, 2])
-    G.node[0]['generation'] = 0
-    G.node[1]['generation'] = 1
-    G.node[2]['generation'] = 1
-    G.node[0]['health'] = 'alive'
-    G.node[1]['health'] = 'dead'
-    G.node[2]['health'] = 'alive'
-    G.add_edges_from([(0, 1), (0, 2)])
+    G.add_nodes_from([3, 4, 5])
+    G.node[3]['generation'] = 0
+    G.node[4]['generation'] = 1
+    G.node[5]['generation'] = 1
+    G.node[3]['health'] = 'alive'
+    G.node[4]['health'] = 'dead'
+    G.node[5]['health'] = 'alive'
+    G.add_edges_from([(3, 4), (3, 5)])
     
     return G
 
     
 def test_generation_analysis():
     G = _create_graph()
-
     table = analyses.generation_analysis(G, 'health', plot=False)
 
     assert table.ix[0][0] == 1
@@ -107,12 +117,21 @@ def test_generation_analysis():
     assert table.ix[1][1] == 1
 
     
-def test_reproduction_number():
+def test_reproduction_number_index():
     G = _create_graph()
-
     R = analyses.reproduction_number(G, index_cases=True, plot=False)
 
-    assert R[0] == 2
-    assert R[1] == 0
-    assert R[2] == 0
+    assert len(R) == 3
+    assert R.iget(0) == 2
+    assert R.iget(1) == 0
+    assert R.iget(2) == 0
+
+
+def test_reproduction_number_noindex():
+    G = _create_graph()
+    R = analyses.reproduction_number(G, index_cases=False, plot=False)
+
+    assert len(R) == 2
+    assert R.iget(0) == 0
+    assert R.iget(1) == 0
     
