@@ -16,12 +16,14 @@ import matplotlib as mpl
 def date_convert(date, str_format='%Y-%m-%d'):
     """ Convert dates to datetime object
     """
-    try:
+    if type(date) == str:
         y = datetime.strptime(date, str_format)
-    except:
+        return y
+    elif np.isnan(date) == True:
         y = np.nan
-
-    return y
+        return y
+    else:
+        raise ValueError('format of {} not recognized'.format(date))
 
 
 def group_clusters(df, cluster_id, date_col):
@@ -62,10 +64,9 @@ def cluster_builder(df, cluster_id, case_id, date_col, attr_col, gen_mean, gen_s
 
     cluster_obj = []
     for key, group in clusters:
-        if len(group) > 1:
-            row = [tmp[1:4] for tmp in group[[case_id, date_col,
-                    attr_col]].sort(date_col, ).itertuples()]
-            cluster_obj.append(row)
+        row = [tmp[1:4] for tmp in group[[case_id, date_col,
+                attr_col]].sort(date_col, ).itertuples()]
+        cluster_obj.append(row)
 
     network = []
     for cluster in cluster_obj:
