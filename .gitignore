@@ -1,6 +1,7 @@
 *.pyc
 build/
 epipy/htmlcov
+epipy/.coverage
 epipy/_pycache_
 epipy/stset
 epipy/example_data
