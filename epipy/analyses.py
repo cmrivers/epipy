@@ -50,7 +50,7 @@ def _conf_interval(ratio, std_error):
     return (lci, uci)
 
 
-def reproduction_number(G, index_cases=True, summary=True, plot=True):
+def reproduction_number(G, index_cases=True, plot=True):
     """ 
     Finds each case's basic reproduction number, which is the number of secondary
     infections each case produces.
@@ -74,9 +74,8 @@ def reproduction_number(G, index_cases=True, summary=True, plot=True):
     if index_cases == False:
         R = R[R > 0]
     
-    if summary == True:
-        print 'Summary of reproduction numbers'
-        print R.describe(), '\n'
+    print 'Summary of reproduction numbers'
+    print R.describe(), '\n'
         
     if plot == True:
         fig, ax = plt.subplots()
@@ -121,9 +120,9 @@ def generation_analysis(G, attribute, plot=True):
         ax.set_ylabel('Case count')
         ax.grid(False)
         ax.legend(loc='best');
-        return fig, ax
-        
-    return table
+        return fig, ax, table
+    else:
+        return table
 
 
 def create_2x2(df, row, column, row_order, col_order):
