@@ -1,5 +1,8 @@
 *.pyc
 build/
+epipy/htmlcov
+epipy/_pycache_
+epipy/stset
 epipy/example_data
 .DS_Store
 # packages
