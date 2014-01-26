@@ -3,6 +3,7 @@
 
 import numpy as np
 import pandas as pd
+import networkx as nx
 import analyses
 
 def test_ordered_table_list():
@@ -79,4 +80,23 @@ def test_create2x2():
     assert table.ix[0][1] == 1
     assert table.ix[1][0] == 0
     assert table.ix[1][1] == 1
+
+
+def test_generation_analysis():
+    G = nx.Graph()
+    G.add_nodes_from([0, 1, 2])
+    G.node[0]['generation'] = 0
+    G.node[1]['generation'] = 0
+    G.node[2]['generation'] = 1
+    G.node[0]['health'] = 'alive'
+    G.node[1]['health'] = 'dead'
+    G.node[2]['health'] = 'alive'
+
+    table = analyses.generation_analysis(G, 'health', plot=False)
+
+    assert table.ix[0][0] == 1
+    assert table.ix[0][1] == 1
+    assert table.ix[1][0] == 1
+    assert table.ix[1][1] == 0
+    
 
