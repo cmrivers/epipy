@@ -90,7 +90,7 @@ def reproduction_number(G, index_cases=True, summary=True, plot=True):
         return R
 
 
-def generation_analysis(G, attribute, table=True, plot=True):
+def generation_analysis(G, attribute, plot=True):
     """ 
     Analyzes an attribute, e.g. health status, by generation.
     
@@ -109,10 +109,9 @@ def generation_analysis(G, attribute, table=True, plot=True):
     
     gen_df = pd.DataFrame(G.node).T
     
-    if table == True:
-        print '{} by generation'.format(attribute)
-        table = pd.crosstab(gen_df.generation, gen_df[attribute], margins=True)
-        print table, '\n'
+    print '{} by generation'.format(attribute)
+    table = pd.crosstab(gen_df.generation, gen_df[attribute], margins=True)
+    print table, '\n'
     
     if plot == True:
         fig, ax = plt.subplots()
@@ -122,8 +121,9 @@ def generation_analysis(G, attribute, table=True, plot=True):
         ax.set_ylabel('Case count')
         ax.grid(False)
         ax.legend(loc='best');
+        return fig, ax
         
-    return fig, ax
+    return table
 
 
 def create_2x2(df, row, column, row_order, col_order):
