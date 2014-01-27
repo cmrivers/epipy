@@ -72,7 +72,6 @@ fig.savefig(os.path.join(dir, '../figs/test_checkerboard.png'), bbox_inches='tig
 mers_df = pd.read_csv(os.path.join(dir, '../data/mers_line_list.csv'))
 
 # Data cleaning
-mers_df['Case #'] = mers_df['Case #'].replace(np.nan, 'single')
 mers_df['onset_date'] = mers_df['Approx onset date'].map(epipy.date_convert)
 mers_df['report_date'] = mers_df['Approx reporting date'].map(epipy.date_convert)
 mers_df['dates'] = mers_df['onset_date'].combine_first(mers_df['report_date'])

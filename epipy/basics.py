@@ -33,7 +33,6 @@ def group_clusters(df, cluster_id, date_col):
         be a basic string like "hospital cluster A"
     date_col = onset or report date column
     '''
-    clusters = df[df[cluster_id] != 'single']
     clusters = clusters[clusters[date_col].notnull()]
     groups = clusters.groupby(clusters[cluster_id])
 
