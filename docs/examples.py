@@ -132,11 +132,10 @@ test_clusters = epipy.cluster_builder(example_df, 'Cluster', 'ID', 'Date', 'heal
 test_G = epipy.build_graph(test_clusters, color='health')
 
 # Analyze attribute by generation
-fig, ax = epipy.generation_analysis(test_G, attribute='health',
-            table=True, plot=False)
+fig, ax = epipy.generation_analysis(test_G, attribute='health', plot=False)
 fig.savefig(os.path.join(dir, '../figs/generation_hist.png'))
 
 # Basic reproduction numbers
-fig, ax, R = epipy.reproduction_number(test_G, index_cases=True, summary=True, plot=True)
+fig, ax, R = epipy.reproduction_number(test_G, index_cases=True, plot=True)
 fig.savefig(os.path.join(dir, '../figs/r0_hist.png'))
 print 'R0 median: {}'.format(R.median()) # the series object returned can be manipulated further
