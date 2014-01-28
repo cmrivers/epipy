@@ -13,14 +13,11 @@
  My wish list for improvements includes:
  * add an option to include nodes that have no children, i.e. are not
    part of a human to human cluster
- * create a legend to label which colors correspond to which node
-   attributes
  * improve color choice reliabely produces an attractive color palette
 
  ^ I have seen similar examples in the literature,
    e.g. Antia et al (Nature 2003)
 """
-
 from __future__ import division
 from itertools import cycle
 import numpy as np
@@ -29,7 +26,7 @@ import networkx as nx
 from random import choice
 from matplotlib import cm
 
-def build_graph(df, case_id='case_id', color='color', index='index_node',
+def build_graph(df, color, case_id='case_id', index='index_node',
 		source='source_node', date='pltdate'):
     """
     Generate a directed graph from data on transmission tree.
@@ -46,10 +43,13 @@ def build_graph(df, case_id='case_id', color='color', index='index_node',
     nx.set_node_attributes(G, index, df[index].to_dict())
     G = nx.DiGraph.reverse(G)
 
+    for i in G.nodes():
+        G.node[i]['generation'] = _generations(G, i)
+    
     return G
 
 
-def case_tree_plot(G, node_size=100, loc='best', legend=True):
+def case_tree_plot(G, color, node_size=100, loc='best', legend=True):
     """
     Plot casetree
     G = networkx object
@@ -66,8 +66,7 @@ def case_tree_plot(G, node_size=100, loc='best', legend=True):
     coords = _layout(G)
     plt.ylim(ymin=-.05, ymax=max([val[1] for val in coords.itervalues()])+1)
 
-
-    colormap, color_floats = _colors(G, 'color')
+    colormap, color_floats = _colors(G, color)
 
     if legend == True:
         x_val = G.nodes()[0]
@@ -136,24 +135,16 @@ def _layout(G):
     positions = []
 
     for i in G.nodes():
-        # index node (generation = 0)
-        if i == G.node[i]['index_node']:
-            xcord = G.node[i]['pltdate']
-            generation = 0.1
-
-        # children (generation > 0)
+        xcord = G.node[i]['pltdate']
+        generation = G.node[i]['generation']
+        if generation == 0:
+            ygen = generation
         else:
-            # if the coordinates exist, jitter the y coord to make space
-            ix = G.node[i]['source_node']
-            generation = _generations(G, i)
-            ix = i
-            xcord = G.node[ix]['pltdate']
-
             jittery = np.random.uniform(-.2, .2, 1)
-            generation = generation + jittery
-
-        G.node[i]['xcord'] = xcord
-        G.node[i]['generation'] = generation
-        positions.append([xcord, generation])
+            ygen = generation + jittery
+        
+        positions.append([xcord, ygen])
 
     return dict(zip(G, np.array(positions)))
+
+

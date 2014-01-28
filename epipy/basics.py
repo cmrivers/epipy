@@ -16,12 +16,14 @@ import matplotlib as mpl
 def date_convert(date, str_format='%Y-%m-%d'):
     """ Convert dates to datetime object
     """
-    try:
+    if type(date) == str:
         y = datetime.strptime(date, str_format)
-    except:
+        return y
+    elif np.isnan(date) == True:
         y = np.nan
-
-    return y
+        return y
+    else:
+        raise ValueError('format of {} not recognized'.format(date))
 
 
 def group_clusters(df, cluster_id, date_col):
@@ -31,14 +33,13 @@ def group_clusters(df, cluster_id, date_col):
         be a basic string like "hospital cluster A"
     date_col = onset or report date column
     '''
-    clusters = df[df[cluster_id] != 'single']
     clusters = clusters[clusters[date_col].notnull()]
     groups = clusters.groupby(clusters[cluster_id])
 
     return groups
 
 
-def cluster_builder(df, cluster_id, case_id, date_col, color_col, gen_mean, gen_sd):
+def cluster_builder(df, cluster_id, case_id, date_col, attr_col, gen_mean, gen_sd):
     '''
     Given a line list with dates and info about cluster membership,
     this script will estimate the transmission tree of an infectious
@@ -49,7 +50,7 @@ def cluster_builder(df, cluster_id, case_id, date_col, color_col, gen_mean, gen_
         basic string like "hospital cluster A"
     case_id = col with unique case identifier
     date_col = onset or report date column
-    color_col = column that will be used to color nodes based on
+    attr_col = column that will be used to color nodes based on
         attribute, e.g. case severity or gender
     gen_mean = generation time mean
     gen_sd = generation time standard deviation
@@ -62,9 +63,9 @@ def cluster_builder(df, cluster_id, case_id, date_col, color_col, gen_mean, gen_
 
     cluster_obj = []
     for key, group in clusters:
-        if len(group) > 1:
-            row = [tmp[1:4] for tmp in group[[case_id, date_col, color_col]].sort(date_col, ).itertuples()]
-            cluster_obj.append(row)
+        row = [tmp[1:4] for tmp in group[[case_id, date_col,
+                attr_col]].sort(date_col, ).itertuples()]
+        cluster_obj.append(row)
 
     network = []
     for cluster in cluster_obj:
@@ -89,7 +90,7 @@ def cluster_builder(df, cluster_id, case_id, date_col, color_col, gen_mean, gen_
             result = (ids[i], colors[i], index_node, source_nodes[i], dates[i])
             network.append(result)
 
-    df_out = pd.DataFrame(network, columns=['case_id', 'color', 'index_node', 'source_node', 'time'])
+    df_out = pd.DataFrame(network, columns=['case_id', attr_col, 'index_node', 'source_node', 'time'])
     df_out.time = pd.to_datetime(df_out.time)
 
     df_out[['case_id', 'source_node', 'index_node']] = df_out[['case_id', 'source_node', 'index_node']].astype('int')

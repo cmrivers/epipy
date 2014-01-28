@@ -23,7 +23,12 @@ setup(
                'epipy/case_tree.py',
                'epipy/checkerboard.py',
                'epipy/data_generator.py',
+<<<<<<< HEAD
                 'epipy/epicurve.py', 'epipy/analyses.py'],
+=======
+                'epipy/epicurve.py',
+                'epipy/analyses.py'],
+>>>>>>> 61a245b264dbe5fc66d22ebf693ab3ff7cbb5418
     #long_description=read('README'),
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",

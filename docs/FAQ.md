@@ -18,11 +18,11 @@ non-epi example.
 ###How do I read a case tree plot?
 
 The x axis is time of illness onset or diagnosis, and the y axis is
-generation. Nodes at generation 1 are known as index nodes.
+generation. Nodes at generation 0 are known as index nodes.
 In the case of a zoonotic disease, the index node is a human case
 acquired from an animal source. If that human were to pass
 the disease to two other humans, those two subsequent cases are both
-generation 2.
+generation 1.
 
 The meaning of the color of the node varies based on the node attribute.
 In many cases, color just signifies membership to a particular human to
