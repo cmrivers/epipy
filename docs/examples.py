@@ -134,7 +134,7 @@ test_G = epipy.build_graph(test_clusters, color='health')
 
 # Analyze attribute by generation
 fig, ax = epipy.generation_analysis(test_G, attribute='health',
-            table=True, plot=False)
+            table=True, plot=True)
 fig.savefig(os.path.join(dir, '../figs/generation_hist.png'))
 
 # Basic reproduction numbers
