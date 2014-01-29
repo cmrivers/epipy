@@ -83,13 +83,13 @@ mers_clusters = epipy.cluster_builder(mers_df, 'Cluster ID', 'Case #',
 # Case tree plot
 mers_G = epipy.build_graph(mers_clusters, color='Cluster ID')
 fig, ax = epipy.case_tree_plot(mers_G, color='Cluster ID', loc='upper left', legend=False)
-ax.set_title('Example outbreak data')
+ax.set_title('Human clusters of MERS-CoV')
 ax.grid(True)
 fig.savefig(os.path.join(dir, '../figs/mers_casetree.png'), bbox_inches='tight')
 
 # Checkerboard plot
 fig, ax = epipy.checkerboard_plot(mers_df, 'Case #', 'Cluster ID', 'dates')
-ax.set_title("MERS-CoV clusters")
+ax.set_title("Human clusters of MERS-CoV")
 fig.savefig(os.path.join(dir, '../figs/mers_checkerboard.png'), bbox_inches='tight')
 
 #################
