@@ -11,7 +11,6 @@
 '''
 from __future__ import division
 import epipy
-from datetime import strftime
 from .basics import date_convert
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -51,12 +50,12 @@ def epicurve_plot(df, date_col, freq, title=None):
 	#count number of cases per year
         curve = pd.DataFrame(df.new_col.value_counts(), columns=['count'])
         
-    _plot(curve, freq, title, fig, ax)
+    _plot(curve, freq, fig, ax, title)
 
     return curve, fig, ax
 
 
-def _plot(freq_table, freq, title=None, fig, ax):
+def _plot(freq_table, freq, fig, ax, title=None):
     '''
     Plot number of new cases over time
     freq_table = frequency table of cases by date, from epicurve()

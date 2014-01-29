@@ -23,7 +23,7 @@ from itertools import cycle
 import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
-from random import choice
+from random import choice, sample
 from matplotlib import cm
 
 def build_graph(df, color, case_id='case_id', index='index_node',
@@ -80,7 +80,7 @@ def case_tree_plot(G, color, node_size=100, loc='best', legend=True):
         ax.legend(lines, [k for k in colormap.iterkeys()], loc=loc)
 
     nx.draw_networkx(G, ax=ax, with_labels=False, pos=coords, node_color=color_floats,
-                     node_size=node_size, alpha=.5)
+                     node_size=node_size, alpha=.65)
 
     return fig, ax
 
@@ -98,7 +98,8 @@ def _colors(G, color):
         categories.append(G.node[node][color])
 
     # create color map of attributes and colors
-    colors = cm.rainbow(np.linspace(0, 1, num=len(categories)))
+    colors = cm.rainbow(np.linspace(0, 1, num=len(categories)*2))
+    colors = sample(colors, len(categories))
     colordict = dict(zip(categories, colors))
 
     color_floats = []

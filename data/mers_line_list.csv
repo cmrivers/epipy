@@ -24,7 +24,7 @@ Case #,Approx onset date,Approx reporting date,Age,Sex,Probable infection place,
 23,2013-04-17,,56,M,Saudi Arabia,Dead,2013-04-30,Eastern,,Y,AlAhsa,,L
 24,2013-04-18,,56,M,Saudi Arabia,Dead,2013-04-29,Eastern,,Y,AlAhsa,,L
 25,2013-04-27,,53,F,Saudi Arabia,Dead,2013-07-06,,,Y,,,H
-26,2013-04-30,,50,M,Saudi Arabia,Alive,,,,Y,,,H
+26,2013-04-29,,50,M,Saudi Arabia,Alive,,,,Y,,,H
 27,2013-04-28,,33,M,Saudi Arabia,Alive,,,,Y,,,H
 28,2013-04-19,,62,F,Saudi Arabia,Dead,2013-05-03,Eastern,,Y,AlAhsa,,L
 29,2013-04-19,,71,M,Saudi Arabia,Dead,2013-05-03,Eastern,,Y,AlAhsa,,L
@@ -36,7 +36,7 @@ Case #,Approx onset date,Approx reporting date,Age,Sex,Probable infection place,
 35,2013-04-25,,69,F,Saudi Arabia,Dead,,Eastern,,Y,AlAhsa,,L
 36,2013-04-28,,48,M,Saudi Arabia,Critical,,Eastern,,Y,AlAhsa,,L
 37,2013-04-30,,81,M,Saudi Arabia,Dead,,Eastern,,Y,AlAhsa,Possibly dead,L
-38,2013-04-31,,56,M,Saudi Arabia,Recovered,,Eastern,,Y,AlAhsa,,L
+38,2013-04-30,,56,M,Saudi Arabia,Recovered,,Eastern,,Y,AlAhsa,,L
 39,2013-05-02,,45,M,Saudi Arabia,Critical,,,Y,,,,H
 40,2013-05-08,,43,F,Saudi Arabia,Alive,,,Y,,,,L
 41,2013-05-01,,81,F,Saudi Arabia,Dead,,Eastern,,Y,AlAhsa,,L
@@ -100,7 +100,7 @@ Case #,Approx onset date,Approx reporting date,Age,Sex,Probable infection place,
 99,,2013-08-22,70,M,Saudi Arabia,Critical,,Riyadh,,Y,,,H
 100,,2013-08-22,31,M,Saudi Arabia,Critical,,Asir,,Y,,,H
 101,,2013-08-22,55,M,Saudi Arabia,Asymptomatic,,Asir,,,,,L
-102,,2013-08-22,51,,Saudi Arabia,Dead,2013-08-22,Riyadh,,Y,KSAMarch2013,,H
+102,2013-02-20,,51,,Saudi Arabia,Dead,2013-08-22,Riyadh,,Y,KSAMarch2013,,H
 103,,2013-08-22,54,,Saudi Arabia,Dead,2013-08-22,Riyadh,,Y,,,H
 104,,2013-08-26,29,M,Qatar,Critical,,,,Y,,No travel history,H
 105,2013-08-17,,55,M,Saudi Arabia,Critical,,Medina,,Y,Medina,,H

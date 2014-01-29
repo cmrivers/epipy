@@ -82,7 +82,7 @@ mers_clusters = epipy.cluster_builder(mers_df, 'Cluster ID', 'Case #',
 
 # Case tree plot
 mers_G = epipy.build_graph(mers_clusters, color='Cluster ID')
-fig, ax = epipy.case_tree_plot(mers_G, color='Cluster ID', loc='upper left')
+fig, ax = epipy.case_tree_plot(mers_G, color='Cluster ID', loc='upper left', legend=False)
 ax.set_title('Example outbreak data')
 ax.grid(True)
 fig.savefig(os.path.join(dir, '../figs/mers_casetree.png'), bbox_inches='tight')
@@ -132,12 +132,7 @@ test_clusters = epipy.cluster_builder(example_df, 'Cluster', 'ID', 'Date', 'heal
 test_G = epipy.build_graph(test_clusters, color='health')
 
 # Analyze attribute by generation
-<<<<<<< HEAD
-fig, ax = epipy.generation_analysis(test_G, attribute='health',
-            table=True, plot=True)
-=======
-fig, ax = epipy.generation_analysis(test_G, attribute='health', plot=False)
->>>>>>> 61a245b264dbe5fc66d22ebf693ab3ff7cbb5418
+fig, ax = epipy.generation_analysis(test_G, attribute='health', plot=True)
 fig.savefig(os.path.join(dir, '../figs/generation_hist.png'))
 
 # Basic reproduction numbers
