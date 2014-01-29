@@ -67,7 +67,7 @@ def _plot(freq_table, freq, fig, ax, title=None):
 
     # care about date formatting
     if freq == 'd':
-        wid = ((1.5*axprop[1]-axprop[0])/axprop[1])
+        wid = ((2*axprop[1]-axprop[0])/axprop[1])
         ax.xaxis_date()
         fig.autofmt_xdate()
         
