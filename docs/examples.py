@@ -72,7 +72,6 @@ fig.savefig(os.path.join(dir, '../figs/test_checkerboard.png'), bbox_inches='tig
 mers_df = pd.read_csv(os.path.join(dir, '../data/mers_line_list.csv'))
 
 # Data cleaning
-mers_df['Case #'] = mers_df['Case #'].replace(np.nan, 'single')
 mers_df['onset_date'] = mers_df['Approx onset date'].map(epipy.date_convert)
 mers_df['report_date'] = mers_df['Approx reporting date'].map(epipy.date_convert)
 mers_df['dates'] = mers_df['onset_date'].combine_first(mers_df['report_date'])
@@ -133,11 +132,15 @@ test_clusters = epipy.cluster_builder(example_df, 'Cluster', 'ID', 'Date', 'heal
 test_G = epipy.build_graph(test_clusters, color='health')
 
 # Analyze attribute by generation
+<<<<<<< HEAD
 fig, ax = epipy.generation_analysis(test_G, attribute='health',
             table=True, plot=True)
+=======
+fig, ax = epipy.generation_analysis(test_G, attribute='health', plot=False)
+>>>>>>> 61a245b264dbe5fc66d22ebf693ab3ff7cbb5418
 fig.savefig(os.path.join(dir, '../figs/generation_hist.png'))
 
 # Basic reproduction numbers
-fig, ax, R = epipy.reproduction_number(test_G, index_cases=True, summary=True, plot=True)
+fig, ax, R = epipy.reproduction_number(test_G, index_cases=True, plot=True)
 fig.savefig(os.path.join(dir, '../figs/r0_hist.png'))
 print 'R0 median: {}'.format(R.median()) # the series object returned can be manipulated further

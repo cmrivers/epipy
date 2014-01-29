@@ -137,10 +137,13 @@ def _layout(G):
     for i in G.nodes():
         xcord = G.node[i]['pltdate']
         generation = G.node[i]['generation']
-        jittery = np.random.uniform(-.2, .2, 1)
-        generation = generation + jittery
+        if generation == 0:
+            ygen = generation
+        else:
+            jittery = np.random.uniform(-.2, .2, 1)
+            ygen = generation + jittery
         
-        positions.append([xcord, generation])
+        positions.append([xcord, ygen])
 
     return dict(zip(G, np.array(positions)))
 
