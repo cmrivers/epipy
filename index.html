@@ -50,14 +50,14 @@ mers_df = pd.read_csv(os.path.join(dir, '../data/mers_line_list.csv'))
 fig, ax = epipy.case_tree_plot(mers_df, 'Cluster ID', 'Case #', 'dates', 5, 4, 'Cluster ID')
 </code></pre>
 
-<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/test_casetree.png?raw=true" alt="Casetree plot"></p>
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/mers_casetree.png?raw=true" alt="Casetree plot"></p>
 
 <p><strong>Checkerboard plot</strong></p>
 
 <pre><code>fig, ax = epipy.checkerboard_plot(mers_df, 'Case #', 'Cluster ID', 'dates')
 </code></pre>
 
-<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png?raw=true" alt="Checkerboard plot"></p>
+<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/mers_checkerboard.png?raw=true" alt="Checkerboard plot"></p>
 
 <p>EpiPy is in development. Please feel free to contribute.
 Contact me at <a href="mailto:cmrivers@vbi.vt.edu">cmrivers@vbi.vt.edu</a> or <a href="http://twitter.com/cmyeaton">@cmyeaton</a> with any questions.</p>
