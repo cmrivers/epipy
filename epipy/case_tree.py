@@ -80,7 +80,7 @@ def case_tree_plot(G, color, node_size=100, loc='best', legend=True):
         ax.legend(lines, [k for k in colormap.iterkeys()], loc=loc)
 
     nx.draw_networkx(G, ax=ax, with_labels=False, pos=coords, node_color=color_floats,
-                     node_size=node_size, alpha=.65)
+                     node_size=node_size, alpha=.6)
 
     return fig, ax
 
