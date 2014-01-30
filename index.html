@@ -61,8 +61,54 @@ fig, ax = epipy.case_tree_plot(mers_df, 'Cluster ID', 'Case #', 'dates', 5, 4, '
 
 <p><img src="https://github.com/cmrivers/epipy/blob/master/figs/mers_checkerboard.png?raw=true" alt="Checkerboard plot"></p>
 
-<p>EpiPy is in development. Please feel free to contribute.
-Contact me at <a href="mailto:cmrivers@vbi.vt.edu">cmrivers@vbi.vt.edu</a> or <a href="http://twitter.com/cmyeaton">@cmyeaton</a> with any questions.</p>
+<h1>
+<a name="faq" class="anchor" href="#faq"><span class="octicon octicon-link"></span></a>FAQ</h1>
+
+<hr><h3>
+<a name="what-is-epipy" class="anchor" href="#what-is-epipy"><span class="octicon octicon-link"></span></a>What is epipy?</h3>
+
+<p>Epipy is a python package for epidemiology.  It contains (or will contain...)
+tools for analyzing and visualizing epidemiology data.</p>
+
+<h3>
+<a name="what-is-a-case-tree-plot" class="anchor" href="#what-is-a-case-tree-plot"><span class="octicon octicon-link"></span></a>What is a case tree plot?</h3>
+
+<p>I came up with case tree plots as a way to visualize zoonotic disease.
+However, it can also be used to visualizing environmentally-acquired
+dieases, or anything that emerges multiple times, is passed from person
+to person, and then dies out. Tweets and retweets might be a useful
+non-epi example.</p>
+
+<h3>
+<a name="how-do-i-read-a-case-tree-plot" class="anchor" href="#how-do-i-read-a-case-tree-plot"><span class="octicon octicon-link"></span></a>How do I read a case tree plot?</h3>
+
+<p>The x axis is time of illness onset or diagnosis, and the y axis is
+generation. Nodes at generation 0 are known as index nodes.
+In the case of a zoonotic disease, the index node is a human case
+acquired from an animal source. If that human were to pass
+the disease to two other humans, those two subsequent cases are both
+generation 1.</p>
+
+<p>The meaning of the color of the node varies based on the node attribute.
+In many cases, color just signifies membership to a particular human to
+human cluster. However, it could also represent health status (e.g. alive, dead),
+the sex of the patient, etc. </p>
+
+<h3>
+<a name="what-is-a-checkerboard-plot" class="anchor" href="#what-is-a-checkerboard-plot"><span class="octicon octicon-link"></span></a>What is a checkerboard plot?</h3>
+
+<p>Checkerboard plots display similar data as a case tree plot, but instead
+of a network it shows a simple time series for each human to human cluster.
+It does not attempt to determine the structure of the transmission network.</p>
+
+<p>The number in the center of each check is the case id that corresponds
+to the the line listing. I have not yet figured out how to display these
+numbers so they don't overlap. Sorry.</p>
+
+<h3>
+<a name="i-have-a-questioncomplaintcompliment" class="anchor" href="#i-have-a-questioncomplaintcompliment"><span class="octicon octicon-link"></span></a>I have a question/complaint/compliment.</h3>
+
+<p>Contact me at <a href="mailto:cmrivers@vbi.vt.edu">cmrivers@vbi.vt.edu</a>, or <a href="https://github.com/cmyeaton" class="user-mention">@cmyeaton</a>. Feel free to contribute!</p>
       </section>
       <footer>
         <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
