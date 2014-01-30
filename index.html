@@ -46,8 +46,8 @@ python setup.py install
 import os
 dir = os.path.dirname(__file__)
 
-mers = pd.read_csv(os.path.join(dir, '../data/mers_line_list.csv'))
-fig, ax = epipy.case_tree_plot(mers, 'Cluster ID', 'Case #', 'dates', 5, 4, 'Cluster ID')
+mers_df = pd.read_csv(os.path.join(dir, '../data/mers_line_list.csv'))
+fig, ax = epipy.case_tree_plot(mers_df, 'Cluster ID', 'Case #', 'dates', 5, 4, 'Cluster ID')
 </code></pre>
 
 <p><img src="http://github.com/cmrivers/epipy/blob/master/figs/test_casetree.png?raw=true" alt="Casetree plot"></p>
