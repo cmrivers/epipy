@@ -22,45 +22,23 @@ except:
 dir = os.path.dirname(__file__)
 
 #################################
-# GENERATE AN EXAMPLE LINE LIST #
+# TEST DATA EXAMPLE #
 #################################
 
-example_df = epipy.generate_example_data(cluster_size=6, outbreak_len=180, clusters=8,
-                                         gen_time=5, attribute='health')
-test_clusters = epipy.cluster_builder(example_df, 'Cluster', 'ID', 'Date', 'health', 5, 1)
-test_G = epipy.build_graph(test_clusters, color='health')
-fig, ax = epipy.case_tree_plot(test_G, color='health')
+# Generate example data
+example_df = epipy.generate_example_data(cluster_size=7, outbreak_len=180, clusters=7,
+                                         gen_time=4, attribute='health')
+example_df.to_csv(os.path.join(dir, '../data/example_data.csv'))
+
+# Case tree plot                                        
+fig, ax = epipy.case_tree_plot(example_df, cluster_id = 'Cluster', \
+                    case_id ='ID', date_col='Date', color='Cluster', \
+                    gen_mean=4, gen_sd = 1)
 ax.set_title('Example outbreak data')
-ax.set_ylabel('Generations')
-ax.grid(True)
 fig.savefig(os.path.join(dir, '../figs/example_casetree.png'), bbox_inches='tight')
 
-
-############################
-#### TEST DATA EXAMPLE #####
-############################
-
-# if you have in data to load instead of generating it
-try:
-    test_df = pd.read_pickle(os.path.join(dir, '../data/test_cluster.pkl'))
-except:
-    from data_generator import generate_example_data
-    test_df = generate_example_data(cluster_size=5, outbreak_len=180,
-                clusters=10, gen_time=5, attribute='health')
-    test_df.to_pickle(os.path.join(dir, '../data/test_cluster.pkl'))
-
-test_clusters = epipy.cluster_builder(test_df, 'Cluster', 'ID', 'Date', 'Cluster', 5, 1)
-
-# Case tree plot
-test_G = epipy.build_graph(test_clusters, color='Cluster')
-fig, ax = epipy.case_tree_plot(test_G, color='Cluster')
-ax.set_title('Example outbreak data')
-ax.set_ylabel('Generations')
-ax.grid(True)
-fig.savefig(os.path.join(dir, '../figs/test_casetree.png'), bbox_inches='tight')
-
 # Checkerboard plot
-fig, ax = epipy.checkerboard_plot(test_df, 'ID', 'Cluster', 'Date')
+fig, ax = epipy.checkerboard_plot(example_df, 'ID', 'Cluster', 'Date')
 ax.set_title("Test data")
 fig.savefig(os.path.join(dir, '../figs/test_checkerboard.png'), bbox_inches='tight')
 
@@ -76,15 +54,11 @@ mers_df['onset_date'] = mers_df['Approx onset date'].map(epipy.date_convert)
 mers_df['report_date'] = mers_df['Approx reporting date'].map(epipy.date_convert)
 mers_df['dates'] = mers_df['onset_date'].combine_first(mers_df['report_date'])
 
-# Prepares case clusters for case tree plot
-mers_clusters = epipy.cluster_builder(mers_df, 'Cluster ID', 'Case #',
-		'dates', 'Cluster ID', 8, 4)
-
 # Case tree plot
-mers_G = epipy.build_graph(mers_clusters, color='Cluster ID')
-fig, ax = epipy.case_tree_plot(mers_G, color='Cluster ID', loc='upper left', legend=False)
+fig, ax = epipy.case_tree_plot(mers_df, cluster_id='Cluster ID', \
+                        case_id='Case #', date_col='dates', gen_mean = 5, \
+                        gen_sd = 4, color='Cluster ID')
 ax.set_title('Human clusters of MERS-CoV')
-ax.grid(True)
 fig.savefig(os.path.join(dir, '../figs/mers_casetree.png'), bbox_inches='tight')
 
 # Checkerboard plot
@@ -96,28 +70,21 @@ fig.savefig(os.path.join(dir, '../figs/mers_checkerboard.png'), bbox_inches='tig
 ### EPICURVES ###
 #################
 
-epi = pd.read_csv(os.path.join(dir, "../data/mers_line_list.csv"), parse_dates=True)
-
-# Data cleaning again
-epi['onset_date'] = epi['Approx onset date'].map(lambda x: epipy.date_convert(x, '%Y-%m-%d'))
-epi['report_date'] = epi['Approx reporting date'].map(lambda x: epipy.date_convert(x, '%Y-%m-%d'))
-epi['dates'] = epi['onset_date'].combine_first(epi['report_date'])
-
-# Daily epicurve
+# Daily epicurve of MERS
 plt.figure()
-epipy.epicurve_plot(epi, date_col='dates', freq='day')
+epipy.epicurve_plot(mers_df, date_col='dates', freq='day')
 plt.title('Approximate onset or report date');
 plt.savefig(os.path.join(dir, '../figs/day_epicurve.png'))
 
-# Yearly epicurve
+# Yearly epicurve of MERS
 plt.figure()
-epipy.epicurve_plot(epi, 'dates', freq='y')
+epipy.epicurve_plot(mers_df, 'dates', freq='y')
 plt.title('Approximate onset or report date')
 plt.savefig(os.path.join(dir, '../figs/year_epicurve.png'))
 
-# Monthly epicurve
+# Monthly epicurve of MERS
 plt.figure()
-epipy.epicurve_plot(epi, 'dates', freq='month')
+epipy.epicurve_plot(mers_df, 'dates', freq='month')
 plt.title('Approximate onset or report date')
 plt.savefig(os.path.join(dir, '../figs/month_epicurve.png'))
 
@@ -126,9 +93,9 @@ plt.savefig(os.path.join(dir, '../figs/month_epicurve.png'))
 #################
 
 # We'll use the MERS data we worked with above
-mers_clusters = epipy.cluster_builder(mers_df, 'Cluster ID', 'Case #',
-		'dates', 'Health status', 8, 4)
-mers_G = epipy.build_graph(mers_clusters, color="Health status")
+# For this we'll need to build out the graph
+mers_G = epipy.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #',
+		date_col='dates', color='Health status', gen_mean=5, gen_sd=4)
 
 # Analyze attribute by generation
 fig, ax, table = epipy.generation_analysis(mers_G, attribute='Health status', plot=True)
@@ -138,3 +105,4 @@ fig.savefig(os.path.join(dir, '../figs/mers_generation_hist.png'))
 R, fig, ax = epipy.reproduction_number(mers_G, index_cases=True, plot=True)
 fig.savefig(os.path.join(dir, '../figs/mers_r0_hist.png'))
 print 'R0 median: {}'.format(R.median()) # the series object returned can be manipulated further
+
