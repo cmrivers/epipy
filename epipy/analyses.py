@@ -7,6 +7,10 @@ from scipy.stats import chi2_contingency
 import pandas as pd
 import matplotlib.pyplot as plt
 
+"""
+Author: Caitlin Rivers
+Analysis functions for package epipy.
+"""
 def _get_table_labels(table):
     """
     Returns classic a, b, c, d labels for contingency table calcs.
@@ -25,7 +29,7 @@ def _ordered_table(table):
     for contigency table calculations.
     """
     if type(table) is list:
-        a, b, c, d = _get_table_labels(table)
+       a, b, c, d = _get_table_labels(table)
     elif type(table) is pd.core.frame.DataFrame:
         a, b, c, d = _get_table_labels(table.values)
     elif type(table) is np.ndarray:

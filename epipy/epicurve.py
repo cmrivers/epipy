@@ -10,6 +10,7 @@
  (count of new cases over time) from a line list.
 '''
 from __future__ import division
+import epipy
 from .basics import date_convert
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -25,6 +26,9 @@ def epicurve_plot(df, date_col, freq, title=None):
     title = optional
     date_format = datetime string format, default is "%Y-%m-%d"
     '''
+
+    fig, ax = plt.subplots()
+    
     df = df[df[date_col].isnull() == False]
     freq = freq.lower()[0]
     df.new_col = df[date_col]
@@ -46,22 +50,24 @@ def epicurve_plot(df, date_col, freq, title=None):
 	#count number of cases per year
         curve = pd.DataFrame(df.new_col.value_counts(), columns=['count'])
         
-    _plot(curve, freq, title)
+    _plot(curve, freq, fig, ax, title)
+
+    return curve, fig, ax
 
 
-def _plot(freq_table, freq, title=None):
+def _plot(freq_table, freq, fig, ax, title=None):
     '''
     Plot number of new cases over time
     freq_table = frequency table of cases by date, from epicurve()
     freq = inherited from epicurve
     '''
-    fig, ax = plt.subplots()
+    
     axprop =  ax.axis()
     freq_table['plotdates'] = freq_table.index 
 
     # care about date formatting
     if freq == 'd':
-        wid = ((1.5*axprop[1]-axprop[0])/axprop[1])
+        wid = ((2*axprop[1]-axprop[0])/axprop[1])
         ax.xaxis_date()
         fig.autofmt_xdate()
         

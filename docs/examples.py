@@ -82,14 +82,14 @@ mers_clusters = epipy.cluster_builder(mers_df, 'Cluster ID', 'Case #',
 
 # Case tree plot
 mers_G = epipy.build_graph(mers_clusters, color='Cluster ID')
-fig, ax = epipy.case_tree_plot(mers_G, color='Cluster ID', loc='upper left')
-ax.set_title('Example outbreak data')
+fig, ax = epipy.case_tree_plot(mers_G, color='Cluster ID', loc='upper left', legend=False)
+ax.set_title('Human clusters of MERS-CoV')
 ax.grid(True)
 fig.savefig(os.path.join(dir, '../figs/mers_casetree.png'), bbox_inches='tight')
 
 # Checkerboard plot
 fig, ax = epipy.checkerboard_plot(mers_df, 'Case #', 'Cluster ID', 'dates')
-ax.set_title("MERS-CoV clusters")
+ax.set_title("Human clusters of MERS-CoV")
 fig.savefig(os.path.join(dir, '../figs/mers_checkerboard.png'), bbox_inches='tight')
 
 #################
@@ -125,17 +125,16 @@ plt.savefig(os.path.join(dir, '../figs/month_epicurve.png'))
 ### ANALYSES ####
 #################
 
-# Generate example data
-example_df = epipy.generate_example_data(cluster_size=6, outbreak_len=180, clusters=8,
-                                         gen_time=5, attribute='health')
-test_clusters = epipy.cluster_builder(example_df, 'Cluster', 'ID', 'Date', 'health', 5, 1)
-test_G = epipy.build_graph(test_clusters, color='health')
+# We'll use the MERS data we worked with above
+mers_clusters = epipy.cluster_builder(mers_df, 'Cluster ID', 'Case #',
+		'dates', 'Health status', 8, 4)
+mers_G = epipy.build_graph(mers_clusters, color="Health status")
 
 # Analyze attribute by generation
-fig, ax = epipy.generation_analysis(test_G, attribute='health', plot=False)
-fig.savefig(os.path.join(dir, '../figs/generation_hist.png'))
+fig, ax, table = epipy.generation_analysis(mers_G, attribute='Health status', plot=True)
+fig.savefig(os.path.join(dir, '../figs/mers_generation_hist.png'))
 
 # Basic reproduction numbers
-fig, ax, R = epipy.reproduction_number(test_G, index_cases=True, plot=True)
-fig.savefig(os.path.join(dir, '../figs/r0_hist.png'))
+R, fig, ax = epipy.reproduction_number(mers_G, index_cases=True, plot=True)
+fig.savefig(os.path.join(dir, '../figs/mers_r0_hist.png'))
 print 'R0 median: {}'.format(R.median()) # the series object returned can be manipulated further
