@@ -28,6 +28,7 @@ dir = os.path.dirname(__file__)
 # Generate example data
 example_df = epipy.generate_example_data(cluster_size=7, outbreak_len=180, clusters=7,
                                          gen_time=4, attribute='health')
+example_df.to_csv(os.path.join(dir, '../data/example_data.csv'))
 
 # Case tree plot                                        
 fig, ax = epipy.case_tree_plot(example_df, cluster_id = 'Cluster', \
@@ -104,3 +105,4 @@ fig.savefig(os.path.join(dir, '../figs/mers_generation_hist.png'))
 R, fig, ax = epipy.reproduction_number(mers_G, index_cases=True, plot=True)
 fig.savefig(os.path.join(dir, '../figs/mers_r0_hist.png'))
 print 'R0 median: {}'.format(R.median()) # the series object returned can be manipulated further
+
