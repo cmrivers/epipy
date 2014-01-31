@@ -48,18 +48,27 @@ python setup.py install
 import os
 dir = os.path.dirname(__file__)
 
-mers_df = pd.read_csv(os.path.join(dir, '../data/mers_line_list.csv'))
-fig, ax = epipy.case_tree_plot(mers_df, 'Cluster ID', 'Case #', 'dates', 5, 4, 'Cluster ID')
+df = pd.read_csv(os.path.join(dir, '../data/example_data.csv'))
+fig, ax = epipy.case_tree_plot(df, 'Cluster', 'ID', 'Date', 5, 4, 'Cluster')
 </code></pre>
 
-<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/mers_casetree.png?raw=true" alt="Casetree plot"></p>
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true" alt="Casetree plot"></p>
 
 <p><strong>Checkerboard plot</strong></p>
 
-<pre><code>fig, ax = epipy.checkerboard_plot(mers_df, 'Case #', 'Cluster ID', 'dates')
+<pre><code>fig, ax = epipy.checkerboard_plot(df, 'ID', 'Cluster', 'Date')
 </code></pre>
 
-<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/mers_checkerboard.png?raw=true" alt="Checkerboard plot"></p>
+<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png?raw=true" alt="Checkerboard plot"></p>
+
+<p><strong>Epidemic curve</strong></p>
+
+<pre><code>mers_df = pd.read_csv(os.path.join(dir, '../data/mers_line_list.csv'))
+plt.figure()
+epipy.epicurve_plot(mers_df, date_col='dates', freq='m')
+</code></pre>
+
+<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true" alt="Daily epicurve"></p>
 
 <h1>
 <a name="faq" class="anchor" href="#faq"><span class="octicon octicon-link"></span></a>FAQ</h1>
