@@ -39,7 +39,7 @@ fig.savefig(os.path.join(dir, '../figs/example_casetree.png'), bbox_inches='tigh
 
 # Checkerboard plot
 fig, ax = epipy.checkerboard_plot(example_df, 'ID', 'Cluster', 'Date')
-ax.set_title("Test data")
+ax.set_title("Example outbreak data")
 fig.savefig(os.path.join(dir, '../figs/test_checkerboard.png'), bbox_inches='tight')
 
 
@@ -85,7 +85,7 @@ plt.savefig(os.path.join(dir, '../figs/year_epicurve.png'))
 # Monthly epicurve of MERS
 plt.figure()
 epipy.epicurve_plot(mers_df, 'dates', freq='month')
-plt.title('Approximate onset or report date')
+plt.title('Approximate onset or report date of MERS cases')
 plt.savefig(os.path.join(dir, '../figs/month_epicurve.png'))
 
 #################
