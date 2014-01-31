@@ -26,13 +26,13 @@ dir = os.path.dirname(__file__)
 #################################
 
 # Generate example data
-example_df = epipy.generate_example_data(cluster_size=6, outbreak_len=180, clusters=8,
-                                         gen_time=5, attribute='health')
+example_df = epipy.generate_example_data(cluster_size=7, outbreak_len=180, clusters=7,
+                                         gen_time=4, attribute='health')
 
 # Case tree plot                                        
 fig, ax = epipy.case_tree_plot(example_df, cluster_id = 'Cluster', \
-                    case_id ='ID', date_col='Date', color='health', \
-                    gen_mean=5, gen_sd = 4)
+                    case_id ='ID', date_col='Date', color='Cluster', \
+                    gen_mean=4, gen_sd = 1)
 ax.set_title('Example outbreak data')
 fig.savefig(os.path.join(dir, '../figs/example_casetree.png'), bbox_inches='tight')
 
