@@ -58,7 +58,6 @@ def cluster_builder(df, cluster_id, case_id, date_col, attr_col, gen_mean, gen_s
     returns pandas groupby dataframe
     '''
     clusters = group_clusters(df, cluster_id, date_col)
-
     gen_max = timedelta((gen_mean + gen_sd), 0)
 
     cluster_obj = []
