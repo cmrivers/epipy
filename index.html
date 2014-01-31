@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Epipy by cmrivers</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Epipy</h1>
+        <p class="header">Python tools for epidemiology</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/cmrivers/epipy/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/cmrivers/epipy/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/cmrivers/epipy">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/cmrivers">cmrivers</a></p>
+
+
+      </header>
+      <section>
+        <h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>To install epipy, clone the repository and install using setup.py:</p>
+
+<pre><code>git clone https://github.com/cmrivers/epipy.git
+python setup.py install
+</code></pre>
+
+<h2>
+<a name="quickstart" class="anchor" href="#quickstart"><span class="octicon octicon-link"></span></a>Quickstart</h2>
+
+<p><strong>Case tree plot</strong></p>
+
+<pre><code>import epipy
+import os
+dir = os.path.dirname(__file__)
+
+mers_df = pd.read_csv(os.path.join(dir, '../data/mers_line_list.csv'))
+fig, ax = epipy.case_tree_plot(mers_df, 'Cluster ID', 'Case #', 'dates', 5, 4, 'Cluster ID')
+</code></pre>
+
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/mers_casetree.png?raw=true" alt="Casetree plot"></p>
+
+<p><strong>Checkerboard plot</strong></p>
+
+<pre><code>fig, ax = epipy.checkerboard_plot(mers_df, 'Case #', 'Cluster ID', 'dates')
+</code></pre>
+
+<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/mers_checkerboard.png?raw=true" alt="Checkerboard plot"></p>
+
+<h1>
+<a name="faq" class="anchor" href="#faq"><span class="octicon octicon-link"></span></a>FAQ</h1>
+
+<hr><h3>
+<a name="what-is-epipy" class="anchor" href="#what-is-epipy"><span class="octicon octicon-link"></span></a>What is epipy?</h3>
+
+<p>Epipy is a python package for epidemiology.  It contains (or will contain...)
+tools for analyzing and visualizing epidemiology data. Epipy can currently: generate case tree and checkerboard plots; analyze case attribute (e.g. sex) by generation; generate epidemic curves; produce 2x2 tables and find the odds ratio and relative risk; and generate a summary of cluster basic reproduction numbers.</p>
+
+<h3>
+<a name="what-is-a-case-tree-plot" class="anchor" href="#what-is-a-case-tree-plot"><span class="octicon octicon-link"></span></a>What is a case tree plot?</h3>
+
+<p>I came up with case tree plots as a way to visualize zoonotic disease.
+However, it can also be used to visualizing environmentally-acquired
+dieases, or anything that emerges multiple times, is passed from person
+to person, and then dies out. Tweets and retweets might be a useful
+non-epi example.</p>
+
+<h3>
+<a name="how-do-i-read-a-case-tree-plot" class="anchor" href="#how-do-i-read-a-case-tree-plot"><span class="octicon octicon-link"></span></a>How do I read a case tree plot?</h3>
+
+<p>The x axis is time of illness onset or diagnosis, and the y axis is
+generation. Nodes at generation 0 are known as index nodes.
+In the case of a zoonotic disease, the index node is a human case
+acquired from an animal source. If that human were to pass
+the disease to two other humans, those two subsequent cases are both
+generation 1.</p>
+
+<p>The meaning of the color of the node varies based on the node attribute.
+In many cases, color just signifies membership to a particular human to
+human cluster. However, it could also represent health status (e.g. alive, dead),
+the sex of the patient, etc. </p>
+
+<h3>
+<a name="what-is-a-checkerboard-plot" class="anchor" href="#what-is-a-checkerboard-plot"><span class="octicon octicon-link"></span></a>What is a checkerboard plot?</h3>
+
+<p>Checkerboard plots display similar data as a case tree plot, but instead
+of a network it shows a simple time series for each human to human cluster.
+It does not attempt to determine the structure of the transmission network.</p>
+
+<p>The number in the center of each check is the case id that corresponds
+to the the line listing. I have not yet figured out how to display these
+numbers so they don't overlap. Sorry.</p>
+
+<h3>
+<a name="i-have-a-questioncomplaintcompliment" class="anchor" href="#i-have-a-questioncomplaintcompliment"><span class="octicon octicon-link"></span></a>I have a question/complaint/compliment.</h3>
+
+<p>Contact me at <a href="mailto:cmrivers@vbi.vt.edu">cmrivers@vbi.vt.edu</a>, or <a href="https://github.com/cmyeaton" class="user-mention">@cmyeaton</a>. Feel free to contribute!</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		          <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-47610706-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
