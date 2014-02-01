@@ -1,4 +1,5 @@
 *.pyc
+website/
 build/
 epipy/htmlcov
 epipy/.coverage
