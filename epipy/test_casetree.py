@@ -24,7 +24,7 @@ def _test_data():
 
 def test_build_graph_graph():
     data = _test_data()
-    G = case_tree.build_graph(data, 'cluster')
+    G = case_tree.build_graph(data, 'cluster', 'case_id', 'pltdate', 'cluster', 1, 1)
 
     assert len(G.node) == 6
     edges = [(0, 0), (1, 1), (0, 2), (2, 3), (1, 4), (4, 5)]
@@ -35,7 +35,8 @@ def test_build_graph_graph():
 
 def test_build_graph_generation():
     data = _test_data()
-    G = case_tree.build_graph(data, color='cluster')
+    G = case_tree.build_graph(data, 'cluster', 'case_id', 'pltdate', 'cluster', 1, 1)
+
     assert G.node[0]['generation'] == 0
     assert G.node[1]['generation'] == 0
     assert G.node[2]['generation'] == 1
