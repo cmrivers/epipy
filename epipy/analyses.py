@@ -265,7 +265,57 @@ def chi2(table):
     return chi2, p, dof, expected
 
 
+def _codebook_stats(column):
+    """
+    Calculates approporiate summary statistics based on data type
+    PARAMETERS
+    ----------------------
+    column = one column (series) of pandas df
 
+    RETURNS
+    ----------------------
+    if column data type is numeric, returns summary statistics
+    if column data type is an object, returns count and frequency of
+        top 5 most common values
+    """
+    summ = pd.DataFrame()
+    if column.dtype == 'float64' or column.dtype == 'int64':
+        names = ['count', 'missing', 'min', 'median', 'mean', 'std', 'max']
+        _count = len(column)
+        _miss = _count - len(column.dropna())
+        _min = column.min()
+        _median = column.median()
+        _mean = column.mean()
+        _std = column.std()
+        _max = column.max()
+        summ = pd.Series([_count, _miss, _min, _median, _mean, _std, _max], index=names)
+    elif column.dtype == 'object':
+        names = ['count', 'freq']
+        _count = column.value_counts()[:5]
+        _freq = column.value_counts(normalize=True)[:5]
+        summ = pd.DataFrame([_count, _freq], index=names).T
+
+    return summ
+
+
+def codebook(df):
+    """
+    Displays approporiate summary statistics for a line listing
+    PARAMETERS
+    ----------------------
+    column = pandas data frame of line listing
+
+    RETURNS
+    ----------------------
+    if column data type is numeric, returns pd.describe()
+    if column data type is non-numeric, returns top 5 most common values,
+        and their counts
+    """
+    for column in df:
+        summ = _codebook_stats(df[column])
+        print '----------------------------------'
+        print column, '\n'
+        print summ
 
 
     
