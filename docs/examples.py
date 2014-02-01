@@ -106,3 +106,7 @@ R, fig, ax = epipy.reproduction_number(mers_G, index_cases=True, plot=True)
 fig.savefig(os.path.join(dir, '../figs/mers_r0_hist.png'))
 print 'R0 median: {}'.format(R.median()) # the series object returned can be manipulated further
 
+#2X2 table
+mers_df['condensed_health'] = mers_df['Health status'].replace(['Critical', 'Alive', 'Asymptomatic', 'Mild', 'Recovered', 'Reocvered'], 'Alive')
+table = epipy.create_2x2(mers_df, 'Sex', 'condensed_health', ['M', 'F'], ['Dead', 'Alive'])
+epipy.analyze_2x2(table)
