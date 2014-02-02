@@ -1,6 +1,6 @@
 ---
 layout: post
-category : Plots
+category : plots
 tagline: "Case tree plots"
 tags : [plot, case tree]
 ---
