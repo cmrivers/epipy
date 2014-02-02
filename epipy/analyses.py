@@ -265,7 +265,37 @@ def chi2(table):
     return chi2, p, dof, expected
 
 
-def _codebook_stats(column):
+def _summary_choice(column, by):
+    
+
+
+    return summ
+
+
+def _numeric_summary(column):
+    names = ['count', 'missing', 'min', 'median', 'mean', 'std', 'max']
+    _count = len(column)
+    _miss = _count - len(column.dropna())
+    _min = column.min()
+    _median = column.median()
+    _mean = column.mean()
+    _std = column.std()
+    _max = column.max()
+    summ = pd.Series([_count, _miss, _min, _median, _mean, _std, _max], index=names)
+
+    return summ
+
+
+def _categorical_summary(column):  
+    names = ['count', 'freq']
+    _count = column.value_counts()[:5]
+    _freq = column.value_counts(normalize=True)[:5]
+    summ = pd.DataFrame([_count, _freq], index=names)
+
+    return summ
+        
+        
+def summary(column, by=None):
     """
     Calculates approporiate summary statistics based on data type
     PARAMETERS
@@ -278,26 +308,37 @@ def _codebook_stats(column):
     if column data type is an object, returns count and frequency of
         top 5 most common values
     """
-    summ = pd.DataFrame()
     if column.dtype == 'float64' or column.dtype == 'int64':
-        names = ['count', 'missing', 'min', 'median', 'mean', 'std', 'max']
-        _count = len(column)
-        _miss = _count - len(column.dropna())
-        _min = column.min()
-        _median = column.median()
-        _mean = column.mean()
-        _std = column.std()
-        _max = column.max()
-        summ = pd.Series([_count, _miss, _min, _median, _mean, _std, _max], index=names)
+        coltype = 'numeric'
     elif column.dtype == 'object':
-        names = ['count', 'freq']
-        _count = column.value_counts()[:5]
-        _freq = column.value_counts(normalize=True)[:5]
-        summ = pd.DataFrame([_count, _freq], index=names).T
+        coltype = 'object'
+        
+    if by is None:
+        if coltype == 'numeric':
+            summ = _numeric_summary(column)
+
+        elif coltype == 'object':
+            summ = _categorical_summary(column)
+
+    else:
+        if coltype == 'numeric':
+            column_list = []
+
+            for value in by.unique():
+                subcol = column[by == value]
+                summcol = _numeric_summary(subcol)
+                column_list.append(summcol)
+
+            summ = pd.DataFrame(column_list, index=by.unique())
+
+        elif coltype == 'object':
+            subcol = column.groupby(by)
+            summ = _categorical_summary(column)
+            summ = summ.T
 
     return summ
 
-
+        
 def codebook(df):
     """
     Displays approporiate summary statistics for a line listing
@@ -312,7 +353,7 @@ def codebook(df):
         and their counts
     """
     for column in df:
-        summ = _codebook_stats(df[column])
+        summ = summary(df[column])
         print '----------------------------------'
         print column, '\n'
         print summ
