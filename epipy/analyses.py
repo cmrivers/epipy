@@ -266,6 +266,11 @@ def chi2(table):
 
 
 def _numeric_summary(column):
+    """
+    Finds count, number of missing values, min, median, mean, std, and
+    max.
+    See summary()
+    """
     names = ['count', 'missing', 'min', 'median', 'mean', 'std', 'max']
     _count = len(column)
     _miss = _count - len(column.dropna())
@@ -280,6 +285,10 @@ def _numeric_summary(column):
 
 
 def _categorical_summary(column, n=None):
+    """
+    Finds count and frequency of each unique value in the column.
+    See summary().
+    """
     if n is not None:
         _count = column.value_counts()[:n]
     else:
@@ -293,16 +302,48 @@ def _categorical_summary(column, n=None):
         
 def summary(column, by=None):
     """
-    Calculates approporiate summary statistics based on data type
+    Calculates approporiate summary statistics based on data type.
     PARAMETERS
     ----------------------
     column = one column (series) of pandas df
+    by = optional. stratifies summary statistics by each value in the
+                column.
 
     RETURNS
     ----------------------
     if column data type is numeric, returns summary statistics
     if column data type is an object, returns count and frequency of
         top 5 most common values
+
+    EXAMPLE
+    ----------------------
+    df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+    
+    In: summary(df.Age)
+    Out:
+        count       3
+        missing     0
+        min        10
+        median     12
+        mean       12
+        std         2
+        max        14
+        dtype: float64
+
+    In: summary(df.Group)
+    Out:
+           count      freq
+        B      2  0.666667
+        A      1  0.333333
+
+    In:summary(df.Age, by=df.Group)
+    Out     count  missing  min  median  mean      std  max
+        A      1        0   10      10    10       NaN   10
+        B      2        0   12      13    13  1.414214   14
+
+
+    
+
     """
     if column.dtype == 'float64' or column.dtype == 'int64':
         coltype = 'numeric'
@@ -340,7 +381,9 @@ def summary(column, by=None):
         
 def codebook(df):
     """
-    Displays approporiate summary statistics for a line listing
+    Displays approporiate summary statistics for a line listing. See also:
+    summary().
+    
     PARAMETERS
     ----------------------
     column = pandas data frame of line listing
@@ -349,7 +392,7 @@ def codebook(df):
     ----------------------
     if column data type is numeric, returns pd.describe()
     if column data type is non-numeric, returns top 5 most common values,
-        and their counts
+        and their count
     """
     for column in df:
         summ = summary(df[column], by=None)
