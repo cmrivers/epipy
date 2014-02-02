@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Quick start!
-tagline: Getting started with epipy
+title: Epipy
+tagline: Python tools for epidemiology
 ---
 {% include JB/setup %}
 
