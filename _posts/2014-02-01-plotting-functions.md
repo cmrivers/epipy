@@ -52,6 +52,7 @@ If we want to change the node color to represent the health status of each case,
     fig, ax = epipy.case_tree_plot(example_df, cluster_id = 'Cluster', \
                     case_id ='ID', date_col='Date', color='health', \
                     gen_mean=4, gen_sd = 1)
+![Casetree plot](http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true
 
 
 
