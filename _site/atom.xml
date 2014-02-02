@@ -4,7 +4,7 @@
  <title>Epipy</title>
  <link href="http://cmrivers.github.io/epipy/" rel="self"/>
  <link href="http://cmrivers.github.io/epipy"/>
- <updated>2014-02-01T22:55:37-05:00</updated>
+ <updated>2014-02-01T23:10:26-05:00</updated>
  <id>http://cmrivers.github.io/epipy</id>
  <author>
    <name>Caitlin Rivers</name>
@@ -13,11 +13,27 @@
 
  
  <entry>
+   <title>Analysis Functions</title>
+   <link href="http://cmrivers.github.io/epipy/plots/2014/02/02/analysis-functions"/>
+   <updated>2014-02-02T00:00:00-05:00</updated>
+   <id>http://cmrivers.github.io/epipy/plots/2014/02/02/analysis-functions</id>
+   <content type="html">&lt;p&gt;Forthcoming.&lt;/p&gt;
+
+&lt;h2 id=&quot;line_list_summaries&quot;&gt;Line list summaries&lt;/h2&gt;
+
+&lt;h2 id=&quot;generation_analysis&quot;&gt;Generation analysis&lt;/h2&gt;
+
+&lt;h2 id=&quot;reproduction_numbers&quot;&gt;Reproduction numbers&lt;/h2&gt;
+
+&lt;h2 id=&quot;2x2_tables&quot;&gt;2x2 tables&lt;/h2&gt;</content>
+ </entry>
+ 
+ <entry>
    <title>Plotting Functions</title>
    <link href="http://cmrivers.github.io/epipy/plots/2014/02/01/plotting-functions"/>
    <updated>2014-02-01T00:00:00-05:00</updated>
    <id>http://cmrivers.github.io/epipy/plots/2014/02/01/plotting-functions</id>
-   <content type="html">&lt;p&gt;This Jekyll introduction will outline specifically what Jekyll is and why you would want to use it. Directly following the intro we’ll learn exactly &lt;em&gt;how&lt;/em&gt; Jekyll does what it does.&lt;/p&gt;
+   <content type="html">&lt;p&gt;There are three main plotting functions available in epipy: case tree plots, checkerboard plots, and epidemic curves.&lt;/p&gt;
 
 &lt;h2 id=&quot;case_tree_plot&quot;&gt;Case tree plot&lt;/h2&gt;
 
@@ -52,7 +68,15 @@ fig, ax = epipy.case_tree_plot(example_df, cluster_id = 'Cluster', \
                 case_id ='ID', date_col='Date', color='health', \
                 gen_mean=4, gen_sd = 1)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img alt=&quot;Casetree plot&quot; src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true&quot; /&gt;&lt;/p&gt;</content>
+&lt;p&gt;&lt;img alt=&quot;Casetree plot&quot; src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;checkerboard_plot&quot;&gt;Checkerboard plot&lt;/h2&gt;
+
+&lt;p&gt;TBD&lt;/p&gt;
+
+&lt;h2 id=&quot;epidemic_curves&quot;&gt;Epidemic curves&lt;/h2&gt;
+
+&lt;p&gt;TBD&lt;/p&gt;</content>
  </entry>
  
  <entry>
