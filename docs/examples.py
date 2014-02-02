@@ -32,10 +32,10 @@ example_df.to_csv(os.path.join(dir, '../data/example_data.csv'))
 
 # Case tree plot                                        
 fig, ax = epipy.case_tree_plot(example_df, cluster_id = 'Cluster', \
-                    case_id ='ID', date_col='Date', color='Cluster', \
+                    case_id ='ID', date_col='Date', color='health', \
                     gen_mean=4, gen_sd = 1)
 ax.set_title('Example outbreak data')
-fig.savefig(os.path.join(dir, '../figs/example_casetree.png'), bbox_inches='tight')
+fig.savefig(os.path.join(dir, '../figs/example_casetree_health.png'), bbox_inches='tight')
 
 # Checkerboard plot
 fig, ax = epipy.checkerboard_plot(example_df, 'ID', 'Cluster', 'Date')
