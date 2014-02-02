@@ -300,7 +300,7 @@ def _categorical_summary(column, n=None):
     return summ
         
         
-def summary(column, by=None):
+def _summary_calc(column, by=None):
     """
     Calculates approporiate summary statistics based on data type.
     PARAMETERS
@@ -314,37 +314,7 @@ def summary(column, by=None):
     if column data type is numeric, returns summary statistics
     if column data type is an object, returns count and frequency of
         top 5 most common values
-
-    EXAMPLE
-    ----------------------
-    df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
-    
-    In: summary(df.Age)
-    Out:
-        count       3
-        missing     0
-        min        10
-        median     12
-        mean       12
-        std         2
-        max        14
-        dtype: float64
-
-    In: summary(df.Group)
-    Out:
-           count      freq
-        B      2  0.666667
-        A      1  0.333333
-
-    In:summary(df.Age, by=df.Group)
-    Out     count  missing  min  median  mean      std  max
-        A      1        0   10      10    10       NaN   10
-        B      2        0   12      13    13  1.414214   14
-
-
-    
-
-    """
+    """   
     if column.dtype == 'float64' or column.dtype == 'int64':
         coltype = 'numeric'
     elif column.dtype == 'object':
@@ -379,7 +349,7 @@ def summary(column, by=None):
     return summ
 
         
-def codebook(df):
+def summary(data, by=None):
     """
     Displays approporiate summary statistics for each column in a line listing.
     See also summary().
@@ -394,12 +364,43 @@ def codebook(df):
     - if column data type is numeric, returns pd.describe()
     - if column data type is non-numeric, returns top 5 most common values,
         and their count
+
+    EXAMPLE
+    ----------------------
+    df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+    
+    In: summary(df.Age)
+    Out:
+        count       3
+        missing     0
+        min        10
+        median     12
+        mean       12
+        std         2
+        max        14
+        dtype: float64
+
+    In: summary(df.Group)
+    Out:
+           count      freq
+        B      2  0.666667
+        A      1  0.333333
+
+    In:summary(df.Age, by=df.Group)
+    Out     count  missing  min  median  mean      std  max
+        A      1        0   10      10    10       NaN   10
+        B      2        0   12      13    13  1.414214   14
     """
-    for column in df:
-        summ = summary(df[column], by=None)
-        print '----------------------------------'
-        print column, '\n'
-        print summ
+    if type(data) == pd.core.series.Series:
+        summ = _summary_calc(data, by=by)
+        return summ
+
+    elif type(data) == pd.core.frame.DataFrame:
+        for column in data:
+            summ = _summary_calc(data[column], by=None)
+            print '----------------------------------'
+            print column, '\n'
+            print summ
 
 
     
