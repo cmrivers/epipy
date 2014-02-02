@@ -381,7 +381,7 @@ def summary(column, by=None):
         
 def codebook(df):
     """
-    Displays approporiate summary statistics for a line listing.
+    Displays approporiate summary statistics for each column in a line listing.
     See also summary().
     
     PARAMETERS
@@ -390,8 +390,9 @@ def codebook(df):
 
     RETURNS
     ----------------------
-    if column data type is numeric, returns pd.describe()
-    if column data type is non-numeric, returns top 5 most common values,
+    for each column in the df:
+    - if column data type is numeric, returns pd.describe()
+    - if column data type is non-numeric, returns top 5 most common values,
         and their count
     """
     for column in df:
