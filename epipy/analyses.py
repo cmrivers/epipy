@@ -265,13 +265,6 @@ def chi2(table):
     return chi2, p, dof, expected
 
 
-def _summary_choice(column, by):
-    
-
-
-    return summ
-
-
 def _numeric_summary(column):
     names = ['count', 'missing', 'min', 'median', 'mean', 'std', 'max']
     _count = len(column)
@@ -286,11 +279,14 @@ def _numeric_summary(column):
     return summ
 
 
-def _categorical_summary(column):  
+def _categorical_summary(column, n=None):
+    if n is not None:
+        _count = column.value_counts()[:n]
+    else:
+        _count = column.value_counts()
     names = ['count', 'freq']
-    _count = column.value_counts()
-    _freq = column.value_counts(normalize=True)
-    summ = pd.DataFrame([_count, _freq], index=names)
+    _freq = column.value_counts(normalize=True)[:n]
+    summ = pd.DataFrame([_count, _freq], index=names).T
 
     return summ
         
@@ -312,21 +308,21 @@ def summary(column, by=None):
         coltype = 'numeric'
     elif column.dtype == 'object':
         coltype = 'object'
+
         
     if by is None:
         if coltype == 'numeric':
             summ = _numeric_summary(column)
 
         elif coltype == 'object':
-            summ = _categorical_summary(column)
-            summ = summ[:5]
-
+            summ = _categorical_summary(column, 5)
+            
     else:
         
         if coltype == 'numeric':
             column_list = []
 
-            
+            vals = by.dropna().unique()
             for value in vals:
                 subcol = column[by == value]
                 summcol = _numeric_summary(subcol)
@@ -336,8 +332,8 @@ def summary(column, by=None):
 
         elif coltype == 'object':
             subcol = column.groupby(by)
-            summ = _categorical_summary(subcol)
-            summ = summ.T.sort()
+            _summ = _categorical_summary(subcol)
+            summ = _summ.sort()
 
     return summ
 
@@ -356,7 +352,7 @@ def codebook(df):
         and their counts
     """
     for column in df:
-        summ = summary(df[column])
+        summ = summary(df[column], by=None)
         print '----------------------------------'
         print column, '\n'
         print summ
