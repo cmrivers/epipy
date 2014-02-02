@@ -352,11 +352,10 @@ def _summary_calc(column, by=None):
 def summary(data, by=None):
     """
     Displays approporiate summary statistics for each column in a line listing.
-    See also summary().
     
     PARAMETERS
     ----------------------
-    df = pandas data frame of line listing
+    data = pandas data frame or series
 
     RETURNS
     ----------------------
