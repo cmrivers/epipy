@@ -29,8 +29,9 @@ Quickstart
     import epipy
     
     df = pd.read_csv('epipy/data/example_data.csv')
-    fig, ax = epipy.case_tree_plot(df, 'Cluster', 'ID', 'Date', 5, 4, 'Cluster')
-
+    epipy.case_tree_plot(example_df, cluster_id = 'Cluster', \
+                case_id ='ID', date_col='Date', color='Cluster', \
+                gen_mean=4, gen_sd = 1)
 ![Casetree plot](http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true)
 
 
