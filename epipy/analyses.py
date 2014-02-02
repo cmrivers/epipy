@@ -288,8 +288,8 @@ def _numeric_summary(column):
 
 def _categorical_summary(column):  
     names = ['count', 'freq']
-    _count = column.value_counts()[:5]
-    _freq = column.value_counts(normalize=True)[:5]
+    _count = column.value_counts()
+    _freq = column.value_counts(normalize=True)
     summ = pd.DataFrame([_count, _freq], index=names)
 
     return summ
@@ -319,22 +319,25 @@ def summary(column, by=None):
 
         elif coltype == 'object':
             summ = _categorical_summary(column)
+            summ = summ[:5]
 
     else:
+        
         if coltype == 'numeric':
             column_list = []
 
-            for value in by.unique():
+            
+            for value in vals:
                 subcol = column[by == value]
                 summcol = _numeric_summary(subcol)
                 column_list.append(summcol)
 
-            summ = pd.DataFrame(column_list, index=by.unique())
+            summ = pd.DataFrame(column_list, index=vals)
 
         elif coltype == 'object':
             subcol = column.groupby(by)
-            summ = _categorical_summary(column)
-            summ = summ.T
+            summ = _categorical_summary(subcol)
+            summ = summ.T.sort()
 
     return summ
 
