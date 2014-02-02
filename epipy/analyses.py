@@ -381,12 +381,12 @@ def summary(column, by=None):
         
 def codebook(df):
     """
-    Displays approporiate summary statistics for a line listing. See also:
-    summary().
+    Displays approporiate summary statistics for a line listing.
+    See also summary().
     
     PARAMETERS
     ----------------------
-    column = pandas data frame of line listing
+    df = pandas data frame of line listing
 
     RETURNS
     ----------------------
