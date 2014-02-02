@@ -27,8 +27,7 @@ Quickstart
 **Case tree plot**
 
     import epipy
-    import os
-
+    
     df = pd.read_csv('epipy/data/example_data.csv')
     fig, ax = epipy.case_tree_plot(df, 'Cluster', 'ID', 'Date', 5, 4, 'Cluster')
 
