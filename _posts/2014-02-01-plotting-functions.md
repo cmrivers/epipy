@@ -6,8 +6,7 @@ tags : [plot, case tree, checkerboard, epicurve]
 ---
 {% include JB/setup %}
 
-This Jekyll introduction will outline specifically  what Jekyll is and why you would want to use it.
-Directly following the intro we'll learn exactly _how_ Jekyll does what it does.
+There are three main plotting functions available in epipy: case tree plots, checkerboard plots, and epidemic curves.
 
 ## Case tree plot
 
@@ -54,5 +53,12 @@ If we want to change the node color to represent the health status of each case,
                     gen_mean=4, gen_sd = 1)
 ![Casetree plot](http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true)
 
+## Checkerboard plot
+
+TBD
+
+## Epidemic curves
+
+TBD
 
 
