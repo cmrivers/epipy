@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import division
 import numpy as np
 import pandas as pd
 import networkx as nx
@@ -147,4 +148,35 @@ def test_reproduction_number_noindex():
     assert R.iget(0) == 0
     assert R.iget(1) == 0
 
+
+def test_numeric_summary():
+    df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+    summ = analyses.summary(df.Age)
+    
+    assert summ['count'] == 3
+    assert summ['missing'] == 0
+    assert summ['min'] == 10
+    assert summ['median'] == 12
+    assert summ['mean'] == 12
+    assert summ['std'] == 2
+    assert summ['max'] == 14
+
+
+def test_categorical_summary():
+    df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+    summ = analyses.summary(df.Group)
+    
+    assert summ.ix[0]['count'] == 2
+    assert  np.allclose(summ.ix[0]['freq'], 2/3, atol=.01)
+
+
+def test_grouped_summary():
+    df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+    summ = analyses.summary(df.Age, df.Group)
+
+    assert len(summ) == 2
+    assert len(summ.columns) == 7
+
+
+       
     
