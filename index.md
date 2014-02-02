@@ -5,7 +5,7 @@ tagline: Python tools for epidemiology
 ---
 {% include JB/setup %}
 
-Epipy is a Psython package for epidemiology.  It contains (or will contain...)
+Epipy is a Python package for epidemiology.  It contains (or will contain...)
 tools for analyzing and visualizing epidemiology data. Epipy can currently produce:
 
 * stratified summary statistics
