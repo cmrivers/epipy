@@ -359,10 +359,10 @@ def summary(data, by=None):
 
     RETURNS
     ----------------------
-    for each column in the df:
-    - if column data type is numeric, returns pd.describe()
-    - if column data type is non-numeric, returns top 5 most common values,
-        and their count
+    for each column in the dataframe, or for hte series:
+    - if column data type is numeric, returns summary statistics
+    - if column data type is non-numeric, returns count and frequency of
+        top 5 most common values.
 
     EXAMPLE
     ----------------------
