@@ -72,7 +72,7 @@ fig.savefig(os.path.join(dir, '../figs/mers_checkerboard.png'), bbox_inches='tig
 
 # Daily epicurve of MERS
 plt.figure()
-epipy.epicurve_plot(mers_df, date_col='dates', freq='day')
+curve, fig, ax = epipy.epicurve_plot(mers_df, date_col='dates', freq='day')
 plt.title('Approximate onset or report date');
 plt.savefig(os.path.join(dir, '../figs/day_epicurve.png'))
 
@@ -84,7 +84,7 @@ plt.savefig(os.path.join(dir, '../figs/year_epicurve.png'))
 
 # Monthly epicurve of MERS
 plt.figure()
-epipy.epicurve_plot(mers_df, 'dates', freq='month')
+curve, fig, ax = epipy.epicurve_plot(mers_df, 'dates', freq='month')
 plt.title('Approximate onset or report date of MERS cases')
 plt.savefig(os.path.join(dir, '../figs/month_epicurve.png'))
 
