@@ -51,9 +51,9 @@ mers_df['report_date'] = mers_df['Approx reporting date'].map(epipy.date_convert
 mers_df['dates'] = mers_df['onset_date'].combine_first(mers_df['report_date'])
 
 # Case tree plot
-fig, ax = epipy.case_tree_plot(mers_df, cluster_id='Cluster ID', \
+fig, ax = epi.case_tree_plot(mers_df, cluster_id='Cluster ID', \
                         case_id='Case #', date_col='dates', gen_mean = 5, \
-                        gen_sd = 4, color='Cluster ID')
+                        gen_sd = 4, color='condensed_health')
 ax.set_title('Human clusters of MERS-CoV')
 
 # Checkerboard plot
