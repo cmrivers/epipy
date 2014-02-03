@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from distutils.core import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -12,8 +12,8 @@ setup(
     author = "Caitlin Rivers",
     author_email = "caitlin.rivers@gmail.com",
     description = "Python tools for epidemiology.",
-    url = 'http://github.com/cmrivers/epipy'
-    download_url = 'https://github.com/cmrivers/epipy/tarball/0.0.1'
+    url = 'http://github.com/cmrivers/epipy',
+    download_url = 'https://github.com/cmrivers/epipy/tarball/0.0.1',
     install_requires = ['Numpy >= 1.6.2',
                         'Matplotlib >=1.2.0',
                         'Networkx >=1.6.0',
@@ -28,7 +28,7 @@ setup(
                'epipy/data_generator.py',
                 'epipy/epicurve.py',
                 'epipy/analyses.py'],
-    #long_description=read('README'),
+    long_description=read('README.md'),
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Programming Language :: Python :: 2.7",
