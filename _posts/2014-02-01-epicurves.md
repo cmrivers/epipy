@@ -10,7 +10,9 @@ tags : [plot, epicurve, epidemic curve]
 
 ###What is an epicurve?
 
-Epidemic curves, or epicurves, are a common way to visualize outbreaks. They are plotted as the count of incident (new) cases over time. Traditional epicurves are bar plots, not line plots.
+[Epidemic curves](http://www.med.uottawa.ca/sim/data/Public_Health_Epidemic_Curves_e.htm),
+or epicurves, are a common way to visualize outbreaks. They are plotted as the count of
+incident (new) cases over time. Traditional epicurves are bar plots, not line plots.
 
 
 ### Examples
@@ -26,7 +28,8 @@ For these examples we will use data from the MERS-CoV outbreak.
 
 ![Monthly epicurve of MERS-CoV](http://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true)
 
-The curve variable returns a table with a list of dates and their frequency. Monthly epicurves work by reassigning all cases for that month to the first day of the month.
+The curve variable returns a table with a list of dates and their frequency.
+Monthly epicurves work by reassigning all cases for that month to the first day of the month.
 For the MERS data, it looks like this:
 
                 count           plotdates

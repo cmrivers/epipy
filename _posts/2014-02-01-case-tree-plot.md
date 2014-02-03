@@ -27,13 +27,19 @@ generation 1.
 
 The meaning of the color of the node varies based on the node attribute.
 In many cases, color just signifies membership to a particular human to
-human cluster. However, it could also represent health status (e.g. alive, dead), the sex of the patient, etc.
+human cluster. However, it could also represent health status (e.g. alive, dead),
+the sex of the patient, etc.
 
 ### Examples
 
-For this we will use example data packaged with epipy. You may have to modify the path below. We will color the nodes so that all nodes in the cluster have the same color.
+For this we will use example data in the data/ folder of epipy. You may have to modify
+the path below. For this example, we will color the nodes by cluster.
 
-In order to build a case tree plot, you'll have to provide the generation mean (gen_mean) and generation standard deviation (gen_sd). These values represent the time from when one case becomes infected to when a subsequent case becomes infected. Incubation period may be used when generation time is not known.
+In order to build a case tree plot, you'll have to provide the
+generation mean (gen_mean) and generation standard deviation (gen_sd).
+These values represent the time from when one case becomes infected to
+when a subsequent case becomes infected. Incubation period may be used
+when generation time is not known.
 
     import epipy as epi
     import pandas as pd
@@ -45,8 +51,8 @@ In order to build a case tree plot, you'll have to provide the generation mean (
 ![Casetree plot](http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true)
 
 
-
-If we want to change the node color to represent the health status of each case, we simply change the color argument.
+If you want to change the node color to represent the health status of each case,
+simply change the color argument.
 
     fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', case_id ='ID', \
               date_col='Date', color='health', gen_mean=4, gen_sd = 1)
@@ -55,7 +61,7 @@ If we want to change the node color to represent the health status of each case,
 
 
 
-We can also turn the legend off, and change the size of the node using optional arguments.
+You can also turn the legend off, and change the size of the node using optional arguments.
 
       fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', \
                     case_id ='ID', date_col='Date', color='Cluster', \

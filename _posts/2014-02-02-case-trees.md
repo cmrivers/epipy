@@ -12,18 +12,27 @@ tags : [analyses, case tree]
 
 **What is the basic reproduction number?**
 
-The [basic reproduction number](http://en.wikipedia.org/wiki/Basic_reproduction_number), also called R0, is the average number of secondary cases each case produces in a fully susceptible population. In order for an outbreak to sustain itself, R0 must be greater than 1. The higher the R0, the more infectious the disease.
+The [basic reproduction number](http://en.wikipedia.org/wiki/Basic_reproduction_number),
+also called R0, is the average number of secondary cases each case produces
+in a fully susceptible population. In order for an outbreak to sustain itself,
+R0 must be greater than 1. The higher the R0, the more infectious the disease.
 
-For most outbreaks, R0 must be estimated. Case tree plots have the advantage of showing the exact number of secondary cases per source case.
+For most outbreaks, R0 must be estimated. Case tree plots have the advantage
+of showing the exact number of secondary cases per source case.
 
 **Example**
 
-We'll use data from the MERS-CoV outbreak that comes packaged with epipy. To start, we'll need to build out the graph. Then simply call reproduction_number(), which will return a series object, and a histogram of the R0s. The function has an option to exclude index cases (index_cases=False), which is usefuul if you want to calculate the human to human reproduction number without considering zoonotically acquired cases.
+For this example, we'll use data from the MERS-CoV outbreak in the data/ folder of epipy.
+You may need to change the path below. To start, first build out the graph.
+Then simply call reproduction_number(), which will return a series object,
+and a histogram of the R0s. The function has an option to exclude index cases
+(index_cases=False), which is useful if you want to calculate the human
+to human reproduction number without considering zoonotically acquired cases.
 
     import epipy as epi
     import pandas as pd
 
-    mers_df = pd.read_csv('../data/mers_line_list.csv')
+    mers_df = pd.read_csv('epipy/data/mers_line_list.csv')
     mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #',
 		        date_col='dates', color='Health status', gen_mean=5, gen_sd=4)
 
@@ -54,7 +63,13 @@ And the figure returns:
 
 ##Generation analyses
 
-Epidemiologists must also be interested in how the disease changes from one generation to the next. Are cases acquired from animals more severe than human acquired cases? Does severity decrease as the disease passes from person to person? Are index cases more likely to be men? The generation_analysis() function returns a table of case attributes by generation, as well as an optional bar graph.
+Epidemiologists may also be interested in how the disease changes from
+one generation to the next. Are cases acquired from animals more severe
+than human acquired cases? Does severity decrease as the disease passes
+from person to person? Are index cases more likely to be men?
+The generation_analysis() function returns a table of case attributes by
+generation, as well as an optional bar graph.
+
 
 **Example**
 
