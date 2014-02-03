@@ -37,7 +37,7 @@ Quickstart
     from mpltools import style
     style.use('ggplot')
 
-    df = pd.read_csv('epipy/data/example_data.csv')
+    example_df = pd.read_csv('epipy/data/example_data.csv')
     fig, ax = epi.case_tree_plot(example_df, cluster_id = 'Cluster', \
               case_id ='ID', date_col='Date', color='Cluster', \
               gen_mean=4, gen_sd = 1)
@@ -47,6 +47,9 @@ Quickstart
 
 **Generation analysis**
 
+    mers_df = pd.read_csv('epipy/data/mers_line_list.csv')
+    mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #',
+		        date_col='dates', color='Health status', gen_mean=5, gen_sd=4)
     fig, ax, table = epi.generation_analysis(mers_G, attribute='Health status', \
                                              plot=True)
 
@@ -71,7 +74,6 @@ table returns:
 
 **Epidemic curve**
 
-    mers_df = pd.read_csv('epipy/data/mers_line_list.csv')
     curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='m')
     ax.set_title('Approximate onset or report date of MERS cases')
 
