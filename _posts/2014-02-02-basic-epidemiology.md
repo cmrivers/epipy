@@ -24,14 +24,14 @@ It can also return stratified summary statistics using the by argument.
 
 returns:
 
-        count       3
-        missing     0
-        min        10
-        median     12
-        mean       12
-        std         2
-        max        14
-        dtype: float64
+    count       3
+    missing     0
+    min        10
+    median     12
+    mean       12
+    std         2
+    max        14
+    dtype: float64
 
 and:
 

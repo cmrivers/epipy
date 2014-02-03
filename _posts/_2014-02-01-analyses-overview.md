@@ -8,7 +8,7 @@ tags : [plot, case tree, checkerboard, epicurve]
 
 Forthcoming.
 
-## Line list summaries
+## Stratified summary statistics
 
 ## Generation analysis
 

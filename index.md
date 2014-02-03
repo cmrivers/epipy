@@ -45,13 +45,25 @@ Quickstart
 
 ![Casetree plot](http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true)
 
+**Generation analysis**
 
-**Checkerboard plot**
+    fig, ax, table = epi.generation_analysis(mers_G, attribute='Health status', \
+                                             plot=True)
+                                             
+    Health status  Alive  Asymptomatic  Critical  Dead  Mild  Recovered  All
+    generation
+    0                  5             1         3    12     1          0   22
+    1                  6             7         3    10     8          0   35
+    2                  2             5         2     7     2          2   20
+    3                  0             5         4     5     0          2   16
+    4                  1             0         0     2     0          0    3
+    5                  0             0         0     1     0          0    1
+    6                  1             0         0     1     0          0    2
+    7                  1             0         0     0     0          0    1
+    8                  0             0         0     0     0          1    1
+    All               16            18        12    38    11          5  101
 
-    fig, ax = epi.checkerboard_plot(df, 'ID', 'Cluster', 'Date')
-    ax.set_title('Example outbreak data')
-
-![Checkerboard plot](https://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png?raw=true)
+![Health status by generation](https://github.com/cmrivers/epipy/blob/master/figs/mers_generation_hist.png?raw=true)
 
 
 **Epidemic curve**
@@ -61,3 +73,15 @@ Quickstart
     ax.set_title('Approximate onset or report date of MERS cases')
 
 ![Daily epicurve](https://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true)
+
+
+**Stratified summary statistics**
+
+    df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+    epi.summary(df.Age, by=df.Group)
+
+        count  missing  min  median  mean      std   max
+    A      1        0   10      10    10       NaN   10
+    B      2        0   12      13    13  1.414214   14
+
+    
