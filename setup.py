@@ -28,7 +28,7 @@ setup(
                'epipy/data_generator.py',
                 'epipy/epicurve.py',
                 'epipy/analyses.py'],
-    long_description=read('README.md'),
+    #long_description=read('README.md'),
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Programming Language :: Python :: 2.7",
