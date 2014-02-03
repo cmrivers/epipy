@@ -16,11 +16,11 @@ a whole dataframe.
 
 It can also return stratified summary statistics using the by argument.
 
-        import epipy as epi
-        import pandas as pd
+    import epipy as epi
+    import pandas as pd
 
-        df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
-        summary(df.Age)
+    df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+    summary(df.Age)
 
 returns:
 
@@ -35,23 +35,23 @@ returns:
 
 and:
 
-        summary(df.Group)
+    summary(df.Group)
 
 returns:
 
-           count      freq
-        B      2  0.666667
-        A      1  0.333333
+       count      freq
+    B      2  0.666667
+    A      1  0.333333
 
 finally:
 
-        summary(df.Age, by=df.Group)
+    summary(df.Age, by=df.Group)
 
 returns:
 
-           count  missing  min  median  mean      std   max
-        A      1        0   10      10    10       NaN   10
-        B      2        0   12      13    13  1.414214   14
+       count  missing  min  median  mean      std   max
+    A      1        0   10      10    10       NaN   10
+    B      2        0   12      13    13  1.414214   14
 
               
 
