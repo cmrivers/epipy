@@ -17,11 +17,14 @@ tools for analyzing and visualizing epidemiology data. Epipy can currently produ
 
 Installation
 ------------
-To install epipy, clone the [github repository](http://github.com/cmrivers/epipy) and install using setup.py:
+Install using pip:
+    
+    pip install epipy
+
+or clone the [github repository](http://github.com/cmrivers/epipy) and install using setup.py:
 
     git clone https://github.com/cmrivers/epipy.git
     python setup.py install
-
 
 Note that I use the package [mpltools](http://tonysyu.github.io/mpltools/) to produce the nice ggplot-style plot aesthetics you see in my examples. Using mpltools is optional, but I highly recommend it.
 
