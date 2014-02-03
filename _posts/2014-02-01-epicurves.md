@@ -23,7 +23,7 @@ For these examples we will use data from the MERS-CoV outbreak.
     import epipy as epi
     import pandas as pd
 
-    mers_df = pd.read_csv('epipy/data/mers_line_list.csv')
+    mers_df = epi.get_data('mers_line_list')
     curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='month')
 
 ![Monthly epicurve of MERS-CoV](http://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true)

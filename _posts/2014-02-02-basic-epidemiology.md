@@ -71,7 +71,7 @@ how you wish the table to be organized by providing a list of values.
     import epipy as epi
     import pandas as pd
 
-    mers_df = pd.read_csv('epipy/data/mers_line_list.csv')
+    mers_df = epi.get_data('mers_line_list.csv')
     mers_df['condensed_health'] = mers_df['Health status'].
                                     replace(['Critical', 'Alive', 'Asymptomatic',
                                     'Mild', 'Recovered', 'Reocvered'], 'Alive')

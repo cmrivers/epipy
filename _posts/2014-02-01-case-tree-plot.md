@@ -32,8 +32,8 @@ the sex of the patient, etc.
 
 ### Examples
 
-For this we will use example data in the data/ folder of epipy. You may have to modify
-the path below. For this example, we will color the nodes by cluster.
+For this we will use example data in the data/ folder of epipy.
+For this example, we will color the nodes by cluster.
 
 In order to build a case tree plot, you'll have to provide the
 generation mean (gen_mean) and generation standard deviation (gen_sd).
@@ -44,7 +44,7 @@ when generation time is not known.
     import epipy as epi
     import pandas as pd
 
-    df = pd.read_csv('epipy/data/example_data.csv')
+    df = epi.get_data('example_data')
     fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', case_id ='ID', \
               date_col='Date', color='Cluster', gen_mean=4, gen_sd = 1)
 

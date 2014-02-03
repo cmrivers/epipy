@@ -22,7 +22,7 @@ of showing the exact number of secondary cases per source case.
 
 **Example**
 
-For this example, we'll use data from the MERS-CoV outbreak in the data/ folder of epipy.
+For this example, we'll use data from the MERS-CoV packaged with epipy.
 You may need to change the path below. To start, first build out the graph.
 Then simply call reproduction_number(), which will return a series object,
 and a histogram of the R0s. The function has an option to exclude index cases
@@ -32,7 +32,7 @@ to human reproduction number without considering zoonotically acquired cases.
     import epipy as epi
     import pandas as pd
 
-    mers_df = pd.read_csv('epipy/data/mers_line_list.csv')
+    mers_df = epi.get_data('mers_line_list.csv')
     mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #',
 		        date_col='dates', color='Health status', gen_mean=5, gen_sd=4)
 
