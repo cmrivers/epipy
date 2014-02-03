@@ -3,9 +3,6 @@ from distutils.core import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
-
 setup(
     name = "epipy",
     version = "0.0.1",
@@ -28,12 +25,11 @@ setup(
                'epipy/data_generator.py',
                 'epipy/epicurve.py',
                 'epipy/analyses.py'],
-    #long_description=read('README.md'),
+    long_description='README.md',
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Programming Language :: Python :: 2.7",
         "Natural Language :: English",
         'Topic :: Scientific/Engineering',
-        'Topic :: Scientific/Engineering :: Mathematics',
-        'Topic :: Scientific/Engineering :: Medical Science Apps',],
+        'Topic :: Scientific/Engineering :: Mathematics'],
 )

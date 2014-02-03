@@ -13,7 +13,11 @@ Epipy can currently produce:
 
 Installation
 ------------
-To install epipy, clone the repository and install using setup.py:
+Install using pip:
+
+    pip install epipy
+    
+Or clone the repository and install using setup.py:
 
     git clone https://github.com/cmrivers/epipy.git
     python setup.py install
