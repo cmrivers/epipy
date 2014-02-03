@@ -9,8 +9,8 @@ Epipy is a Python package for epidemiology.  It contains (or will contain...)
 tools for analyzing and visualizing epidemiology data. Epipy can currently produce:
 
 * stratified summary statistics
-* case tree and checkerboard plots
-* epidemic curves plots
+* [case tree](http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/) and [checkerboard plots](http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/)
+* [epidemic curves plots](http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves/)
 * analysis of case attribute (e.g. sex) by generation
 * 2x2 tables with odds ratio and relative risk
 * summary of cluster basic reproduction numbers
@@ -21,6 +21,10 @@ To install epipy, clone the repository and install using setup.py:
 
     git clone https://github.com/cmrivers/epipy.git
     python setup.py install
+
+
+Note that I use the package [mpltools](http://tonysyu.github.io/mpltools/) to produce the nice ggplot-style plot aesthetics you see in my examples. Using mpltools is optional, but I highly recommend it.
+
 
 Quickstart
 ------------
