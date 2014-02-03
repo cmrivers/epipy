@@ -13,3 +13,5 @@ epipy/test_basics.py
 epipy/test_casetree.py
 epipy/test_data_generator.py
 epipy/test_epicurve_plot.py
+epipy/data/example_data.csv
+epipy/data/mers_line_list.csv

@@ -19,35 +19,31 @@ try:
 except:
     pass
 
-dir = os.path.dirname(__file__)
 
 #################################
 # TEST DATA EXAMPLE #
 #################################
 
 # Generate example data
-example_df = epipy.generate_example_data(cluster_size=7, outbreak_len=180, clusters=7,
-                                         gen_time=4, attribute='health')
-example_df.to_csv(os.path.join(dir, '../data/example_data.csv'))
+example_df = epipy.generate_example_data(cluster_size=7, outbreak_len=180, clusters=7, gen_time=4, attribute='health')
 
 # Case tree plot                                        
 fig, ax = epipy.case_tree_plot(example_df, cluster_id = 'Cluster', \
                     case_id ='ID', date_col='Date', color='health', \
                     gen_mean=4, gen_sd = 1)
 ax.set_title('Example outbreak data')
-fig.savefig(os.path.join(dir, '../figs/example_casetree_health.png'), bbox_inches='tight')
 
 # Checkerboard plot
 fig, ax = epipy.checkerboard_plot(example_df, 'ID', 'Cluster', 'Date')
 ax.set_title("Example outbreak data")
-fig.savefig(os.path.join(dir, '../figs/test_checkerboard.png'), bbox_inches='tight')
 
 
 ############################
 ## MERS-CoV DATA EXAMPLE ###
 ############################
 
-mers_df = pd.read_csv(os.path.join(dir, '../data/mers_line_list.csv'))
+mers_df = epipy.get_data('mers_line_list')
+#you can also get synthetic data using epipy.get_data('example_data')
 
 # Data cleaning
 mers_df['onset_date'] = mers_df['Approx onset date'].map(epipy.date_convert)
@@ -59,12 +55,10 @@ fig, ax = epipy.case_tree_plot(mers_df, cluster_id='Cluster ID', \
                         case_id='Case #', date_col='dates', gen_mean = 5, \
                         gen_sd = 4, color='Cluster ID')
 ax.set_title('Human clusters of MERS-CoV')
-fig.savefig(os.path.join(dir, '../figs/mers_casetree.png'), bbox_inches='tight')
 
 # Checkerboard plot
 fig, ax = epipy.checkerboard_plot(mers_df, 'Case #', 'Cluster ID', 'dates')
 ax.set_title("Human clusters of MERS-CoV")
-fig.savefig(os.path.join(dir, '../figs/mers_checkerboard.png'), bbox_inches='tight')
 
 #################
 ### EPICURVES ###
@@ -74,19 +68,16 @@ fig.savefig(os.path.join(dir, '../figs/mers_checkerboard.png'), bbox_inches='tig
 plt.figure()
 curve, fig, ax = epipy.epicurve_plot(mers_df, date_col='dates', freq='day')
 plt.title('Approximate onset or report date');
-plt.savefig(os.path.join(dir, '../figs/day_epicurve.png'))
 
 # Yearly epicurve of MERS
 plt.figure()
 epipy.epicurve_plot(mers_df, 'dates', freq='y')
 plt.title('Approximate onset or report date')
-plt.savefig(os.path.join(dir, '../figs/year_epicurve.png'))
 
 # Monthly epicurve of MERS
 plt.figure()
 curve, fig, ax = epipy.epicurve_plot(mers_df, 'dates', freq='month')
 plt.title('Approximate onset or report date of MERS cases')
-plt.savefig(os.path.join(dir, '../figs/month_epicurve.png'))
 
 #################
 ### ANALYSES ####
@@ -99,11 +90,10 @@ mers_G = epipy.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #',
 
 # Analyze attribute by generation
 fig, ax, table = epipy.generation_analysis(mers_G, attribute='Health status', plot=True)
-fig.savefig(os.path.join(dir, '../figs/mers_generation_hist.png'))
+
 
 # Basic reproduction numbers
 R, fig, ax = epipy.reproduction_number(mers_G, index_cases=True, plot=True)
-fig.savefig(os.path.join(dir, '../figs/mers_r0_hist.png'))
 print 'R0 median: {}'.format(R.median()) # the series object returned can be manipulated further
 
 #2X2 table

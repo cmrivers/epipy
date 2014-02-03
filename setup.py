@@ -1,11 +1,9 @@
 import os
 from distutils.core import setup
 
-here = os.path.abspath(os.path.dirname(__file__))
-
 setup(
     name = "epipy",
-    version = "0.0.1",
+    version = "0.0.2",
     author = "Caitlin Rivers",
     author_email = "caitlin.rivers@gmail.com",
     description = "Python tools for epidemiology.",
@@ -19,6 +17,8 @@ setup(
     license = "MIT",
     keywords = "epidemiology",
     packages = ['epipy'],
+    include_package_data=True,
+    package_data={'epipy': ['data/*.csv']},
     scripts = ['epipy/basics.py',
                'epipy/case_tree.py',
                'epipy/checkerboard.py',
