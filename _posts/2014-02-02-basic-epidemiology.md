@@ -20,7 +20,7 @@ It can also return stratified summary statistics using the by argument.
     import pandas as pd
 
     df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
-    summary(df.Age)
+    epi.summary(df.Age)
 
 returns:
 
@@ -35,7 +35,7 @@ returns:
 
 and:
 
-    summary(df.Group)
+    epi.summary(df.Group)
 
 returns:
 
@@ -45,7 +45,7 @@ returns:
 
 finally:
 
-    summary(df.Age, by=df.Group)
+    epi.summary(df.Age, by=df.Group)
 
 returns:
 
@@ -75,15 +75,35 @@ how you wish the table to be organized by providing a list of values.
     mers_df['condensed_health'] = mers_df['Health status'].
                                     replace(['Critical', 'Alive', 'Asymptomatic',
                                     'Mild', 'Recovered', 'Reocvered'], 'Alive')
-    table = table = epipy.create_2x2(mers_df, 'Sex', 'condensed_health',
+    table = epi.create_2x2(mers_df, 'Sex', 'condensed_health',
                     ['M', 'F'], ['Dead', 'Alive'])
 
 table returns:
+
+         Dead  Alive  All
+    M      46     54  101
+    F      16     44   60
+    All    70    114  185
+    
 
 ###Analyze a 2x2 table
 
 2x2 tables are used to calculate odds ratios, relative risk, and chi square tests.
 
-    epipy.analyze_2x2(table)
+    epi.analyze_2x2(table)
+
+returns:
+
+    Odds ratio: 2.34 (95% CI: (1.17, 4.69))
+    Relative risk: 1.73 (95% CI: (1.08, 2.76))
+
+    Chi square: 5.95216712234
+    p value: 0.202749053116
+
+Alternatively, you can call each function separately:
+
+    epi.odds_ratio(table)
+    epi.relative_risk(table)
+    epi.chi2(table)
 
 
