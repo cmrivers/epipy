@@ -1,7 +1,7 @@
 *.pyc
 website/
 build/
-epipy/htmlcov
+epipy/htmlcov/
 epipy/.coverage
 epipy/_pycache_
 epipy/stset
