@@ -17,7 +17,7 @@ tools for analyzing and visualizing epidemiology data. Epipy can currently produ
 
 Installation
 ------------
-To install epipy, clone the [github repository](github.com/cmrivers/epipy) and install using setup.py:
+To install epipy, clone the [github repository](http://github.com/cmrivers/epipy) and install using setup.py:
 
     git clone https://github.com/cmrivers/epipy.git
     python setup.py install
