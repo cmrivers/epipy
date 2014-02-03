@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="author" content="Caitlin Rivers" />
-    <title>Epipy</title>
+    <title>Epicurves</title>
 
     <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
     <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
@@ -101,58 +101,44 @@
       <section>
       
 <section>
-  <h1>Epipy</h1>
+  <h1>Epicurves</h1>
 
-  <p>Epipy is a Python package for epidemiology. It contains (or will contain…) tools for analyzing and visualizing epidemiology data. Epipy can currently produce:</p>
+  <h2 id="epicurves">Epicurves</h2>
 
-<ul>
-<li>stratified summary statistics</li>
+<h3 id="what_is_an_epicurve">What is an epicurve?</h3>
 
-<li>case tree and checkerboard plots</li>
+<p>Epidemic curves, or epicurves, are a common way to visualize outbreaks. They are plotted as the count of incident (new) cases over time. Traditional epicurves are bar plots, not line plots.</p>
 
-<li>epidemic curves plots</li>
+<h3 id="examples">Examples</h3>
 
-<li>analysis of case attribute (e.g. sex) by generation</li>
-
-<li>2x2 tables with odds ratio and relative risk</li>
-
-<li>summary of cluster basic reproduction numbers</li>
-</ul>
-
-<h2 id="installation">Installation</h2>
-
-<p>To install epipy, clone the repository and install using setup.py:</p>
-
-<pre><code>git clone https://github.com/cmrivers/epipy.git
-python setup.py install</code></pre>
-
-<h2 id="quickstart">Quickstart</h2>
-
-<p><strong>Case tree plot</strong></p>
+<p>For these examples we will use data from the MERS-CoV outbreak.</p>
 
 <pre><code>import epipy as epi
 import pandas as pd
 
-df = pd.read_csv(&#39;epipy/data/example_data.csv&#39;)
-fig, ax = epi.case_tree_plot(example_df, cluster_id = &#39;Cluster&#39;, case_id =&#39;ID&#39;, \                   date_col=&#39;Date&#39;, color=&#39;Cluster&#39;, gen_mean=4, gen_sd = 1)
-ax.set_title(&#39;Example outbreak data&#39;)</code></pre>
+mers_df = pd.read_csv(&#39;epipy/data/mers_line_list.csv&#39;)
+curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;month&#39;)</code></pre>
 
-<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true" alt="Casetree plot" /></p>
+<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png" alt="Monthly epicurve of MERS-CoV" /></p>
 
-<p><strong>Checkerboard plot</strong></p>
+<p>The curve variable returns a table with a list of dates and their frequency. Monthly epicurves work by reassigning all cases for that month to the first day of the month. For the MERS data, it looks like this:</p>
 
-<pre><code>fig, ax = epi.checkerboard_plot(df, &#39;ID&#39;, &#39;Cluster&#39;, &#39;Date&#39;)
-ax.set_title(&#39;Example outbreak data&#39;)</code></pre>
+<pre><code>            count           plotdates
+2013-06-01     27 2013-06-01 00:00:00
+2013-09-01     25 2013-09-01 00:00:00
+2013-04-01     23 2013-04-01 00:00:00
+2013-08-01     18 2013-08-01 00:00:00
+2013-10-01     17 2013-10-01 00:00:00</code></pre>
 
-<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png?raw=true" alt="Checkerboard plot" /></p>
+<p>You may also plot the frequency by day, month or year using the freq argument.</p>
 
-<p><strong>Epidemic curve</strong></p>
+<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;day&#39;)</code></pre>
 
-<pre><code>mers_df = pd.read_csv(&#39;epipy/data/mers_line_list.csv&#39;)
-curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;m&#39;)
-ax.set_title(&#39;Approximate onset or report date of MERS cases&#39;)</code></pre>
+<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png" alt="Daily epicurve of MERS-CoV" /></p>
 
-<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true" alt="Daily epicurve" /></p>
+<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;y&#39;)</code></pre>
+
+<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png" alt="Yearly epicurve of MERS-CoV" /></p>
 
   
 </section>

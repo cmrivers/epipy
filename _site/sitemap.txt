@@ -1,14 +1,16 @@
 
-http://cmrivers.github.io/epipy/documentation.html
-http://cmrivers.github.io/epipy/sitemap.txt
-http://cmrivers.github.io/epipy/rss.xml
-http://cmrivers.github.io/epipy/old_index.html
-http://cmrivers.github.io/epipy/categories.html
 http://cmrivers.github.io/epipy/atom.xml
-http://cmrivers.github.io/epipy/new-page.html
-http://cmrivers.github.io/epipy/tags.html
+http://cmrivers.github.io/epipy/categories.html
+http://cmrivers.github.io/epipy/documentation.html
 http://cmrivers.github.io/epipy/index.html
+http://cmrivers.github.io/epipy/new-page.html
+http://cmrivers.github.io/epipy/old_index.html
+http://cmrivers.github.io/epipy/rss.xml
+http://cmrivers.github.io/epipy/sitemap.txt
+http://cmrivers.github.io/epipy/tags.html
 
 http://cmrivers.github.io/epipy/analyses/2014/02/02/analyses-overview
 http://cmrivers.github.io/epipy/plots/2014/02/01/plotting-overview
+http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves
+http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot
 http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot

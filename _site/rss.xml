@@ -5,8 +5,8 @@
         <description>Epipy - Caitlin Rivers</description>
         <link>http://cmrivers.github.io/epipy</link>
         <link>http://cmrivers.github.io/epipy</link>
-        <lastBuildDate>2014-02-01T23:21:27-05:00</lastBuildDate>
-        <pubDate>2014-02-01T23:21:27-05:00</pubDate>
+        <lastBuildDate>2014-02-02T20:40:29-05:00</lastBuildDate>
+        <pubDate>2014-02-02T20:40:29-05:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -47,12 +47,81 @@
         </item>
 
         <item>
+                <title>Epicurves</title>
+                <description>&lt;h2 id=&quot;epicurves&quot;&gt;Epicurves&lt;/h2&gt;
+
+&lt;h3 id=&quot;what_is_an_epicurve&quot;&gt;What is an epicurve?&lt;/h3&gt;
+
+&lt;p&gt;Epidemic curves, or epicurves, are a common way to visualize outbreaks. They are plotted as the count of incident (new) cases over time. Traditional epicurves are bar plots, not line plots.&lt;/p&gt;
+
+&lt;h3 id=&quot;examples&quot;&gt;Examples&lt;/h3&gt;
+
+&lt;p&gt;For these examples we will use data from the MERS-CoV outbreak.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import epipy as epi
+import pandas as pd
+
+mers_df = pd.read_csv(&amp;#39;epipy/data/mers_line_list.csv&amp;#39;)
+curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, freq=&amp;#39;month&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png&quot; alt=&quot;Monthly epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The curve variable returns a table with a list of dates and their frequency. Monthly epicurves work by reassigning all cases for that month to the first day of the month. For the MERS data, it looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;            count           plotdates
+2013-06-01     27 2013-06-01 00:00:00
+2013-09-01     25 2013-09-01 00:00:00
+2013-04-01     23 2013-04-01 00:00:00
+2013-08-01     18 2013-08-01 00:00:00
+2013-10-01     17 2013-10-01 00:00:00&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You may also plot the frequency by day, month or year using the freq argument.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, freq=&amp;#39;day&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png&quot; alt=&quot;Daily epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, freq=&amp;#39;y&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png&quot; alt=&quot;Yearly epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;</description>
+                <link>http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves</link>
+                <guid>http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves</guid>
+                <pubDate>2014-02-01T00:00:00-05:00</pubDate>
+        </item>
+
+        <item>
+                <title>Checkerboard Plot</title>
+                <description>&lt;h2 id=&quot;checkerboard_plot&quot;&gt;Checkerboard plot&lt;/h2&gt;
+
+&lt;h3 id=&quot;what_is_a_checkerboard_plot&quot;&gt;What is a checkerboard plot?&lt;/h3&gt;
+
+&lt;p&gt;I developed checkerboard plots to display similar data as a case tree plot, but instead of a network it shows a simple time series for each human to human cluster. It does not attempt to determine the structure of the transmission network. An optional argument will label the first and last case in each cluster with their case id numbers.&lt;/p&gt;
+
+&lt;h3 id=&quot;examples&quot;&gt;Examples&lt;/h3&gt;
+
+&lt;p&gt;First, load in the example data packaged with epipy (you may have to modify the path below). Then simply call the checkerboard() function with column labels that correspond to columns containing unique case id numbers, cluster membership, and the date of illness onset or report. The label argument is optional; if set to off, no case id numbers will be displayed.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import epipy as epi
+import pandas as pd
+
+df = pd.read_csv(&amp;#39;epipy/data/example_data.csv&amp;#39;)
+fig, ax = epi.checkerboard_plot(df, case_id=&amp;#39;ID&amp;#39;, cluster_id=&amp;#39;Cluster&amp;#39;, \
+          date_col=&amp;#39;Date&amp;#39;, labels=&amp;#39;on&amp;#39;)
+ax.set_title(&amp;#39;Example outbreak data&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png&quot; alt=&quot;Checkerboard plot&quot; /&gt;&lt;/p&gt;</description>
+                <link>http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot</link>
+                <guid>http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot</guid>
+                <pubDate>2014-02-01T00:00:00-05:00</pubDate>
+        </item>
+
+        <item>
                 <title>Case Tree Plot</title>
                 <description>&lt;h2 id=&quot;case_tree_plot&quot;&gt;Case tree plot&lt;/h2&gt;
 
 &lt;h3 id=&quot;what_is_a_case_tree_plot&quot;&gt;What is a case tree plot?&lt;/h3&gt;
 
-&lt;p&gt;Case tree plots are a way to visualize zoonotic disease. However, it can also be used to visualizing environmentally-acquired dieases, or anything that emerges multiple times, is passed from person to person, and then dies out. Tweets and retweets might be a useful non-epi example.&lt;/p&gt;
+&lt;p&gt;I developed case tree plots are a way to visualize zoonotic disease. However, it can also be used to visualizing environmentally-acquired dieases, or anything that emerges multiple times, is passed from person to person, and then dies out. Tweets and retweets might be a useful non-epi example.&lt;/p&gt;
 
 &lt;h3 id=&quot;how_do_i_read_a_case_tree_plot&quot;&gt;How do I read a case tree plot?&lt;/h3&gt;
 
@@ -62,26 +131,31 @@
 
 &lt;h3 id=&quot;examples&quot;&gt;Examples&lt;/h3&gt;
 
-&lt;p&gt;First we will use example data packaged with epipy. We will color the nodes by their cluster.&lt;/p&gt;
+&lt;p&gt;For this we will use example data packaged with epipy. You may have to modify the path below. We will color the nodes so that all nodes in the cluster have the same color.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;import epipy
-import os
-dir = os.path.dirname(__file__)
+&lt;pre&gt;&lt;code&gt;import epipy as epi
+import pandas as pd
 
-df = pd.read_csv(os.path.join(dir, '../data/example_data.csv'))
-fig, ax = epipy.case_tree_plot(example_df, cluster_id = 'Cluster', \
-                case_id ='ID', date_col='Date', color='Cluster', \
-                gen_mean=4, gen_sd = 1)&lt;/code&gt;&lt;/pre&gt;
+df = pd.read_csv(&amp;#39;epipy/data/example_data.csv&amp;#39;)
+fig, ax = epi.case_tree_plot(df, cluster_id = &amp;#39;Cluster&amp;#39;, case_id =&amp;#39;ID&amp;#39;, \
+          date_col=&amp;#39;Date&amp;#39;, color=&amp;#39;Cluster&amp;#39;, gen_mean=4, gen_sd = 1)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img alt=&quot;Casetree plot&quot; src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true&quot; alt=&quot;Casetree plot&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;If we want to change the node color to represent the health status of each case, we simply change the color argument.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;fig, ax = epipy.case_tree_plot(example_df, cluster_id = 'Cluster', \
-                case_id ='ID', date_col='Date', color='health', \
-                gen_mean=4, gen_sd = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;fig, ax = epi.case_tree_plot(df, cluster_id = &amp;#39;Cluster&amp;#39;, case_id =&amp;#39;ID&amp;#39;, \
+          date_col=&amp;#39;Date&amp;#39;, color=&amp;#39;health&amp;#39;, gen_mean=4, gen_sd = 1)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img alt=&quot;Casetree plot&quot; src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true&quot; /&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true&quot; alt=&quot;Casetree plot with node attribute&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We can also turn the legend off, and change the size of the node using optional arguments.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  fig, ax = epi.case_tree_plot(df, cluster_id = &amp;#39;Cluster&amp;#39;, \
+                case_id =&amp;#39;ID&amp;#39;, date_col=&amp;#39;Date&amp;#39;, color=&amp;#39;Cluster&amp;#39;, \
+                gen_mean=4, gen_sd = 1, node_size=25, legend=False)&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_noleg.png?raw=true&quot; alt=&quot;Case tree plot with no legend and small node size&quot; /&gt;&lt;/p&gt;</description>
                 <link>http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot</link>
                 <guid>http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot</guid>
                 <pubDate>2014-02-01T00:00:00-05:00</pubDate>
