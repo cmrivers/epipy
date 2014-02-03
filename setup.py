@@ -10,12 +10,15 @@ setup(
     name = "epipy",
     version = "0.0.1",
     author = "Caitlin Rivers",
-    author_email = "caitlinrivers@gmail.com",
-    description = ("Python tools for epidemiology."),
+    author_email = "caitlin.rivers@gmail.com",
+    description = "Python tools for epidemiology.",
+    url = 'http://github.com/cmrivers/epipy'
+    download_url = 'https://github.com/cmrivers/epipy/tarball/0.0.1'
     install_requires = ['Numpy >= 1.6.2',
                         'Matplotlib >=1.2.0',
                         'Networkx >=1.6.0',
-                        'Pandas >= 0.12.0'],
+                        'Pandas >= 0.12.0',
+                        'Scipy >= 0.13'],
     license = "MIT",
     keywords = "epidemiology",
     packages = ['epipy'],
