@@ -1,7 +1,7 @@
 ---
 layout: post
-category : plots
-tagline: "Analysis functions for epidemiology"
+category : analyses
+tagline: "Basic epidemiology"
 tags : [analyses]
 ---
 {% include JB/setup %}

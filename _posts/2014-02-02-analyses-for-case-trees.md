@@ -1,7 +1,7 @@
 ---
 layout: post
-category : plots
-tagline: "Analysis functions for case tree plots"
+category : analyses
+tagline: "Case tree plot analyses"
 tags : [analyses, plot, case tree]
 ---
 {% include JB/setup %}
