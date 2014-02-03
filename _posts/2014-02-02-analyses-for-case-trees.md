@@ -12,7 +12,7 @@ tags : [analyses, case tree]
 
 **What is the basic reproduction number?**
 
-The basic reproduction number, also called R0, is the average number of secondary cases each case produces in a fully susceptible population. In order for an outbreak to sustain itself, R0 must be greater than 1. The higher the R0, the more infectious the disease.
+The [basic reproduction number](http://en.wikipedia.org/wiki/Basic_reproduction_number), also called R0, is the average number of secondary cases each case produces in a fully susceptible population. In order for an outbreak to sustain itself, R0 must be greater than 1. The higher the R0, the more infectious the disease.
 
 For most outbreaks, R0 must be estimated. Case tree plots have the advantage of showing the exact number of secondary cases per source case.
 

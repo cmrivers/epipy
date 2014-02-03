@@ -11,9 +11,9 @@ tools for analyzing and visualizing epidemiology data. Epipy can currently produ
 * stratified summary statistics
 * [case tree](http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/) and [checkerboard plots](http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/)
 * [epicurves](http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves/)
-* analysis of case attribute (e.g. sex) by generation
+* analysis of [case attribute (e.g. sex) by generation](http://cmrivers.github.io/epipy/analyses/2014/02/02/analyses-for-case-trees/)
 * 2x2 tables with odds ratio and relative risk
-* summary of cluster basic reproduction numbers
+* [summary of cluster basic reproduction numbers](http://cmrivers.github.io/epipy/analyses/2014/02/02/analyses-for-case-trees/)
 
 Installation
 ------------
