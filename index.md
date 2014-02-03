@@ -30,8 +30,8 @@ Quickstart
     import pandas as pd
 
     df = pd.read_csv('epipy/data/example_data.csv')
-    fig, ax = epi.case_tree_plot(example_df, cluster_id = 'Cluster', \ #
-              case_id ='ID', date_col='Date', color='Cluster', \ #
+    fig, ax = epi.case_tree_plot(example_df, cluster_id = 'Cluster', \
+              case_id ='ID', date_col='Date', color='Cluster', \
               gen_mean=4, gen_sd = 1)
     ax.set_title('Example outbreak data')
 
