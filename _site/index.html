@@ -31,6 +31,22 @@
   
     
       
+      	
+      	<li><a href="/mers.html">MERS-CoV example</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
     
   
     
@@ -50,26 +66,6 @@
     
   
     
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/tags.html">Tags</a></li>
-      	
       
     
   
@@ -106,25 +102,31 @@
   <p>Epipy is a Python package for epidemiology. It contains (or will contain…) tools for analyzing and visualizing epidemiology data. Epipy can currently produce:</p>
 
 <ul>
-<li>stratified summary statistics</li>
+<li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">stratified summary statistics</a></li>
 
-<li>case tree and checkerboard plots</li>
+<li><a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case tree</a> and <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/">checkerboard plots</a></li>
 
-<li>epidemic curves plots</li>
+<li><a href="http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves/">epicurves</a></li>
 
-<li>analysis of case attribute (e.g. sex) by generation</li>
+<li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">analysis of case attribute (e.g. sex) by generation</a></li>
 
-<li>2x2 tables with odds ratio and relative risk</li>
+<li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">2x2 tables with odds ratio and relative risk</a></li>
 
-<li>summary of cluster basic reproduction numbers</li>
+<li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">summary of cluster basic reproduction numbers</a></li>
 </ul>
 
 <h2 id="installation">Installation</h2>
 
-<p>To install epipy, clone the repository and install using setup.py:</p>
+<p>Install using pip:</p>
+
+<pre><code>pip install epipy</code></pre>
+
+<p>or clone the <a href="http://github.com/cmrivers/epipy">github repository</a> and install using setup.py:</p>
 
 <pre><code>git clone https://github.com/cmrivers/epipy.git
 python setup.py install</code></pre>
+
+<p>Note that I use the package <a href="http://tonysyu.github.io/mpltools/">mpltools</a> to produce the nice ggplot-style plot aesthetics you see in my examples. Using mpltools is optional, but I highly recommend it.</p>
 
 <h2 id="quickstart">Quickstart</h2>
 
@@ -133,28 +135,60 @@ python setup.py install</code></pre>
 <pre><code>import epipy as epi
 import pandas as pd
 
-df = pd.read_csv(&#39;epipy/data/example_data.csv&#39;)
-fig, ax = epi.case_tree_plot(example_df, cluster_id = &#39;Cluster&#39;, \
-          case_id =&#39;ID&#39;, date_col=&#39;Date&#39;, color=&#39;Cluster&#39;, \
+# optional import
+from mpltools import style
+style.use('ggplot')
+
+example_df = epi.get_data('example_data')
+fig, ax = epi.case_tree_plot(example_df, cluster_id = 'Cluster', \
+          case_id ='ID', date_col='Date', color='Cluster', \
           gen_mean=4, gen_sd = 1)
-ax.set_title(&#39;Example outbreak data&#39;)</code></pre>
+ax.set_title('Example outbreak data')</code></pre>
 
-<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true" alt="Casetree plot" /></p>
+<p><img alt="Casetree plot" src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true" /></p>
 
-<p><strong>Checkerboard plot</strong></p>
+<p><strong>Generation analysis</strong></p>
 
-<pre><code>fig, ax = epi.checkerboard_plot(df, &#39;ID&#39;, &#39;Cluster&#39;, &#39;Date&#39;)
-ax.set_title(&#39;Example outbreak data&#39;)</code></pre>
+<pre><code>mers_df = epi.get_data('mers_line_list')
+mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #',
+	        date_col='dates', color='Health status', gen_mean=5, gen_sd=4)
+fig, ax, table = epi.generation_analysis(mers_G, attribute='Health status', \
+                                         plot=True)</code></pre>
 
-<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png?raw=true" alt="Checkerboard plot" /></p>
+<p>table returns:</p>
+
+<pre><code>Health status  Alive  Asymptomatic  Critical  Dead  Mild  Recovered  All
+generation
+0                  5             1         3    12     1          0   22
+1                  6             7         3    10     8          0   35
+2                  2             5         2     7     2          2   20
+3                  0             5         4     5     0          2   16
+4                  1             0         0     2     0          0    3
+5                  0             0         0     1     0          0    1
+6                  1             0         0     1     0          0    2
+7                  1             0         0     0     0          0    1
+8                  0             0         0     0     0          1    1
+All               16            18        12    38    11          5  101</code></pre>
+
+<p><img alt="Health status by generation" src="https://github.com/cmrivers/epipy/blob/master/figs/mers_generation_hist.png?raw=true" /></p>
 
 <p><strong>Epidemic curve</strong></p>
 
-<pre><code>mers_df = pd.read_csv(&#39;epipy/data/mers_line_list.csv&#39;)
-curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;m&#39;)
-ax.set_title(&#39;Approximate onset or report date of MERS cases&#39;)</code></pre>
+<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='m')
+ax.set_title('Approximate onset or report date of MERS cases')</code></pre>
 
-<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true" alt="Daily epicurve" /></p>
+<p><img alt="Daily epicurve" src="https://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true" /></p>
+
+<p><strong>Stratified summary statistics</strong></p>
+
+<pre><code>df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+epi.summary(df.Age, by=df.Group)</code></pre>
+
+<p>returns:</p>
+
+<pre><code>    count  missing  min  median  mean      std   max
+A      1        0   10      10    10       NaN   10
+B      2        0   12      13    13  1.414214   14</code></pre>
 
   
 </section>

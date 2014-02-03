@@ -2,12 +2,19 @@
 layout: page
 title: "MERS-CoV example"
 description: ""
+group: navigation
 ---
 {% include JB/setup %}
 
-MERS-CoV is a SARS-like coronavirus that emerged in Saudi Arabia in 2012. It is zoonotic, which means it is passed from animals to humans. However, MERS is also capable of limited human to human transmission. 
+[MERS-CoV](http://www.who.int/csr/disease/coronavirus_infections/faq/en/)
+ is a SARS-like coronavirus that emerged in Saudi Arabia in 2012.
+ It is zoonotic, which means it is passed from animals to humans.
+ However, MERS is also capable of limited human to human transmission. 
 
-I have been collecting a line list of MERS cases using publicly available data like WHO Disease Outbreak News reports. Where possible, I've been trying to put together human to human clusters - it's guess-work at best, and I can't promise it's anything close to being correct. 
+I have been collecting a line list of MERS cases using publicly available data
+like [WHO Disease Outbreak News reports](http://www.who.int/csr/don/en/).
+Where possible, I've been trying to piece together human to human clusters -
+it's guess-work at best, and I can't promise it's anything close to being correct. 
 
 The (totally unconfirmed) line list is packaged with epipy.
 
@@ -31,7 +38,10 @@ First we'll use the Cluster ID column to make a [case tree plot](http://cmrivers
  
  ![Case tree plot of MERS clusters](https://github.com/cmrivers/epipy/blob/master/figs/MERS_casetree.png?raw=True)
     
- There was clearly a huge spike in cases around April. However, case tree plots only include cases that are part of human clusters. Let's look at an epicurve, which will include all cases, to learn more.
+ There was clearly a huge spike in cases around April. However, case
+ tree plots only include cases that are part of human clusters. Let's
+ look at an [epicurve](http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves/),
+ which will include all cases, to learn more.
  
     plt.figure()
     curve, fig, ax = epi.epicurve_plot(mers_df, 'dates', freq='month')
@@ -41,7 +51,11 @@ First we'll use the Cluster ID column to make a [case tree plot](http://cmrivers
 
 Looks like the number of incident (new) cases has been more or less steady since summer.
 
-Going back to the case tree plot, some of those clusters look hard to parse. I wonder what the distribution of the reproduction numbers looks like? We'll build a network graph using all the cases (not just ones that are part of human to human clusters), but this time we'll color the nodes by patient sex so we can use it later.
+Going back to the case tree plot, some of those clusters look hard to parse.
+I wonder what the distribution of the [reproduction numbers](http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees/)
+ looks like? We'll build a network graph using all the cases (not just
+ ones that are part of human to human clusters), but this time we'll color
+ the nodes by patient sex so we can use it later.
 
     mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #', date_col='dates', color='Sex', gen_mean=5, gen_sd=4)
     R, fig, ax = epi.reproduction_number(mers_G, index_cases=True, plot=True)
@@ -59,9 +73,12 @@ Going back to the case tree plot, some of those clusters look hard to parse. I w
     
 ![Distribution of reproduction numbers](https://github.com/cmrivers/epipy/blob/master/figs/mers_r0_hist.png?raw=True)
 
-Looks like most cases produce no secondary cases, but there are a few outliers that produced 4 and 5 secondary cases.
+Looks like most cases produce no secondary cases, but there are a few outliers
+that produced 4 and 5 secondary cases.
 
-I heard men might be more at risk for getting severe disease than women. Could it be so? To find out, we'll need to collapse the values in the Health Status column to Severe and Less Severe. Then we'll create a 2x2 table to analyze.
+I have heard men might be more at risk for getting severe disease than women.
+Could it be so? To find out, we'll need to collapse the values in the Health Status
+column to Severe and Less Severe. Then we'll create a [2x2 table](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/) to analyze.
 
     mers_df['condensed_health'] = mers_df['Health status'].replace(['Alive', 'Asymptomatic', 'Mild', 'Recovered', 'Reocvered', np.nan], 'Less severe')
     mers_df['condensed_health'] = mers_df['condensed_health'].replace(['Dead', 'Critical'], 'Severe')
@@ -75,7 +92,8 @@ Returns:
     F        26           34   60
     All     107           78  185
     
- It's hard to tell just from looking at the table whether men get more severe disease. We need some statistics.
+ It's hard to tell just from looking at the table whether men get more severe disease.
+ We need some statistics - like the [analyze_2x2](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/) function.
  
     epi.analyze_2x2(table)
     
@@ -87,7 +105,13 @@ Returns:
     Chi square: 11.5161253972
     p value: 0.0213367053676
 
-Because are greater than 1 (and the confidence intervals do not contain 1), it looks like men are at risk of getting more severe disease. There is a hypothesis that this could be because men are acquiring the disease from animals more than women, and that zoonotically acquired disease may be more severe. Could it be true that more index cases are men? (Allow me to remind you here that the clusters I've created are best-guess only. The epidemiological situation on the ground may be totally different than how I've constructed it).
+Because are greater than 1 (and the confidence intervals do not contain 1), it looks
+like men are at risk of getting more severe disease. There is a hypothesis that this
+could be because men are acquiring the disease from animals more than women, and that
+zoonotically acquired disease may be more severe. Could it be true that more index cases are men?
+We can evaluate using the [generation_analysis](http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees/) function.
+(Allow me to remind you here that the clusters I've created are best-guess only.
+The epidemiological situation on the ground may be totally different than how I've constructed it).
  
     fig, ax, table = epi.generation_analysis(mers_G, attribute='Sex', plot=True)
     

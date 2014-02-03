@@ -31,6 +31,22 @@
   
     
       
+      	
+      	<li><a href="/mers.html">MERS-CoV example</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
     
   
     
@@ -50,26 +66,6 @@
     
   
     
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/tags.html">Tags</a></li>
-      	
       
     
   
@@ -117,31 +113,33 @@
 
 <h3 id="examples">Examples</h3>
 
-<p>For this we will use example data packaged with epipy. You may have to modify the path below. We will color the nodes so that all nodes in the cluster have the same color.</p>
+<p>For this we will use example data in the data/ folder of epipy. For this example, we will color the nodes by cluster.</p>
+
+<p>In order to build a case tree plot, you’ll have to provide the generation mean (gen_mean) and generation standard deviation (gen_sd). These values represent the time from when one case becomes infected to when a subsequent case becomes infected. Incubation period may be used when generation time is not known.</p>
 
 <pre><code>import epipy as epi
 import pandas as pd
 
-df = pd.read_csv(&#39;epipy/data/example_data.csv&#39;)
-fig, ax = epi.case_tree_plot(df, cluster_id = &#39;Cluster&#39;, case_id =&#39;ID&#39;, \
-          date_col=&#39;Date&#39;, color=&#39;Cluster&#39;, gen_mean=4, gen_sd = 1)</code></pre>
+df = epi.get_data('example_data')
+fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', case_id ='ID', \
+          date_col='Date', color='Cluster', gen_mean=4, gen_sd = 1)</code></pre>
 
-<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true" alt="Casetree plot" /></p>
+<p><img alt="Casetree plot" src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true" /></p>
 
-<p>If we want to change the node color to represent the health status of each case, we simply change the color argument.</p>
+<p>If you want to change the node color to represent the health status of each case, simply change the color argument.</p>
 
-<pre><code>fig, ax = epi.case_tree_plot(df, cluster_id = &#39;Cluster&#39;, case_id =&#39;ID&#39;, \
-          date_col=&#39;Date&#39;, color=&#39;health&#39;, gen_mean=4, gen_sd = 1)</code></pre>
+<pre><code>fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', case_id ='ID', \
+          date_col='Date', color='health', gen_mean=4, gen_sd = 1)</code></pre>
 
-<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true" alt="Casetree plot with node attribute" /></p>
+<p><img alt="Casetree plot with node attribute" src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true" /></p>
 
-<p>We can also turn the legend off, and change the size of the node using optional arguments.</p>
+<p>You can also turn the legend off, and change the size of the node using optional arguments.</p>
 
-<pre><code>  fig, ax = epi.case_tree_plot(df, cluster_id = &#39;Cluster&#39;, \
-                case_id =&#39;ID&#39;, date_col=&#39;Date&#39;, color=&#39;Cluster&#39;, \
+<pre><code>  fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', \
+                case_id ='ID', date_col='Date', color='Cluster', \
                 gen_mean=4, gen_sd = 1, node_size=25, legend=False)</code></pre>
 
-<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_noleg.png?raw=true" alt="Case tree plot with no legend and small node size" /></p>
+<p><img alt="Case tree plot with no legend and small node size" src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_noleg.png?raw=true" /></p>
 
   
 </section>

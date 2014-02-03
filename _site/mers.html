@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="author" content="Caitlin Rivers" />
+    <title>MERS-CoV example</title>
+
+    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
+    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
+    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header"><a href="/">Epipy</a></h1>
+        <p class="header">Python tools for epidemiology</p>
+        <ul>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li class="active"><a href="/mers.html" class="active">MERS-CoV example</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Documentation</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+        </ul>
+        
+        
+        <div class="misc vcard">
+          <h4>about</h4>
+          <ul>
+            
+            
+            <li class="github"><a href="http://github.com/cmrivers/" rel="me">github.com/cmrivers</a></li>
+            
+            
+            <li class="twitter"><a href="http://twitter.com/cmyeaton/" rel="me">twitter.com/cmyeaton</a></li>
+            
+            
+            
+            
+            
+          </ul>
+        </div><!-- misc -->
+        
+      </header>
+
+      <section>
+      
+<section>
+  <h1>MERS-CoV example</h1>
+
+  <p>MERS-CoV is a SARS-like coronavirus that emerged in Saudi Arabia in 2012. It is zoonotic, which means it is passed from animals to humans. However, MERS is also capable of limited human to human transmission.</p>
+
+<p>I have been collecting a line list of MERS cases using publicly available data like WHO Disease Outbreak News reports. Where possible, I’ve been trying to put together human to human clusters - it’s guess-work at best, and I can’t promise it’s anything close to being correct.</p>
+
+<p>The (totally unconfirmed) line list is packaged with epipy.</p>
+
+<pre><code>import epipy as epi
+import pandas as pd
+
+mers_df = epi.get_data('mers_line_list')</code></pre>
+
+<p>Line lists are messy. A little data cleaning is needed before we proceed. First we need to convert our two date columns to the proper datetime format. Then I’ll collapse the two, preferring onset date over report date.</p>
+
+<pre><code>mers_df['onset_date'] = mers_df['Approx onset date'].ma (epi.date_convert)
+mers_df['report_date'] = mers_df['Approx reporting date'].map(epi.date_convert)
+mers_df['dates'] = mers_df['onset_date'].combine_first(mers_df['report_date'])</code></pre>
+
+<p>First we’ll use the Cluster ID column to make a <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case tree plot</a>. I’ll color each node by it’s cluster membership, and turn the legend off to prevent crowding. I set the generation time to 5 days and the standard deviation to 4, which is the best guess I can get from the literature.</p>
+
+<pre><code>fig, ax = epi.case_tree_plot(mers_df, cluster_id='Cluster ID', \
+                    case_id='Case #', date_col='dates', gen_mean = 5, \
+                    gen_sd = 4, color='Cluster ID', legend=False)
+ax.set_title('Human clusters of MERS-CoV')</code></pre>
+
+<p><img alt="Case tree plot of MERS clusters" src="https://github.com/cmrivers/epipy/blob/master/figs/MERS_casetree.png?raw=True" /></p>
+
+<p>There was clearly a huge spike in cases around April. However, case tree plots only include cases that are part of human clusters. Let’s look at an epicurve, which will include all cases, to learn more.</p>
+
+<pre><code>plt.figure()
+curve, fig, ax = epi.epicurve_plot(mers_df, 'dates', freq='month')
+plt.title('Approximate onset or report date of MERS cases')</code></pre>
+
+<p><img alt="Epicurve of MERS cases" src="https://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=True" /></p>
+
+<p>Looks like the number of incident (new) cases has been more or less steady since summer.</p>
+
+<p>Going back to the case tree plot, some of those clusters look hard to parse. I wonder what the distribution of the reproduction numbers looks like? We’ll build a network graph using all the cases (not just ones that are part of human to human clusters), but this time we’ll color the nodes by patient sex so we can use it later.</p>
+
+<pre><code>mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #', date_col='dates', color='Sex', gen_mean=5, gen_sd=4)
+R, fig, ax = epi.reproduction_number(mers_G, index_cases=True, plot=True)
+R.describe()
+
+count    101.000000
+mean       1.000000
+std        1.296148
+min        0.000000
+25%        0.000000
+50%        0.000000
+75%        2.000000
+max        5.000000
+dtype: float64</code></pre>
+
+<p><img alt="Distribution of reproduction numbers" src="https://github.com/cmrivers/epipy/blob/master/figs/mers_r0_hist.png?raw=True" /></p>
+
+<p>Looks like most cases produce no secondary cases, but there are a few outliers that produced 4 and 5 secondary cases.</p>
+
+<p>I heard men might be more at risk for getting severe disease than women. Could it be so? To find out, we’ll need to collapse the values in the Health Status column to Severe and Less Severe. Then we’ll create a 2x2 table to analyze.</p>
+
+<pre><code>mers_df['condensed_health'] = mers_df['Health status'].replace(['Alive', 'Asymptomatic', 'Mild', 'Recovered', 'Reocvered', np.nan], 'Less severe')
+mers_df['condensed_health'] = mers_df['condensed_health'].replace(['Dead', 'Critical'], 'Severe')
+
+table = epi.create_2x2(mers_df, 'Sex', 'condensed_health', ['M', 'F'], ['Severe', 'Less severe'])</code></pre>
+
+<p>Returns:</p>
+
+<pre><code>     Severe  Less severe  All
+M        71           30  101
+F        26           34   60
+All     107           78  185</code></pre>
+
+<p>It’s hard to tell just from looking at the table whether men get more severe disease. We need some statistics.</p>
+
+<pre><code>epi.analyze_2x2(table)</code></pre>
+
+<p>Returns:</p>
+
+<pre><code>Odds ratio: 3.09 (95% CI: (1.59, 6.02))
+Relative risk: 1.62 (95% CI: (1.18, 2.22))
+
+Chi square: 11.5161253972
+p value: 0.0213367053676</code></pre>
+
+<p>Because are greater than 1 (and the confidence intervals do not contain 1), it looks like men are at risk of getting more severe disease. There is a hypothesis that this could be because men are acquiring the disease from animals more than women, and that zoonotically acquired disease may be more severe. Could it be true that more index cases are men? (Allow me to remind you here that the clusters I’ve created are best-guess only. The epidemiological situation on the ground may be totally different than how I’ve constructed it).</p>
+
+<pre><code>fig, ax, table = epi.generation_analysis(mers_G, attribute='Sex', plot=True)</code></pre>
+
+<p>Returns:</p>
+
+<pre><code>Sex by generation
+Sex          F   M  All
+generation             
+0            6  14   22
+1           16  17   35
+2            5  12   20
+3            7   6   16
+4            1   2    3
+5            0   1    1
+6            1   1    2
+7            0   1    1
+8            1   0    1
+All         37  54  101 </code></pre>
+
+<p><img alt="MERS case sex by generation" src="mers_sex_generation.png?raw=True" /></p>
+
+<p>There may be something to that theory after all! Among cases that belong to human clusters, 64% of index nodes are male, and 49% of first generation nodes are male. It goes back up to 60% at generation 2 though so it’s hard to say for sure.</p>
+
+  
+</section>
+
+
+      </section>
+
+      <footer>
+      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
+
