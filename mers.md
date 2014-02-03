@@ -38,7 +38,8 @@ First we'll use the Cluster ID column to make a [case tree plot](http://cmrivers
  
  ![Case tree plot of MERS clusters](https://github.com/cmrivers/epipy/blob/master/figs/MERS_casetree.png?raw=True)
     
- There was clearly a huge spike in cases around April. However, case
+ It look slike most clusters get to only one or two generations before dying out.
+  There was clearly a huge spike in cases around April. However, case
  tree plots only include cases that are part of human clusters. Let's
  look at an [epicurve](http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves/),
  which will include all cases, to learn more.
