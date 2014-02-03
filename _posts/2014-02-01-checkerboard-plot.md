@@ -26,4 +26,4 @@ First, load in the example data packaged with epipy (you may have to modify the 
     ax.set_title('Example outbreak data')
 
 
-![Checkerboard plot](https://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png)
+![Checkerboard plot](https://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png?raw=true)

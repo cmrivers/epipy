@@ -134,7 +134,9 @@ python setup.py install</code></pre>
 import pandas as pd
 
 df = pd.read_csv(&#39;epipy/data/example_data.csv&#39;)
-fig, ax = epi.case_tree_plot(example_df, cluster_id = &#39;Cluster&#39;, case_id =&#39;ID&#39;, \                   date_col=&#39;Date&#39;, color=&#39;Cluster&#39;, gen_mean=4, gen_sd = 1)
+fig, ax = epi.case_tree_plot(example_df, cluster_id = &#39;Cluster&#39;, \
+          case_id =&#39;ID&#39;, date_col=&#39;Date&#39;, color=&#39;Cluster&#39;, \
+          gen_mean=4, gen_sd = 1)
 ax.set_title(&#39;Example outbreak data&#39;)</code></pre>
 
 <p><img src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true" alt="Casetree plot" /></p>

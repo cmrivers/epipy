@@ -119,7 +119,7 @@ import pandas as pd
 mers_df = pd.read_csv(&#39;epipy/data/mers_line_list.csv&#39;)
 curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;month&#39;)</code></pre>
 
-<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png" alt="Monthly epicurve of MERS-CoV" /></p>
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true" alt="Monthly epicurve of MERS-CoV" /></p>
 
 <p>The curve variable returns a table with a list of dates and their frequency. Monthly epicurves work by reassigning all cases for that month to the first day of the month. For the MERS data, it looks like this:</p>
 
@@ -134,11 +134,11 @@ curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;
 
 <pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;day&#39;)</code></pre>
 
-<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png" alt="Daily epicurve of MERS-CoV" /></p>
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png?raw=true" alt="Daily epicurve of MERS-CoV" /></p>
 
 <pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;y&#39;)</code></pre>
 
-<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png" alt="Yearly epicurve of MERS-CoV" /></p>
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png" alt="Yearly epicurve of MERS-CoV" /></p>
 
   
 </section>

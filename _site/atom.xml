@@ -4,7 +4,7 @@
  <title>Epipy</title>
  <link href="http://cmrivers.github.io/epipy/" rel="self"/>
  <link href="http://cmrivers.github.io/epipy"/>
- <updated>2014-02-02T20:40:29-05:00</updated>
+ <updated>2014-02-02T20:48:40-05:00</updated>
  <id>http://cmrivers.github.io/epipy</id>
  <author>
    <name>Caitlin Rivers</name>
@@ -69,7 +69,7 @@ import pandas as pd
 mers_df = pd.read_csv(&amp;#39;epipy/data/mers_line_list.csv&amp;#39;)
 curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, freq=&amp;#39;month&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png&quot; alt=&quot;Monthly epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true&quot; alt=&quot;Monthly epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The curve variable returns a table with a list of dates and their frequency. Monthly epicurves work by reassigning all cases for that month to the first day of the month. For the MERS data, it looks like this:&lt;/p&gt;
 
@@ -84,11 +84,11 @@ curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, fr
 
 &lt;pre&gt;&lt;code&gt;curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, freq=&amp;#39;day&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png&quot; alt=&quot;Daily epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png?raw=true&quot; alt=&quot;Daily epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, freq=&amp;#39;y&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png&quot; alt=&quot;Yearly epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;</content>
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png&quot; alt=&quot;Yearly epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;</content>
  </entry>
  
  <entry>
