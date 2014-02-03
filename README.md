@@ -27,4 +27,4 @@ Contact me at cmrivers@vbi.vt.edu or [@cmyeaton](http://twitter.com/cmyeaton) wi
 
 Documentation
 ------------
-The docs live at: cmrivers.github.io/epipy
+The docs live at: [cmrivers.github.io/epipy](https://cmrivers.github.io/epipy)
