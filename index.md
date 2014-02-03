@@ -49,7 +49,10 @@ Quickstart
 
     fig, ax, table = epi.generation_analysis(mers_G, attribute='Health status', \
                                              plot=True)
-                                             
+
+
+table returns:
+
     Health status  Alive  Asymptomatic  Critical  Dead  Mild  Recovered  All
     generation
     0                  5             1         3    12     1          0   22
@@ -79,6 +82,8 @@ Quickstart
 
     df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
     epi.summary(df.Age, by=df.Group)
+
+returns:
 
         count  missing  min  median  mean      std   max
     A      1        0   10      10    10       NaN   10
