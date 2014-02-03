@@ -57,6 +57,33 @@ returns:
 
 ##2x2 table
 
+[2x2 tables](http://sphweb.bumc.bu.edu/otlt/MPH-Modules/EP/EP713_Association/EP713_Association_print.html)
+are commonly used to assess risk in epidemiology. The rows represent a risk factor,
+like exposure to a disease, or sex. The columns represent an outcome, like infection status,
+ or whether the disease was severe or mild. 
+
 ###Create a 2x2 table
 
+Both rows and columns must be binary, so in the example below I collapse
+the health status values into dead and alive. Note that you must tell epipy
+how you wish the table to be organized by providing a list of values.
+
+    import epipy as epi
+    import pandas as pd
+
+    mers_df = pd.read_csv('epipy/data/mers_line_list.csv')
+    mers_df['condensed_health'] = mers_df['Health status'].
+                                    replace(['Critical', 'Alive', 'Asymptomatic',
+                                    'Mild', 'Recovered', 'Reocvered'], 'Alive')
+    table = table = epipy.create_2x2(mers_df, 'Sex', 'condensed_health',
+                    ['M', 'F'], ['Dead', 'Alive'])
+
+table returns:
+
 ###Analyze a 2x2 table
+
+2x2 tables are used to calculate odds ratios, relative risk, and chi square tests.
+
+    epipy.analyze_2x2(table)
+
+
