@@ -34,7 +34,7 @@ The series object, R in the above example, can be manipulated further.
 
     print R.describe()
 
-Returns:
+The R variable returns:
 
     count    101.000000
     mean       1.000000
@@ -46,6 +46,7 @@ Returns:
     max        5.000000
     dtype: float64
 
+And the figure returns:
 
 ![Histogram of reproduction numbers](https://github.com/cmrivers/epipy/blob/master/figs/r0_hist.png?raw=true)
 
@@ -57,9 +58,10 @@ Epidemiologists must also be interested in how the disease changes from one gene
 
 **Example**
 
-    fig, ax, table = epi.generation_analysis(mers_G, attribute='Health status', plot=True)
+    fig, ax, table = epi.generation_analysis(mers_G, attribute='Health status', \
+                                             plot=True)
 
-Returns:
+The table variable returns:
 
     Health status  Alive  Asymptomatic  Critical  Dead  Mild  Recovered  All
     generation
@@ -74,5 +76,6 @@ Returns:
     8                  0             0         0     0     0          1    1
     All               16            18        12    38    11          5  101
 
+And the figure returns:
 
 ![Health status by generation](https://github.com/cmrivers/epipy/blob/master/figs/mers_generation_hist.png?raw=true)
