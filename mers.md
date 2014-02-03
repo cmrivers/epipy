@@ -132,9 +132,11 @@ The epidemiological situation on the ground may be totally different than how I'
     8            1   0    1
     All         37  54  101 
    
-![MERS case sex by generation](mers_sex_generation.png?raw=True)
+![MERS case sex by generation](https://github.com/cmrivers/epipy/blob/master/figs/mers_sex_generation.png?raw=True)
   
-There may be something to that theory after all! Among cases that belong to human clusters, 64% of index nodes are male, and 49% of first generation nodes are male. It goes back up to 60% at generation 2 though so it's hard to say for sure.
+There may be something to that theory after all! Among cases that belong
+to human clusters, 64% of index nodes are male, and 49% of first generation
+nodes are male. It goes back up to 60% at generation 2 though so it's hard to say for sure.
 
 
     
