@@ -69,6 +69,10 @@
       
     
   
+    
+      
+    
+  
 
 
 
@@ -99,9 +103,9 @@
 <section>
   <h1>MERS-CoV example</h1>
 
-  <p>MERS-CoV is a SARS-like coronavirus that emerged in Saudi Arabia in 2012. It is zoonotic, which means it is passed from animals to humans. However, MERS is also capable of limited human to human transmission.</p>
+  <p><a href="http://www.who.int/csr/disease/coronavirus_infections/faq/en/">MERS-CoV</a> is a SARS-like coronavirus that emerged in Saudi Arabia in 2012. It is zoonotic, which means it is passed from animals to humans. However, MERS is also capable of limited human to human transmission.</p>
 
-<p>I have been collecting a line list of MERS cases using publicly available data like WHO Disease Outbreak News reports. Where possible, I’ve been trying to put together human to human clusters - it’s guess-work at best, and I can’t promise it’s anything close to being correct.</p>
+<p>I have been collecting a line list of MERS cases using publicly available data like <a href="http://www.who.int/csr/don/en/">WHO Disease Outbreak News reports</a>. Where possible, I’ve been trying to piece together human to human clusters - it’s guess-work at best, and I can’t promise it’s anything close to being correct.</p>
 
 <p>The (totally unconfirmed) line list is packaged with epipy.</p>
 
@@ -125,7 +129,7 @@ ax.set_title('Human clusters of MERS-CoV')</code></pre>
 
 <p><img alt="Case tree plot of MERS clusters" src="https://github.com/cmrivers/epipy/blob/master/figs/MERS_casetree.png?raw=True" /></p>
 
-<p>There was clearly a huge spike in cases around April. However, case tree plots only include cases that are part of human clusters. Let’s look at an epicurve, which will include all cases, to learn more.</p>
+<p>It look slike most clusters get to only one or two generations before dying out. There was clearly a huge spike in cases around April. However, case tree plots only include cases that are part of human clusters. Let’s look at an <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves/">epicurve</a>, which will include all cases, to learn more.</p>
 
 <pre><code>plt.figure()
 curve, fig, ax = epi.epicurve_plot(mers_df, 'dates', freq='month')
@@ -135,7 +139,7 @@ plt.title('Approximate onset or report date of MERS cases')</code></pre>
 
 <p>Looks like the number of incident (new) cases has been more or less steady since summer.</p>
 
-<p>Going back to the case tree plot, some of those clusters look hard to parse. I wonder what the distribution of the reproduction numbers looks like? We’ll build a network graph using all the cases (not just ones that are part of human to human clusters), but this time we’ll color the nodes by patient sex so we can use it later.</p>
+<p>Going back to the case tree plot, some of those clusters look hard to parse. I wonder what the distribution of the <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees/">reproduction numbers</a> looks like? We’ll build a network graph using all the cases (not just ones that are part of human to human clusters), but this time we’ll color the nodes by patient sex so we can use it later.</p>
 
 <pre><code>mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #', date_col='dates', color='Sex', gen_mean=5, gen_sd=4)
 R, fig, ax = epi.reproduction_number(mers_G, index_cases=True, plot=True)
@@ -155,7 +159,7 @@ dtype: float64</code></pre>
 
 <p>Looks like most cases produce no secondary cases, but there are a few outliers that produced 4 and 5 secondary cases.</p>
 
-<p>I heard men might be more at risk for getting severe disease than women. Could it be so? To find out, we’ll need to collapse the values in the Health Status column to Severe and Less Severe. Then we’ll create a 2x2 table to analyze.</p>
+<p>I have heard men might be more at risk for getting severe disease than women. Could it be so? To find out, we’ll need to collapse the values in the Health Status column to Severe and Less Severe. Then we’ll create a <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">2x2 table</a> to analyze.</p>
 
 <pre><code>mers_df['condensed_health'] = mers_df['Health status'].replace(['Alive', 'Asymptomatic', 'Mild', 'Recovered', 'Reocvered', np.nan], 'Less severe')
 mers_df['condensed_health'] = mers_df['condensed_health'].replace(['Dead', 'Critical'], 'Severe')
@@ -169,7 +173,7 @@ M        71           30  101
 F        26           34   60
 All     107           78  185</code></pre>
 
-<p>It’s hard to tell just from looking at the table whether men get more severe disease. We need some statistics.</p>
+<p>It’s hard to tell just from looking at the table whether men get more severe disease. We need some statistics - like the <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">analyze_2x2</a> function.</p>
 
 <pre><code>epi.analyze_2x2(table)</code></pre>
 
@@ -181,7 +185,7 @@ Relative risk: 1.62 (95% CI: (1.18, 2.22))
 Chi square: 11.5161253972
 p value: 0.0213367053676</code></pre>
 
-<p>Because are greater than 1 (and the confidence intervals do not contain 1), it looks like men are at risk of getting more severe disease. There is a hypothesis that this could be because men are acquiring the disease from animals more than women, and that zoonotically acquired disease may be more severe. Could it be true that more index cases are men? (Allow me to remind you here that the clusters I’ve created are best-guess only. The epidemiological situation on the ground may be totally different than how I’ve constructed it).</p>
+<p>Because are greater than 1 (and the confidence intervals do not contain 1), it looks like men are at risk of getting more severe disease. There is a hypothesis that this could be because men are acquiring the disease from animals more than women, and that zoonotically acquired disease may be more severe. Could it be true that more index cases are men? We can evaluate using the <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees/">generation_analysis</a> function. (Allow me to remind you here that the clusters I’ve created are best-guess only. The epidemiological situation on the ground may be totally different than how I’ve constructed it).</p>
 
 <pre><code>fig, ax, table = epi.generation_analysis(mers_G, attribute='Sex', plot=True)</code></pre>
 
@@ -201,7 +205,7 @@ generation
 8            1   0    1
 All         37  54  101 </code></pre>
 
-<p><img alt="MERS case sex by generation" src="mers_sex_generation.png?raw=True" /></p>
+<p><img alt="MERS case sex by generation" src="https://github.com/cmrivers/epipy/blob/master/figs/mers_sex_generation.png?raw=True" /></p>
 
 <p>There may be something to that theory after all! Among cases that belong to human clusters, 64% of index nodes are male, and 49% of first generation nodes are male. It goes back up to 60% at generation 2 though so it’s hard to say for sure.</p>
 

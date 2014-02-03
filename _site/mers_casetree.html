@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="author" content="Caitlin Rivers" />
-    <title>Checkerboard Plot</title>
+    <title>MERS-CoV example</title>
 
     <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
     <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
@@ -101,27 +101,11 @@
       <section>
       
 <section>
-  <h1>Checkerboard Plot</h1>
+  <h1>MERS-CoV example</h1>
 
-  <h2 id="checkerboard_plot">Checkerboard plot</h2>
+  <p>I have been collecting a line list of MERS cases using publicly available data like <a href="http://www.who.int/csr/don/en/">WHO Disease Outbreak News reports</a>. Where possible, I’ve been trying to piece together human to human clusters - it’s guess-work at best, and I can’t promise it’s anything close to being correct.</p>
 
-<h3 id="what_is_a_checkerboard_plot">What is a checkerboard plot?</h3>
-
-<p>I developed checkerboard plots to display similar data as a <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case tree plot</a>, but instead of a network it shows a simple time series for each human to human cluster. It does not attempt to determine the structure of the transmission network.</p>
-
-<h3 id="examples">Examples</h3>
-
-<p>First, load in the example data packaged with epipy. Then simply call the checkerboard() function with column labels that correspond to columns containing unique case id numbers, cluster membership, and the date of illness onset or report. The label argument is optional; if set to off, no case id numbers will be displayed.</p>
-
-<pre><code>import epipy as epi
-import pandas as pd
-
-df = epi.get_data('example_data')
-fig, ax = epi.checkerboard_plot(df, case_id='ID', cluster_id='Cluster', \
-          date_col='Date', labels='on')
-ax.set_title('Example outbreak data')</code></pre>
-
-<p><img alt="Checkerboard plot" src="https://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png?raw=true" /></p>
+<p><img alt="Case tree plot of MERS clusters" src="https://github.com/cmrivers/epipy/blob/master/figs/MERS_casetree.png?raw=True" /></p>
 
   
 </section>

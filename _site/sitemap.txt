@@ -5,6 +5,7 @@ http://cmrivers.github.io/epipy/rss.xml
 http://cmrivers.github.io/epipy/old_index.html
 http://cmrivers.github.io/epipy/categories.html
 http://cmrivers.github.io/epipy/atom.xml
+http://cmrivers.github.io/epipy/mers_casetree.html
 http://cmrivers.github.io/epipy/new-page.html
 http://cmrivers.github.io/epipy/index.html
 
