@@ -31,13 +31,11 @@ human cluster. However, it could also represent health status (e.g. alive, dead)
 
 ### Examples
 
-First we will use example data packaged with epipy. We will color the nodes by their cluster.
+First we will use example data packaged with epipy. We will color the nodes so that all nodes in the cluster have the same color.
 
     import epipy
-    import os
-    dir = os.path.dirname(__file__)
 
-    df = pd.read_csv(os.path.join(dir, '../data/example_data.csv'))
+    df = pd.read_csv('epipy/data/example_data.csv')
     fig, ax = epipy.case_tree_plot(example_df, cluster_id = 'Cluster', \
                     case_id ='ID', date_col='Date', color='Cluster', \
                     gen_mean=4, gen_sd = 1)
@@ -50,3 +48,10 @@ If we want to change the node color to represent the health status of each case,
                     case_id ='ID', date_col='Date', color='health', \
                     gen_mean=4, gen_sd = 1)
 ![Casetree plot](http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true)
+
+We can also turn the legend off, and change the size of the node using optional arguments.
+
+      fig, ax = epipy.case_tree_plot(example_df, cluster_id = 'Cluster', \
+                    case_id ='ID', date_col='Date', color='Cluster', \
+                    gen_mean=4, gen_sd = 1, node_size=25, legend=False)
+
