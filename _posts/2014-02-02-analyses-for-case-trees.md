@@ -6,7 +6,7 @@ tags : [analyses, case tree]
 ---
 {% include JB/setup %}
 
-Case tree plots allow unusual insight into the dynamics of an outbreak. Epipy currently has two functions to analyze the emerging zoonoses that case tree plots were developed to represent.
+[Case tree plots](http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/) allow unusual insight into the dynamics of an outbreak. Epipy currently has two functions to analyze the emerging zoonoses that case tree plots were developed to represent.
 
 ##Basic reproduction number
 
