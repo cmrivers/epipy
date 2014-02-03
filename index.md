@@ -5,7 +5,7 @@ tagline: Python tools for epidemiology
 ---
 {% include JB/setup %}
 
-Epipy is a Python package for epidemiology.  It contains (or will contain...)
+Epipy is a Python package for epidemiology. It contains (or will contain...)
 tools for analyzing and visualizing epidemiology data. Epipy can currently produce:
 
 * [stratified summary statistics](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
@@ -14,6 +14,8 @@ tools for analyzing and visualizing epidemiology data. Epipy can currently produ
 * [analysis of case attribute (e.g. sex) by generation](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
 * [2x2 tables with odds ratio and relative risk](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
 * [summary of cluster basic reproduction numbers](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
+
+Please note that epipy is still in development.
 
 Installation
 ------------
