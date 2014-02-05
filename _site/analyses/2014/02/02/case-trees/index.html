@@ -31,22 +31,6 @@
   
     
       
-      	
-      	<li><a href="/mers.html">MERS-CoV example</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
     
   
     
@@ -54,6 +38,22 @@
       	
       	<li><a href="/categories.html">Documentation</a></li>
       	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/mers.html">MERS-CoV example</a></li>
+      	
+      
+    
+  
+    
       
     
   
@@ -120,9 +120,9 @@
 <pre><code>import epipy as epi
 import pandas as pd
 
-mers_df = epi.get_data('mers_line_list.csv')
-mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #',
-	        date_col='dates', color='Health status', gen_mean=5, gen_sd=4)
+mers_df = epi.get_data(&#39;mers_line_list.csv&#39;)
+mers_G = epi.build_graph(mers_df, cluster_id=&#39;Cluster ID&#39;, case_id=&#39;Case #&#39;,
+	        date_col=&#39;dates&#39;, color=&#39;Health status&#39;, gen_mean=5, gen_sd=4)
 
 R, fig, ax = epi.reproduction_number(mers_G, index_cases=True, plot=True)</code></pre>
 
@@ -144,7 +144,7 @@ dtype: float64</code></pre>
 
 <p>And the figure returns:</p>
 
-<p><img alt="Histogram of reproduction numbers" src="https://github.com/cmrivers/epipy/blob/master/figs/r0_hist.png?raw=true" /></p>
+<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/r0_hist.png?raw=true" alt="Histogram of reproduction numbers" /></p>
 
 <h2 id="generation_analyses">Generation analyses</h2>
 
@@ -152,7 +152,7 @@ dtype: float64</code></pre>
 
 <p><strong>Example</strong></p>
 
-<pre><code>fig, ax, table = epi.generation_analysis(mers_G, attribute='Health status', \
+<pre><code>fig, ax, table = epi.generation_analysis(mers_G, attribute=&#39;Health status&#39;, \
                                          plot=True)</code></pre>
 
 <p>The table variable returns:</p>
@@ -172,7 +172,7 @@ All               16            18        12    38    11          5  101</code><
 
 <p>And the figure returns:</p>
 
-<p><img alt="Health status by generation" src="https://github.com/cmrivers/epipy/blob/master/figs/mers_generation_hist.png?raw=true" /></p>
+<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/mers_generation_hist.png?raw=true" alt="Health status by generation" /></p>
 
   
 </section>

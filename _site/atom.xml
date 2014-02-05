@@ -4,7 +4,7 @@
  <title>Epipy</title>
  <link href="http://cmrivers.github.io/epipy/" rel="self"/>
  <link href="http://cmrivers.github.io/epipy"/>
- <updated>2014-02-03T16:56:53-05:00</updated>
+ <updated>2014-02-04T09:53:27-05:00</updated>
  <id>http://cmrivers.github.io/epipy</id>
  <author>
    <name>Caitlin Rivers</name>
@@ -34,9 +34,9 @@
 &lt;pre&gt;&lt;code&gt;import epipy as epi
 import pandas as pd
 
-mers_df = epi.get_data('mers_line_list.csv')
-mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #',
-	        date_col='dates', color='Health status', gen_mean=5, gen_sd=4)
+mers_df = epi.get_data(&amp;#39;mers_line_list.csv&amp;#39;)
+mers_G = epi.build_graph(mers_df, cluster_id=&amp;#39;Cluster ID&amp;#39;, case_id=&amp;#39;Case #&amp;#39;,
+	        date_col=&amp;#39;dates&amp;#39;, color=&amp;#39;Health status&amp;#39;, gen_mean=5, gen_sd=4)
 
 R, fig, ax = epi.reproduction_number(mers_G, index_cases=True, plot=True)&lt;/code&gt;&lt;/pre&gt;
 
@@ -58,7 +58,7 @@ dtype: float64&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;And the figure returns:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt=&quot;Histogram of reproduction numbers&quot; src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/r0_hist.png?raw=true&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/r0_hist.png?raw=true&quot; alt=&quot;Histogram of reproduction numbers&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;generation_analyses&quot;&gt;Generation analyses&lt;/h2&gt;
 
@@ -66,7 +66,7 @@ dtype: float64&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;fig, ax, table = epi.generation_analysis(mers_G, attribute='Health status', \
+&lt;pre&gt;&lt;code&gt;fig, ax, table = epi.generation_analysis(mers_G, attribute=&amp;#39;Health status&amp;#39;, \
                                          plot=True)&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The table variable returns:&lt;/p&gt;
@@ -86,7 +86,7 @@ All               16            18        12    38    11          5  101&lt;/cod
 
 &lt;p&gt;And the figure returns:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt=&quot;Health status by generation&quot; src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/mers_generation_hist.png?raw=true&quot; /&gt;&lt;/p&gt;</content>
+&lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/mers_generation_hist.png?raw=true&quot; alt=&quot;Health status by generation&quot; /&gt;&lt;/p&gt;</content>
  </entry>
  
  <entry>
@@ -103,7 +103,7 @@ All               16            18        12    38    11          5  101&lt;/cod
 &lt;pre&gt;&lt;code&gt;import epipy as epi
 import pandas as pd
 
-df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+df = pd.DataFrame({&amp;#39;Age&amp;#39; : [10, 12, 14], &amp;#39;Group&amp;#39; : [&amp;#39;A&amp;#39;, &amp;#39;B&amp;#39;, &amp;#39;B&amp;#39;] })
 epi.summary(df.Age)&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;returns:&lt;/p&gt;
@@ -148,12 +148,12 @@ B      2        0   12      13    13  1.414214   14&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;import epipy as epi
 import pandas as pd
 
-mers_df = epi.get_data('mers_line_list.csv')
-mers_df['condensed_health'] = mers_df['Health status'].
-                                replace(['Critical', 'Alive', 'Asymptomatic',
-                                'Mild', 'Recovered', 'Reocvered'], 'Alive')
-table = epi.create_2x2(mers_df, 'Sex', 'condensed_health',
-                ['M', 'F'], ['Dead', 'Alive'])&lt;/code&gt;&lt;/pre&gt;
+mers_df = epi.get_data(&amp;#39;mers_line_list.csv&amp;#39;)
+mers_df[&amp;#39;condensed_health&amp;#39;] = mers_df[&amp;#39;Health status&amp;#39;].
+                                replace([&amp;#39;Critical&amp;#39;, &amp;#39;Alive&amp;#39;, &amp;#39;Asymptomatic&amp;#39;,
+                                &amp;#39;Mild&amp;#39;, &amp;#39;Recovered&amp;#39;, &amp;#39;Reocvered&amp;#39;], &amp;#39;Alive&amp;#39;)
+table = epi.create_2x2(mers_df, &amp;#39;Sex&amp;#39;, &amp;#39;condensed_health&amp;#39;,
+                [&amp;#39;M&amp;#39;, &amp;#39;F&amp;#39;], [&amp;#39;Dead&amp;#39;, &amp;#39;Alive&amp;#39;])&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;table returns:&lt;/p&gt;
 
@@ -201,10 +201,10 @@ epi.chi2(table)&lt;/code&gt;&lt;/pre&gt;</content>
 &lt;pre&gt;&lt;code&gt;import epipy as epi
 import pandas as pd
 
-mers_df = epi.get_data('mers_line_list')
-curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='month')&lt;/code&gt;&lt;/pre&gt;
+mers_df = epi.get_data(&amp;#39;mers_line_list&amp;#39;)
+curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, freq=&amp;#39;month&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img alt=&quot;Monthly epicurve of MERS-CoV&quot; src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true&quot; alt=&quot;Monthly epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The curve variable returns a table with a list of dates and their frequency. Monthly epicurves work by reassigning all cases for that month to the first day of the month. For the MERS data, it looks like this:&lt;/p&gt;
 
@@ -217,13 +217,13 @@ curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='month')&lt;/
 
 &lt;p&gt;You may also plot the frequency by day, month or year using the freq argument.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='day')&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, freq=&amp;#39;day&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img alt=&quot;Daily epicurve of MERS-CoV&quot; src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png?raw=true&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png?raw=true&quot; alt=&quot;Daily epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='y')&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, freq=&amp;#39;y&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img alt=&quot;Yearly epicurve of MERS-CoV&quot; src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png?raw=true&quot; /&gt;&lt;/p&gt;</content>
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png?raw=true&quot; alt=&quot;Yearly epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;</content>
  </entry>
  
  <entry>
@@ -244,12 +244,12 @@ curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='month')&lt;/
 &lt;pre&gt;&lt;code&gt;import epipy as epi
 import pandas as pd
 
-df = epi.get_data('example_data')
-fig, ax = epi.checkerboard_plot(df, case_id='ID', cluster_id='Cluster', \
-          date_col='Date', labels='on')
-ax.set_title('Example outbreak data')&lt;/code&gt;&lt;/pre&gt;
+df = epi.get_data(&amp;#39;example_data&amp;#39;)
+fig, ax = epi.checkerboard_plot(df, case_id=&amp;#39;ID&amp;#39;, cluster_id=&amp;#39;Cluster&amp;#39;, \
+          date_col=&amp;#39;Date&amp;#39;, labels=&amp;#39;on&amp;#39;)
+ax.set_title(&amp;#39;Example outbreak data&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img alt=&quot;Checkerboard plot&quot; src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png?raw=true&quot; /&gt;&lt;/p&gt;</content>
+&lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png?raw=true&quot; alt=&quot;Checkerboard plot&quot; /&gt;&lt;/p&gt;</content>
  </entry>
  
  <entry>
@@ -278,26 +278,26 @@ ax.set_title('Example outbreak data')&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;import epipy as epi
 import pandas as pd
 
-df = epi.get_data('example_data')
-fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', case_id ='ID', \
-          date_col='Date', color='Cluster', gen_mean=4, gen_sd = 1)&lt;/code&gt;&lt;/pre&gt;
+df = epi.get_data(&amp;#39;example_data&amp;#39;)
+fig, ax = epi.case_tree_plot(df, cluster_id = &amp;#39;Cluster&amp;#39;, case_id =&amp;#39;ID&amp;#39;, \
+          date_col=&amp;#39;Date&amp;#39;, color=&amp;#39;Cluster&amp;#39;, gen_mean=4, gen_sd = 1)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img alt=&quot;Casetree plot&quot; src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true&quot; alt=&quot;Casetree plot&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;If you want to change the node color to represent the health status of each case, simply change the color argument.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', case_id ='ID', \
-          date_col='Date', color='health', gen_mean=4, gen_sd = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;fig, ax = epi.case_tree_plot(df, cluster_id = &amp;#39;Cluster&amp;#39;, case_id =&amp;#39;ID&amp;#39;, \
+          date_col=&amp;#39;Date&amp;#39;, color=&amp;#39;health&amp;#39;, gen_mean=4, gen_sd = 1)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img alt=&quot;Casetree plot with node attribute&quot; src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true&quot; alt=&quot;Casetree plot with node attribute&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You can also turn the legend off, and change the size of the node using optional arguments.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;  fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', \
-                case_id ='ID', date_col='Date', color='Cluster', \
+&lt;pre&gt;&lt;code&gt;  fig, ax = epi.case_tree_plot(df, cluster_id = &amp;#39;Cluster&amp;#39;, \
+                case_id =&amp;#39;ID&amp;#39;, date_col=&amp;#39;Date&amp;#39;, color=&amp;#39;Cluster&amp;#39;, \
                 gen_mean=4, gen_sd = 1, node_size=25, legend=False)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img alt=&quot;Case tree plot with no legend and small node size&quot; src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_noleg.png?raw=true&quot; /&gt;&lt;/p&gt;</content>
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_noleg.png?raw=true&quot; alt=&quot;Case tree plot with no legend and small node size&quot; /&gt;&lt;/p&gt;</content>
  </entry>
  
  

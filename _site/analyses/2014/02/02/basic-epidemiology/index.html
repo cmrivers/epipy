@@ -31,22 +31,6 @@
   
     
       
-      	
-      	<li><a href="/mers.html">MERS-CoV example</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
     
   
     
@@ -54,6 +38,22 @@
       	
       	<li><a href="/categories.html">Documentation</a></li>
       	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/mers.html">MERS-CoV example</a></li>
+      	
+      
+    
+  
+    
       
     
   
@@ -112,7 +112,7 @@
 <pre><code>import epipy as epi
 import pandas as pd
 
-df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+df = pd.DataFrame({&#39;Age&#39; : [10, 12, 14], &#39;Group&#39; : [&#39;A&#39;, &#39;B&#39;, &#39;B&#39;] })
 epi.summary(df.Age)</code></pre>
 
 <p>returns:</p>
@@ -157,12 +157,12 @@ B      2        0   12      13    13  1.414214   14</code></pre>
 <pre><code>import epipy as epi
 import pandas as pd
 
-mers_df = epi.get_data('mers_line_list.csv')
-mers_df['condensed_health'] = mers_df['Health status'].
-                                replace(['Critical', 'Alive', 'Asymptomatic',
-                                'Mild', 'Recovered', 'Reocvered'], 'Alive')
-table = epi.create_2x2(mers_df, 'Sex', 'condensed_health',
-                ['M', 'F'], ['Dead', 'Alive'])</code></pre>
+mers_df = epi.get_data(&#39;mers_line_list.csv&#39;)
+mers_df[&#39;condensed_health&#39;] = mers_df[&#39;Health status&#39;].
+                                replace([&#39;Critical&#39;, &#39;Alive&#39;, &#39;Asymptomatic&#39;,
+                                &#39;Mild&#39;, &#39;Recovered&#39;, &#39;Reocvered&#39;], &#39;Alive&#39;)
+table = epi.create_2x2(mers_df, &#39;Sex&#39;, &#39;condensed_health&#39;,
+                [&#39;M&#39;, &#39;F&#39;], [&#39;Dead&#39;, &#39;Alive&#39;])</code></pre>
 
 <p>table returns:</p>
 
