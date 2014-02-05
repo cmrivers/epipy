@@ -15,12 +15,11 @@ tools for analyzing and visualizing epidemiology data. Epipy can currently produ
 * [2x2 tables with odds ratio and relative risk](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
 * [summary of cluster basic reproduction numbers](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
 
-Please note that epipy is still in development.
 
 Installation
 ------------
 Install using pip:
-    
+
     pip install epipy
 
 or clone the [github repository](http://github.com/cmrivers/epipy) and install using setup.py:
@@ -96,4 +95,5 @@ returns:
     A      1        0   10      10    10       NaN   10
     B      2        0   12      13    13  1.414214   14
 
-    
+
+Next: [documentation](http://cmrivers.github.io/epipy/categories.html) or [an example with outbreak data](http://cmrivers.github.io/epipy/mers.html)
