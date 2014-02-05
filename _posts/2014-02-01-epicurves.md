@@ -52,5 +52,5 @@ You may also plot the frequency by day, month or year using the freq argument.
 ![Yearly epicurve of MERS-CoV](http://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png?raw=true)
 
 
-Next: ![Checkerboard plot](http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/)
+Next: [Checkerboard plot](http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/)
 

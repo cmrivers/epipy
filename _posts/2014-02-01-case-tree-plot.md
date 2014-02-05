@@ -69,4 +69,4 @@ You can also turn the legend off, and change the size of the node using optional
 
 ![Case tree plot with no legend and small node size](http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_noleg.png?raw=true)
 
-Next: ![Case tree analyses](http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees/)
+Next: [Case tree analyses](http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees/)

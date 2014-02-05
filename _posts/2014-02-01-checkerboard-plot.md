@@ -32,4 +32,4 @@ The label argument is optional; if set to off, no case id numbers will be displa
     ax.set_title('Example outbreak data')
 
 
-Next: ![Case tree plot](http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/)
+Next: [Case tree plot](http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/)

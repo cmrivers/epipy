@@ -53,14 +53,14 @@ returns:
     A      1        0   10      10    10       NaN   10
     B      2        0   12      13    13  1.414214   14
 
-              
+
 
 ##2x2 table
 
 [2x2 tables](http://sphweb.bumc.bu.edu/otlt/MPH-Modules/EP/EP713_Association/EP713_Association_print.html)
 are commonly used to assess risk in epidemiology. The rows represent a risk factor,
 like exposure to a disease, or sex. The columns represent an outcome, like infection status,
- or whether the disease was severe or mild. 
+ or whether the disease was severe or mild.
 
 ###Create a 2x2 table
 
@@ -84,7 +84,7 @@ table returns:
     M      46     54  101
     F      16     44   60
     All    70    114  185
-    
+
 
 ###Analyze a 2x2 table
 
@@ -107,3 +107,4 @@ Alternatively, you can call each function separately:
     epi.chi2(table)
 
 
+[Back to documentation](http://cmrivers.github.io/epipy/categories.html)
