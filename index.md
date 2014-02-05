@@ -96,4 +96,4 @@ returns:
     B      2        0   12      13    13  1.414214   14
 
 
-Next: [documentation](http://cmrivers.github.io/epipy/categories.html) or [an example with outbreak data](http://cmrivers.github.io/epipy/mers.html)
+Next: see an ![example with outbreak data](http://cmrivers.github.io/epipy/mers.html) or read the ![documentation](http://cmrivers.github.io/epipy/categories.html)

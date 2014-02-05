@@ -94,3 +94,5 @@ The table variable returns:
 And the figure returns:
 
 ![Health status by generation](https://github.com/cmrivers/epipy/blob/master/figs/mers_generation_hist.png?raw=true)
+
+Next: ![Basic epidemiology analyses](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
