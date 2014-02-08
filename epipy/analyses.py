@@ -245,7 +245,7 @@ def relative_risk(table):
     return rr, rr_ci
 
 
-def attributable_risk(table)
+def attributable_risk(table):
     """
     Calculate the attributable risk, attributable risk percent,
     and population attributable risk.
@@ -263,20 +263,20 @@ def attributable_risk(table)
     a, b, c, d = _ordered_table(table)
     N = a + b + c + d
 
-    ar = (a/a+b)-(c/c+d)
-    ar_se = np.sqrt(((a+c)/N)*(1-((a+c)/N))*((1/a+b)+(1/c+d))
-    ar_ci = _conf_interval(ar, ar_ci)
+    ar = (a/(a+b))-(c/(c+d))
+    ar_se = np.sqrt(((a+c)/N)*(1-((a+c)/N))*((1/a+b)+(1/c+d)))
+    ar_ci = _conf_interval(ar, ar_se)
 
     rr, rci = relative_risk(table)
     arp = 100*((rr-1)/(rr))
     arp_se = (1.96*ar_se)/ar
-    ar_ci = (arp-arp_se, arp+arp_se)
+    arp_ci = (arp-arp_se, arp+arp_se)
     
-    par = ((a+c)/N)) - (c/(c+d))
+    par = ((a+c)/N) - (c/(c+d))
     parp = 100*(par/(((a+c)/N)))
 
     print 'Attributable risk: {} (95% CI: {})'.format(ar, ar_ci)
-    print 'Attributable risk percent: {} (95% CI: {})'.format(arp, ar_ci)
+    print 'Attributable risk percent: {} (95% CI: {})'.format(arp, arp_ci)
     print 'Population attributable risk: {}'.format(par)
     print 'Population attributable risk percent: {}'.format(parp)
 
