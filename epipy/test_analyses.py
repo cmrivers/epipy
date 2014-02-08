@@ -82,6 +82,18 @@ def test_chi2():
     assert np.allclose(chi2, 0.1786, atol=.01)
 
 
+def test_AR():
+    table = [(1, 2),
+             (3, 4)]
+
+    ar, arp, par, parp = analyses.attributable_risk(table)
+
+    assert np.allclose(ar, -.095, atol=.01)
+    assert np.allclose(arp, -28.57, atol=.01)
+    assert np.allclose(par, -.0386, atol=.01)
+    assert np.allclose(parp, -7.143, atol=.01)
+
+
 def test_create2x2():
     df = pd.DataFrame({'Exposed':['Y', 'Y', 'N', 'Y'], \
                           'Sick':['Y', 'N', 'N', 'Y']})
