@@ -222,7 +222,7 @@ def odds_ratio(table):
     return round(ratio, 2), or_ci
 
     
-def relative_risk(table):
+def relative_risk(table, display=True):
     """
     Calculates the relative risk and 95% confidence interval. See also
     analyze_2x2().
@@ -240,7 +240,9 @@ def relative_risk(table):
     rr = (a/(a+b))/(c/(c+d))
     rr_se = np.sqrt(((1/a)+(1/c)) - ((1/(a+b)) + (1/(c+d))))
     rr_ci = _conf_interval(rr, rr_se)
-    print 'Relative risk: {} (95% CI: {})\n'.format(round(rr, 2), rr_ci)
+
+    if display is not False:
+        print 'Relative risk: {} (95% CI: {})\n'.format(round(rr, 2), rr_ci)
 
     return rr, rr_ci
 
@@ -264,21 +266,21 @@ def attributable_risk(table):
     N = a + b + c + d
 
     ar = (a/(a+b))-(c/(c+d))
-    ar_se = np.sqrt(((a+c)/N)*(1-((a+c)/N))*((1/a+b)+(1/c+d)))
-    ar_ci = _conf_interval(ar, ar_se)
+    ar_se = np.sqrt(((a+c)/N)*(1-((a+c)/N))*((1/(a+b))+(1/(c+d))))
+    ar_ci = (round(ar-(1.96*ar_se), 2), round(ar+(1.96*ar_se), 2))
 
-    rr, rci = relative_risk(table)
+    rr, rci = relative_risk(table, display=False)
     arp = 100*((rr-1)/(rr))
     arp_se = (1.96*ar_se)/ar
-    arp_ci = (round(arp-arp_se, 2), round(arp+arp_se, 2))
+    arp_ci = (round(arp-arp_se, 2), round(arp+arp_se, 3))
     
     par = ((a+c)/N) - (c/(c+d))
     parp = 100*(par/(((a+c)/N)))
 
-    print 'Attributable risk: {} (95% CI: {})'.format(round(ar, 2), ar_ci)
-    print 'Attributable risk percent: {} (95% CI: {})'.format(round(arp, 2), arp_ci)
-    print 'Population attributable risk: {}'.format(round(par, 2))
-    print 'Population attributable risk percent: {}'.format(round(parp, 2))
+    print 'Attributable risk: {} (95% CI: {})'.format(round(ar, 3), ar_ci)
+    print 'Attributable risk percent: {}% (95% CI: {})'.format(round(arp, 2), arp_ci)
+    print 'Population attributable risk: {}'.format(round(par, 3))
+    print 'Population attributable risk percent: {}% \n'.format(round(parp, 2))
 
     return ar, arp, par, parp
 
