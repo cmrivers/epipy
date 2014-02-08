@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name = "epipy",
-    version = "0.0.2",
+    version = "0.0.2.1",
     author = "Caitlin Rivers",
     author_email = "caitlin.rivers@gmail.com",
     description = "Python tools for epidemiology.",
