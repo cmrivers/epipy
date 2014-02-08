@@ -270,15 +270,15 @@ def attributable_risk(table):
     rr, rci = relative_risk(table)
     arp = 100*((rr-1)/(rr))
     arp_se = (1.96*ar_se)/ar
-    arp_ci = (arp-arp_se, arp+arp_se)
+    arp_ci = (round(arp-arp_se, 2), round(arp+arp_se, 2))
     
     par = ((a+c)/N) - (c/(c+d))
     parp = 100*(par/(((a+c)/N)))
 
-    print 'Attributable risk: {} (95% CI: {})'.format(ar, ar_ci)
-    print 'Attributable risk percent: {} (95% CI: {})'.format(arp, arp_ci)
-    print 'Population attributable risk: {}'.format(par)
-    print 'Population attributable risk percent: {}'.format(parp)
+    print 'Attributable risk: {} (95% CI: {})'.format(round(ar, 2), ar_ci)
+    print 'Attributable risk percent: {} (95% CI: {})'.format(round(arp, 2), arp_ci)
+    print 'Population attributable risk: {}'.format(round(par, 2))
+    print 'Population attributable risk percent: {}'.format(round(parp, 2))
 
     return ar, arp, par, parp
 
