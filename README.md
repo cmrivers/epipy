@@ -20,6 +20,8 @@ Install using pip:
 Or clone the repository and install using setup.py:
 
     git clone https://github.com/cmrivers/epipy.git
+    cd ./epipy
+    pip install -r requirements.txt
     python setup.py install
 
 EpiPy is in development. Please feel free to contribute.
