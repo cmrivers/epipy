@@ -195,6 +195,7 @@ def analyze_2x2(table):
     """
     odds_ratio(table)
     relative_risk(table)
+    attributable_risk(table)
     chi2(table)
 
 
@@ -221,7 +222,7 @@ def odds_ratio(table):
     return round(ratio, 2), or_ci
 
     
-def relative_risk(table):
+def relative_risk(table, display=True):
     """
     Calculates the relative risk and 95% confidence interval. See also
     analyze_2x2().
@@ -239,11 +240,51 @@ def relative_risk(table):
     rr = (a/(a+b))/(c/(c+d))
     rr_se = np.sqrt(((1/a)+(1/c)) - ((1/(a+b)) + (1/(c+d))))
     rr_ci = _conf_interval(rr, rr_se)
-    print 'Relative risk: {} (95% CI: {})\n'.format(round(rr, 2), rr_ci)
+
+    if display is not False:
+        print 'Relative risk: {} (95% CI: {})\n'.format(round(rr, 2), rr_ci)
 
     return rr, rr_ci
 
 
+def attributable_risk(table):
+    """
+    Calculate the attributable risk, attributable risk percent,
+    and population attributable risk.
+
+    PARAMETERS
+    ----------------
+    table = 2x2 table. See 2x2_table()
+
+    RETURNS
+    ----------------
+    prints and returns attributable risk (AR), attributable risk percent
+    (ARP), population attributable risk (PAR) and population attributable
+    risk percent (PARP).
+    """
+    a, b, c, d = _ordered_table(table)
+    N = a + b + c + d
+
+    ar = (a/(a+b))-(c/(c+d))
+    ar_se = np.sqrt(((a+c)/N)*(1-((a+c)/N))*((1/(a+b))+(1/(c+d))))
+    ar_ci = (round(ar-(1.96*ar_se), 2), round(ar+(1.96*ar_se), 2))
+
+    rr, rci = relative_risk(table, display=False)
+    arp = 100*((rr-1)/(rr))
+    arp_se = (1.96*ar_se)/ar
+    arp_ci = (round(arp-arp_se, 2), round(arp+arp_se, 3))
+    
+    par = ((a+c)/N) - (c/(c+d))
+    parp = 100*(par/(((a+c)/N)))
+
+    print 'Attributable risk: {} (95% CI: {})'.format(round(ar, 3), ar_ci)
+    print 'Attributable risk percent: {}% (95% CI: {})'.format(round(arp, 2), arp_ci)
+    print 'Population attributable risk: {}'.format(round(par, 3))
+    print 'Population attributable risk percent: {}% \n'.format(round(parp, 2))
+
+    return ar, arp, par, parp
+
+    
 def chi2(table):
     """
     Scipy.stats function to calculate chi square.
@@ -401,5 +442,68 @@ def summary(data, by=None):
             print column, '\n'
             print summ
 
+def diagnostic_accuracy(table, display=True):
+    """
+    Calculates the sensitivity, specificity, negative and positive predictive values
+    of a 2x2 table with 95% confidence intervals. Note that confidence intervals
+    are made based on a normal approximation, and may not be appropriate for
+    small sample sizes.
 
-    
+    PARAMETERS
+    ----------------------
+    table = accepts pandas dataframe, numpy array, or list in [a, b, c, d] format.
+
+    RETURNS
+    ----------------------
+    returns and prints diagnostic accuracy estimates and tuple of 95% confidence interval
+
+    Author: Eric Lofgren
+    """
+    a, b, c, d = _ordered_table(table)
+
+    sen = (a/(a+c))
+    sen_se = np.sqrt((sen*(1-sen))/(a+c))
+    sen_ci = (sen-(1.96*sen_se),sen+(1.96*sen_se))
+    spec = (d/(b+d))
+    spec_se = np.sqrt((spec*(1-spec))/(b+d))
+    spec_ci = (spec-(1.96*spec_se),spec+(1.96*spec_se))
+    PPV = (a/(a+b))
+    PPV_se = np.sqrt((PPV*(1-PPV))/(a+b))
+    PPV_ci = (PPV-(1.96*PPV_se),PPV+(1.96*PPV_se))
+    NPV = (d/(c+d))
+    NPV_se = np.sqrt((NPV*(1-NPV))/(c+d))
+    NPV_ci = (NPV-(1.96*NPV_se),NPV+(1.96*NPV_se))
+
+    if display is not False:
+        print 'Sensitivity: {} (95% CI: {})\n'.format(round(sen, 2), sen_ci)
+        print 'Specificity: {} (95% CI: {})\n'.format(round(spec, 2), spec_ci)
+        print 'Positive Predictive Value: {} (95% CI: {})\n'.format(round(PPV, 2), PPV_ci)
+        print 'Negative Predictive Value: {} (95% CI: {})\n'.format(round(NPV, 2), NPV_ci)
+
+    return sen,sen_ci,spec,spec_ci,PPV,PPV_ci,NPV,NPV_ci
+
+def kappa_agreement(table, display=True):
+    """
+    Calculated an unweighted Cohen's kappa statistic of observer agreement for a 2x2 table. 
+    Note that the kappa statistic can be extended to an n x m table, but this
+    implementation is restricted to 2x2.
+
+    PARAMETERS
+    ----------------------
+    table = accepts pandas dataframe, numpy array, or list in [a, b, c, d] format.
+
+    RETURNS
+    ----------------------
+    returns and prints the Kappa statistic
+
+    Author: Eric Lofgren
+    """
+    a, b, c, d = _ordered_table(table)
+    n = a + b + c + d
+    pr_a = ((a+d)/n)
+    pr_e = (((a+b)/n) * ((a+c)/n)) + (((c+d)/n) * ((b+d)/n))
+    k = (pr_a - pr_e)/(1 - pr_e)
+    if display is not False:
+        print "Cohen's Kappa: {}\n".format(round(k, 2))
+
+    return k
