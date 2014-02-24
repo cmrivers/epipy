@@ -1,3 +1,5 @@
 Before next release, add the following to the online documentation:
 generate_data()
+diagnostic_accuracy()
+kappa_agreement()
 attributable_risk()
