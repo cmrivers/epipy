@@ -442,4 +442,68 @@ def summary(data, by=None):
             print column, '\n'
             print summ
 
-    
+def diagnostic_accuracy(table, display=True):
+    """
+    Calculates the sensitivity, specificity, negative and positive predictive values
+    of a 2x2 table with 95% confidence intervals. Note that confidence intervals
+    are made based on a normal approximation, and may not be appropriate for
+    small sample sizes.
+
+    PARAMETERS
+    ----------------------
+    table = accepts pandas dataframe, numpy array, or list in [a, b, c, d] format.
+
+    RETURNS
+    ----------------------
+    returns and prints diagnostic accuracy estimates and tuple of 95% confidence interval
+
+    Author: Eric Lofgren
+    """
+    a, b, c, d = _ordered_table(table)
+
+    sen = (a/(a+c))
+    sen_se = np.sqrt((sen*(1-sen))/(a+c))
+    sen_ci = (sen-(1.96*sen_se),sen+(1.96*sen_se))
+    spec = (d/(b+d))
+    spec_se = np.sqrt((spec*(1-spec))/(b+d))
+    spec_ci = (spec-(1.96*spec_se),spec+(1.96*spec_se))
+    PPV = (a/(a+b))
+    PPV_se = np.sqrt((PPV*(1-PPV))/(a+b))
+    PPV_ci = (PPV-(1.96*PPV_se),PPV+(1.96*PPV_se))
+    NPV = (d/(c+d))
+    NPV_se = np.sqrt((NPV*(1-NPV))/(c+d))
+    NPV_ci = (NPV-(1.96*NPV_se),NPV+(1.96*NPV_se))
+
+    if display is not False:
+        print 'Sensitivity: {} (95% CI: {})\n'.format(round(sen, 2), sen_ci)
+        print 'Specificity: {} (95% CI: {})\n'.format(round(spec, 2), spec_ci)
+        print 'Positive Predictive Value: {} (95% CI: {})\n'.format(round(PPV, 2), PPV_ci)
+        print 'Negative Predictive Value: {} (95% CI: {})\n'.format(round(NPV, 2), NPV_ci)
+
+    return sen,sen_ci,spec,spec_ci,PPV,PPV_ci,NPV,NPV_ci
+
+def kappa_agreement(table, display=True):
+    """
+    Calculated an unweighted Cohen's kappa statistic of observer agreement for a 2x2 table. 
+    Note that the kappa statistic can be extended to an n x m table, but this
+    implementation is restricted to 2x2.
+
+    PARAMETERS
+    ----------------------
+    table = accepts pandas dataframe, numpy array, or list in [a, b, c, d] format.
+
+    RETURNS
+    ----------------------
+    returns and prints the Kappa statistic
+
+    Author: Eric Lofgren
+    """
+    a, b, c, d = _ordered_table(table)
+    n = a + b + c + d
+    pr_a = ((a+d)/n)
+    pr_e = (((a+b)/n) * ((a+c)/n)) + (((c+d)/n) * ((b+d)/n))
+    k = (pr_a - pr_e)/(1 - pr_e)
+    if display is not False:
+        print "Cohen's Kappa: {}\n".format(round(k, 2))
+
+    return k
