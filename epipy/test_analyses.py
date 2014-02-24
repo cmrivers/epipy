@@ -88,9 +88,9 @@ def test_AR():
 
     ar, arp, par, parp = analyses.attributable_risk(table)
 
-    assert np.allclose(ar, -.095, atol=.01)
-    assert np.allclose(arp, -28.57, atol=.01)
-    assert np.allclose(par, -.0386, atol=.01)
+    assert np.allclose(ar, -.09524, atol=.01)
+    assert np.allclose(arp, -28.5714, atol=.01)
+    assert np.allclose(par, -.02857, atol=.01)
     assert np.allclose(parp, -7.143, atol=.01)
 
 
