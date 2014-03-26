@@ -1,0 +1,18 @@
+---
+layout: page
+title: Documentation
+header: Documentation
+group: navigation
+---
+{% include JB/setup %}
+
+New to epidemiology? Check out the <a href="http://cmrivers.github.io/epipy/mers.html">MERS-CoV example.</a>
+
+{% for category in site.categories %}
+  <h2 id="{{ category[0] }}-ref">{{ category[0] | join: "/" }}</h2>
+  <ul>
+    {% assign pages_list = category[1] %}
+    {% include JB/pages_list %}
+  </ul>
+{% endfor %}
+

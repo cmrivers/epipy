@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="author" content="Caitlin Rivers" />
+    <title>Basic Epidemiology</title>
+
+    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
+    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
+    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header"><a href="/">Epipy</a></h1>
+        <p class="header">Python tools for epidemiology</p>
+        <ul>
+          
+          
+          
+
+
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Documentation</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/mers.html">MERS-CoV example</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+        </ul>
+        
+        
+        <div class="misc vcard">
+          <h4>about</h4>
+          <ul>
+            
+            
+            <li class="github"><a href="http://github.com/cmrivers/" rel="me">github.com/cmrivers</a></li>
+            
+            
+            <li class="twitter"><a href="http://twitter.com/cmyeaton/" rel="me">twitter.com/cmyeaton</a></li>
+            
+            
+            
+            
+            
+          </ul>
+        </div><!-- misc -->
+        
+      </header>
+
+      <section>
+      
+<section>
+  <h1>Basic Epidemiology</h1>
+
+  <h2 id="summary_statistics">Summary statistics</h2>
+
+<p>The summary() function will return summary statistics if the column contains numeric values, and the count and frequency of top 5 most common values if the column contains non-numeric values. Summary can be used either on a single column, or on a whole dataframe.</p>
+
+<p>It can also return stratified summary statistics using the by argument.</p>
+
+<pre><code>import epipy as epi
+import pandas as pd
+
+df = pd.DataFrame({&#39;Age&#39; : [10, 12, 14], &#39;Group&#39; : [&#39;A&#39;, &#39;B&#39;, &#39;B&#39;] })
+epi.summary(df.Age)</code></pre>
+
+<p>returns:</p>
+
+<pre><code>count       3
+missing     0
+min        10
+median     12
+mean       12
+std         2
+max        14
+dtype: float64</code></pre>
+
+<p>and:</p>
+
+<pre><code>epi.summary(df.Group)</code></pre>
+
+<p>returns:</p>
+
+<pre><code>   count      freq
+B      2  0.666667
+A      1  0.333333</code></pre>
+
+<p>finally:</p>
+
+<pre><code>epi.summary(df.Age, by=df.Group)</code></pre>
+
+<p>returns:</p>
+
+<pre><code>   count  missing  min  median  mean      std   max
+A      1        0   10      10    10       NaN   10
+B      2        0   12      13    13  1.414214   14</code></pre>
+
+<h2 id="2x2_table">2x2 table</h2>
+
+<p><a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/EP/EP713_Association/EP713_Association_print.html">2x2 tables</a> are commonly used to assess risk in epidemiology. The rows represent a risk factor, like exposure to a disease, or sex. The columns represent an outcome, like infection status, or whether the disease was severe or mild.</p>
+
+<h3 id="create_a_2x2_table">Create a 2x2 table</h3>
+
+<p>Both rows and columns must be binary, so in the example below I collapse the health status values into dead and alive. Note that you must tell epipy how you wish the table to be organized by providing a list of values.</p>
+
+<pre><code>import epipy as epi
+import pandas as pd
+
+mers_df = epi.get_data(&#39;mers_line_list.csv&#39;)
+mers_df[&#39;condensed_health&#39;] = mers_df[&#39;Health status&#39;].
+                                replace([&#39;Critical&#39;, &#39;Alive&#39;, &#39;Asymptomatic&#39;,
+                                &#39;Mild&#39;, &#39;Recovered&#39;, &#39;Reocvered&#39;], &#39;Alive&#39;)
+table = epi.create_2x2(mers_df, &#39;Sex&#39;, &#39;condensed_health&#39;,
+                [&#39;M&#39;, &#39;F&#39;], [&#39;Dead&#39;, &#39;Alive&#39;])</code></pre>
+
+<p>table returns:</p>
+
+<pre><code>     Dead  Alive  All
+M      46     54  101
+F      16     44   60
+All    70    114  185</code></pre>
+
+<h3 id="analyze_a_2x2_table">Analyze a 2x2 table</h3>
+
+<p>2x2 tables are used to calculate odds ratios, relative risk, and chi square tests.</p>
+
+<pre><code>epi.analyze_2x2(table)</code></pre>
+
+<p>returns:</p>
+
+<pre><code>Odds ratio: 2.34 (95% CI: (1.17, 4.69))
+Relative risk: 1.73 (95% CI: (1.08, 2.76))
+
+Chi square: 5.95216712234
+p value: 0.202749053116</code></pre>
+
+<p>Alternatively, you can call each function separately:</p>
+
+<pre><code>epi.odds_ratio(table)
+epi.relative_risk(table)
+epi.chi2(table)</code></pre>
+
+  
+</section>
+
+
+      </section>
+
+      <footer>
+      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
+

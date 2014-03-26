@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="author" content="Caitlin Rivers" />
+    <title>Case Tree Plot</title>
+
+    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
+    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
+    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header"><a href="/">Epipy</a></h1>
+        <p class="header">Python tools for epidemiology</p>
+        <ul>
+          
+          
+          
+
+
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Documentation</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/mers.html">MERS-CoV example</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+        </ul>
+        
+        
+        <div class="misc vcard">
+          <h4>about</h4>
+          <ul>
+            
+            
+            <li class="github"><a href="http://github.com/cmrivers/" rel="me">github.com/cmrivers</a></li>
+            
+            
+            <li class="twitter"><a href="http://twitter.com/cmyeaton/" rel="me">twitter.com/cmyeaton</a></li>
+            
+            
+            
+            
+            
+          </ul>
+        </div><!-- misc -->
+        
+      </header>
+
+      <section>
+      
+<section>
+  <h1>Case Tree Plot</h1>
+
+  <h2 id="case_tree_plot">Case tree plot</h2>
+
+<h3 id="what_is_a_case_tree_plot">What is a case tree plot?</h3>
+
+<p>I developed case tree plots are a way to visualize zoonotic disease. However, it can also be used to visualizing environmentally-acquired dieases, or anything that emerges multiple times, is passed from person to person, and then dies out. Tweets and retweets might be a useful non-epi example.</p>
+
+<h3 id="how_do_i_read_a_case_tree_plot">How do I read a case tree plot?</h3>
+
+<p>The x-axis is time of illness onset or diagnosis, and the y-axis is generation. Nodes at generation 0 are known as index nodes. In the case of a zoonotic disease, the index node is a human case acquired from an animal source. If that human were to pass the disease to two other humans, those two subsequent cases are both generation 1.</p>
+
+<p>The meaning of the color of the node varies based on the node attribute. In many cases, color just signifies membership to a particular human to human cluster. However, it could also represent health status (e.g. alive, dead), the sex of the patient, etc.</p>
+
+<h3 id="examples">Examples</h3>
+
+<p>For this we will use example data in the data/ folder of epipy. For this example, we will color the nodes by cluster.</p>
+
+<p>In order to build a case tree plot, you’ll have to provide the generation mean (gen_mean) and generation standard deviation (gen_sd). These values represent the time from when one case becomes infected to when a subsequent case becomes infected. Incubation period may be used when generation time is not known.</p>
+
+<pre><code>import epipy as epi
+import pandas as pd
+
+df = epi.get_data(&#39;example_data&#39;)
+fig, ax = epi.case_tree_plot(df, cluster_id = &#39;Cluster&#39;, case_id =&#39;ID&#39;, \
+          date_col=&#39;Date&#39;, color=&#39;Cluster&#39;, gen_mean=4, gen_sd = 1)</code></pre>
+
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true" alt="Casetree plot" /></p>
+
+<p>If you want to change the node color to represent the health status of each case, simply change the color argument.</p>
+
+<pre><code>fig, ax = epi.case_tree_plot(df, cluster_id = &#39;Cluster&#39;, case_id =&#39;ID&#39;, \
+          date_col=&#39;Date&#39;, color=&#39;health&#39;, gen_mean=4, gen_sd = 1)</code></pre>
+
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true" alt="Casetree plot with node attribute" /></p>
+
+<p>You can also turn the legend off, and change the size of the node using optional arguments.</p>
+
+<pre><code>  fig, ax = epi.case_tree_plot(df, cluster_id = &#39;Cluster&#39;, \
+                case_id =&#39;ID&#39;, date_col=&#39;Date&#39;, color=&#39;Cluster&#39;, \
+                gen_mean=4, gen_sd = 1, node_size=25, legend=False)</code></pre>
+
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_noleg.png?raw=true" alt="Case tree plot with no legend and small node size" /></p>
+
+  
+</section>
+
+
+      </section>
+
+      <footer>
+      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
+

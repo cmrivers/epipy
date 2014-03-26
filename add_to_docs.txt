@@ -1,3 +1,0 @@
-Before next release, add the following to the online documentation:
-generate_data()
-attributable_risk()
