@@ -9,10 +9,10 @@
   '''
 
 import pandas as pd
-from matplotlib.pyplot import plt
+import matplotlib.pyplot as plt
 import analyses
 
-def _plot(ratios):
+def _plot(names, ratio, ci):
     """
     """
 
@@ -21,7 +21,9 @@ def _plot(ratios):
     ax.set_ylabel('Odds ratio')
     ax.grid(True)
 
-    for ratio in ratios:
+    yvalues = range(len(names))
+    ax.scatter(ratio, yvalues)
+    textspot = x1 + timedelta((x2 - x1).days/2.0, 0, 0)
 
 
 
@@ -34,22 +36,25 @@ def or_plot(df, risk_cols, outcome_col):
     + read in dataframe or series
     + for each column
     + send to create_2x2
-    -send to odds_ratio
+    + send to odds_ratio
     -plot OR on scatterplot
     -color by OR
     -plot CI on scatterplot
     """
 
-    ratio_pairs = []
-    for col in df.itercols(): #this part isn't right...I forget how to select cols efficiently
-        if col.index in risk_cols:
-            risk_order = ["{}".format(val) for val in risk_cols.values()]
-            outcome_order = ["{}".format(val) for val in outcome_col.values()]
-            table = analyses.create_2x2(df, "{}".format(col), "{}".format(outcome_col), risk_order, outcome_order)
-            ratio, or_ci = epi.odds_ratio(table)
-            ratio_pairs.append({name:col.index, ratio:ratio, ci:or_ci})
+    names = []
+    ratio = []
+    ci = []
+    for risk_col in risk_cols:
+        risk_order = ["{}".format(val) for val in df[risk_col].unique()]
+        outcome_order = ["{}".format(val) for val in df[outcome_col].unique()]
+        table = epi.create_2x2(df, "{}".format(risk_order), "{}".format(outcome_order), risk_order, outcome_order)
+        ratio, or_ci = epi.odds_ratio(table)
+        names.append(col.index)
+        ratio.append(ratio)
+        ci.append(or_ci)
 
-    _plot(ratio_pairs)
+    _plot(names, ratio, ci)
 
 
 
