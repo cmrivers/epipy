@@ -17,14 +17,17 @@ def _plot(names, ratio, ci):
     """
     """
 
-    fig, ax = plt.subplots(figsize=(12, 8))
+    fig, ax = plt.subplots()
     ax.set_aspect('auto')
     ax.set_xlabel('Odds ratio')
     ax.grid(True)
 
-    yvalues = range(len(names))
-    ax.scatter(yvalues, ratio)
-    textspot = x1 + timedelta((x2 - x1).days/2.0, 0, 0)
+    nnames = len(names)
+    ypos = range(len(names))
+    ax.set_ylim(-.5, len(names) - .5)
+    plt.yticks(ypos)
+    ax.scatter(ratio, ypos)
+    ax.set_yticklabels(names)
 
 
 
