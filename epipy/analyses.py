@@ -44,7 +44,7 @@ def _conf_interval(ratio, std_error):
     """
     Calculate 95% confidence interval for odds ratio and relative risk.
     """
-    
+
     _lci = np.log(ratio) - 1.96*std_error
     _uci = np.log(ratio) + 1.96*std_error
 
@@ -55,19 +55,19 @@ def _conf_interval(ratio, std_error):
 
 
 def reproduction_number(G, index_cases=True, plot=True):
-    """ 
+    """
     Finds each case's basic reproduction number, which is the number of secondary
     infections each case produces.
-    
+
     PARAMETERS
     ----------------
     G = networkx object
     index_cases = include index nodes, i.e. those at generation 0. Default is True.
                   Excluding them is useful if you want to calculate the human to human
                   reproduction number without considering zoonotically acquired cases.
-    summary = print summary statistics of the case reproduction numbers 
+    summary = print summary statistics of the case reproduction numbers
     plot = create histogram of case reproduction number distribution.
-    
+
     RETURNS
     ----------------
     pandas series of case reproduction numbers and matplotlib figure
@@ -76,18 +76,18 @@ def reproduction_number(G, index_cases=True, plot=True):
 
     if index_cases == True:
         R = pd.Series(G.out_degree())
-        
+
     elif index_cases == False:
         degrees = {}
-        
+
         for n in G.node:
             if G.node[n]['generation'] > 0:
                 degrees[n] = G.out_degree(n)
         R = pd.Series(degrees)
-    
+
     print 'Summary of reproduction numbers'
     print R.describe(), '\n'
-        
+
     if plot == True:
         fig, ax = plt.subplots()
         R.hist(ax=ax, alpha=.5)
@@ -101,28 +101,28 @@ def reproduction_number(G, index_cases=True, plot=True):
 
 
 def generation_analysis(G, attribute, plot=True):
-    """ 
+    """
     Analyzes an attribute, e.g. health status, by generation.
-    
+
     PARAMETERS
     -------------
     G = networkx object
     attribute = case attribute for analysis, e.g. health status or sex
     table = print cross table of attribute by generation. Default is true.
     plot = produce histogram of attribute by generation. Default is true.
-    
+
     RETURNS
     --------------
     matplotlib figure and axis objects
-    
+
     """
-    
+
     gen_df = pd.DataFrame(G.node).T
-    
+
     print '{} by generation'.format(attribute)
     table = pd.crosstab(gen_df.generation, gen_df[attribute], margins=True)
     print table, '\n'
-    
+
     if plot == True:
         fig, ax = plt.subplots()
         ax.set_aspect('auto')
@@ -162,7 +162,7 @@ def create_2x2(df, row, column, row_order, col_order):
     """
     if type(col_order) != list or type(row_order) != list:
         raise TypeError('row_order and col_order must each be lists of length 2')
-        
+
     if len(col_order) != 2 or len(row_order) != 2:
         raise AssertionError('row_order and col_order must each be lists of length 2')
 
@@ -172,14 +172,15 @@ def create_2x2(df, row, column, row_order, col_order):
     brow = row_order[1]
     tcol = col_order[0]
     bcol = col_order[1]
-    
+
     table = pd.DataFrame(_table, index=[trow, brow, 'All'], columns=[tcol, bcol, 'All'])
 
     return table
 
 
 def analyze_2x2(table):
-    """Prints odds ratio, relative risk, and chi square.
+    """
+    Prints odds ratio, relative risk, and chi square.
     See also create_2x2(), odds_ratio(), relative_risk(), and chi2()
 
     PARAMETERS
@@ -191,8 +192,9 @@ def analyze_2x2(table):
     Exposure    YES     NO
     YES         a       b
     NO          c       d
-    
+
     """
+
     odds_ratio(table)
     relative_risk(table)
     attributable_risk(table)
@@ -203,6 +205,7 @@ def odds_ratio(table):
     """
     Calculates the odds ratio and 95% confidence interval. See also
     analyze_2x2()
+    *Cells in the table with a value of 0 will be replaced with .1
 
     PARAMETERS
     ----------------------
@@ -212,6 +215,8 @@ def odds_ratio(table):
     ----------------------
     returns and prints odds ratio and tuple of 95% confidence interval
     """
+    table = table.replace(0, .1)
+
     a, b, c, d = _ordered_table(table)
 
     ratio = (a*d)/(b*c)
@@ -221,12 +226,13 @@ def odds_ratio(table):
 
     return round(ratio, 2), or_ci
 
-    
+
 def relative_risk(table, display=True):
     """
     Calculates the relative risk and 95% confidence interval. See also
     analyze_2x2().
-    
+    *Cells in the table with a value of 0 will be replaced with .1
+
     PARAMETERS
     ----------------------
     table = accepts pandas dataframe, numpy array, or list in [a, b, c, d] format.
@@ -235,8 +241,10 @@ def relative_risk(table, display=True):
     ----------------------
     returns and prints relative risk and tuple of 95% confidence interval
     """
+    table = table.replace(0, .1)
+
     a, b, c, d = _ordered_table(table)
-    
+
     rr = (a/(a+b))/(c/(c+d))
     rr_se = np.sqrt(((1/a)+(1/c)) - ((1/(a+b)) + (1/(c+d))))
     rr_ci = _conf_interval(rr, rr_se)
@@ -273,7 +281,7 @@ def attributable_risk(table):
     arp = 100*((rr-1)/(rr))
     arp_se = (1.96*ar_se)/ar
     arp_ci = (round(arp-arp_se, 2), round(arp+arp_se, 3))
-    
+
     par = ((a+c)/N) - (c/(c+d))
     parp = 100*(par/(((a+c)/N)))
 
@@ -284,7 +292,7 @@ def attributable_risk(table):
 
     return ar, arp, par, parp
 
-    
+
 def chi2(table):
     """
     Scipy.stats function to calculate chi square.
@@ -339,8 +347,8 @@ def _categorical_summary(column, n=None):
     summ = pd.DataFrame([_count, _freq], index=names).T
 
     return summ
-        
-        
+
+
 def _summary_calc(column, by=None):
     """
     Calculates approporiate summary statistics based on data type.
@@ -355,22 +363,22 @@ def _summary_calc(column, by=None):
     if column data type is numeric, returns summary statistics
     if column data type is an object, returns count and frequency of
         top 5 most common values
-    """   
+    """
     if column.dtype == 'float64' or column.dtype == 'int64':
         coltype = 'numeric'
     elif column.dtype == 'object':
         coltype = 'object'
 
-        
+
     if by is None:
         if coltype == 'numeric':
             summ = _numeric_summary(column)
 
         elif coltype == 'object':
             summ = _categorical_summary(column, 5)
-            
+
     else:
-        
+
         if coltype == 'numeric':
             column_list = []
 
@@ -389,11 +397,11 @@ def _summary_calc(column, by=None):
 
     return summ
 
-        
+
 def summary(data, by=None):
     """
     Displays approporiate summary statistics for each column in a line listing.
-    
+
     PARAMETERS
     ----------------------
     data = pandas data frame or series
@@ -408,7 +416,7 @@ def summary(data, by=None):
     EXAMPLE
     ----------------------
     df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
-    
+
     In: summary(df.Age)
     Out:
         count       3
@@ -484,7 +492,7 @@ def diagnostic_accuracy(table, display=True):
 
 def kappa_agreement(table, display=True):
     """
-    Calculated an unweighted Cohen's kappa statistic of observer agreement for a 2x2 table. 
+    Calculated an unweighted Cohen's kappa statistic of observer agreement for a 2x2 table.
     Note that the kappa statistic can be extended to an n x m table, but this
     implementation is restricted to 2x2.
 
