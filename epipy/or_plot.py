@@ -13,7 +13,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import analyses
 
-def _plot(ratios):
+def _plot(_df):
     """
     """
     _df = pd.DataFrame(_df)
@@ -40,7 +40,7 @@ def _plot(ratios):
 
 
 
-def or_plot(df, risk_cols, outcome_col):
+def or_plot(df, risk_cols, outcome_col, risk_order=False):
     """
     df = pandas dataframe of line listing
     cols = list of columns to include in analysis
