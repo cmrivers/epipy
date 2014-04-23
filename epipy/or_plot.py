@@ -16,11 +16,14 @@ import analyses
 def _plot(_df):
     """
     """
+
     _df = pd.DataFrame(_df)
     df = _df.sort('ratio')
     df['color'] = 'grey'
     df.color[(df.lower > 1) & (df.upper > 1)] = 'blue'
     df.color[(df.lower < 1) & (df.upper < 1)] = 'red'
+
+    df.index = range(len(df))  # reset the index to reflect order
 
     fig, ax = plt.subplots(figsize=(8, 12))
     ax.set_aspect('auto')
@@ -28,7 +31,7 @@ def _plot(_df):
     ax.grid(True)
 
     ax.set_ylim(-.5, len(df) - .5)
-    plt.yticks(range(len(df)))
+    plt.yticks(df.index)
 
     ax.scatter(df.ratio, df.index, c=df.color, s=50)
     for pos in range(len(df)):
@@ -44,6 +47,15 @@ def or_plot(df, risk_cols, outcome_col, risk_order=False):
     """
     df = pandas dataframe of line listing
     cols = list of columns to include in analysis
+
+    # Order of operations #
+    + read in dataframe or series
+    + for each column
+    + send to create_2x2
+    + send to odds_ratio
+    -plot OR on scatterplot
+    -color by OR
+    -plot CI on scatterplot
     """
 
     ratio_df = []
