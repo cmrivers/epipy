@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "MERS-CoV epidemiology example"
+title: "MERS-CoV example"
 description: ""
 group: navigation
 ---
