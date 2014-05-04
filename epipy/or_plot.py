@@ -47,15 +47,6 @@ def or_plot(df, risk_cols, outcome_col, risk_order=False):
     """
     df = pandas dataframe of line listing
     cols = list of columns to include in analysis
-
-    # Order of operations #
-    + read in dataframe or series
-    + for each column
-    + send to create_2x2
-    + send to odds_ratio
-    -plot OR on scatterplot
-    -color by OR
-    -plot CI on scatterplot
     """
 
     ratio_df = []
