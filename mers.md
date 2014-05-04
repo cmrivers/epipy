@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "MERS-CoV example"
+title: "MERS-CoV epidemiology example"
 description: ""
 group: navigation
 ---
@@ -16,7 +16,7 @@ like [WHO Disease Outbreak News reports](http://www.who.int/csr/don/en/).
 Where possible, I've been trying to piece together human to human clusters -
 it's guess-work at best, and I can't promise it's anything close to being correct.
 
-The (totally unconfirmed) line list is packaged with epipy.
+The (totally unconfirmed) line list from 2012-Feb 2014 is packaged with epipy.
 
     import epipy as epi
     import pandas as pd
