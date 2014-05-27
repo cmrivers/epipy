@@ -42,26 +42,25 @@ fig.savefig(os.path.join(dir, '../figs/example_casetree.png'), bbox_inches='tigh
 
 # if you have in data to load instead of generating it
 try:
-    test_df = pd.read_pickle(os.path.join(dir, '../data/test_cluster.pkl'))
+    test_df = pd.read_pickle(os.path.join(dir, 'test_cluster.pkl'))
 except:
-    from data_generator import generate_example_data
-    test_df = generate_example_data(cluster_size=5, outbreak_len=180,
-                clusters=10, gen_time=5, attribute='health')
+    test_df = epipy.generate_example_data(cluster_size=7, outbreak_len=120,
+                clusters=8, gen_time=7, attribute='sex')
     test_df.to_pickle(os.path.join(dir, '../data/test_cluster.pkl'))
 
-test_clusters = epipy.cluster_builder(test_df, 'Cluster', 'ID', 'Date', 'Cluster', 5, 1)
+test_clusters = epipy.cluster_builder(test_df, 'Cluster', 'ID', 'Date', 'sex', 3, 1)
 
 # Case tree plot
-test_G = epipy.build_graph(test_clusters, color='Cluster')
-fig, ax = epipy.case_tree_plot(test_G, color='Cluster')
-ax.set_title('Example outbreak data')
+test_G = epipy.build_graph(test_clusters, color='sex')
+fig, ax = epipy.case_tree_plot(test_G, color='sex')
+#ax.set_title('Case tree plot using example outbreak data')
 ax.set_ylabel('Generations')
 ax.grid(True)
 fig.savefig(os.path.join(dir, '../figs/test_casetree.png'), bbox_inches='tight')
 
 # Checkerboard plot
 fig, ax = epipy.checkerboard_plot(test_df, 'ID', 'Cluster', 'Date')
-ax.set_title("Test data")
+#ax.set_title("Checkerboard plot using example outbreak data")
 fig.savefig(os.path.join(dir, '../figs/test_checkerboard.png'), bbox_inches='tight')
 
 
