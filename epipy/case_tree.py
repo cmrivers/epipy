@@ -21,26 +21,33 @@
 from __future__ import division
 from itertools import cycle
 import numpy as np
+import basics
 import matplotlib.pyplot as plt
 import networkx as nx
 from random import choice, sample
 from matplotlib import cm
 
-def build_graph(df, color, case_id='case_id', index='index_node',
-		source='source_node', date='pltdate'):
+def build_graph(df, cluster_id, case_id, date_col, color, gen_mean, gen_sd):
     """
     Generate a directed graph from data on transmission tree.
     Node color is determined by node attributes, e.g. case severity or gender.
-    df = pandas dataframe """
-    G = nx.DiGraph()
-    G.add_nodes_from(df[case_id])
+    df = pandas dataframe
+    """
 
-    edgelist = [pair for pair in df[[source]].dropna().itertuples()]
+    clusters = basics.cluster_builder(df=df, cluster_id=cluster_id, \
+                case_id=case_id, date_col=date_col, attr_col=color, \
+                gen_mean=gen_mean, gen_sd=gen_sd)
+
+    G = nx.DiGraph()
+    G.add_nodes_from(clusters['case_id'])
+
+    edgelist = [pair for pair in clusters[['source_node']].dropna().itertuples()]
     G.add_edges_from(edgelist)
-    nx.set_node_attributes(G, date, df[date].to_dict())
-    nx.set_node_attributes(G, source, df[source].to_dict())
-    nx.set_node_attributes(G, color, df[color].to_dict())
-    nx.set_node_attributes(G, index, df[index].to_dict())
+    nx.set_node_attributes(G, 'date', clusters['time'].to_dict())
+    nx.set_node_attributes(G, 'pltdate', clusters['pltdate'].to_dict())
+    nx.set_node_attributes(G, 'source_node', clusters['source_node'].to_dict())
+    nx.set_node_attributes(G, color, clusters[color].to_dict())
+    nx.set_node_attributes(G, 'index_node', clusters['index_node'].to_dict())
     G = nx.DiGraph.reverse(G)
 
     for i in G.nodes():
@@ -49,18 +56,33 @@ def build_graph(df, color, case_id='case_id', index='index_node',
     return G
 
 
-def case_tree_plot(G, color, node_size=100, loc='best', legend=True):
+def case_tree_plot(df, cluster_id, case_id, date_col, color, \
+                    gen_mean, gen_sd, node_size=100, loc='best',\
+                    legend=True):
     """
     Plot casetree
-    G = networkx object
+    df = pandas dataframe, line listing
+    cluster_id = col that identifies cluster membership. Can be a
+        basic string like "hospital cluster A"
+    case_id = col with unique case identifier
+    date_col = onset or report date column
+    color = column that will be used to color nodes based on
+        attribute, e.g. case severity or gender
+    gen_mean = generation time mean
+    gen_sd = generation time standard deviation
     node_size = on (display node) or off (display edge only). Default is on.
     loc = legend location. See matplotlib args.
     """
+
+    G = build_graph(df, cluster_id, case_id, date_col, color, \
+                    gen_mean, gen_sd)
+    
     fig, ax = plt.subplots(figsize=(12, 8))
     ax.xaxis_date()
     ax.set_aspect('auto')
     axprop =  ax.axis()
     ax.set_ylabel('Generations')
+    ax.grid(True)
     fig.autofmt_xdate()
 
     coords = _layout(G)

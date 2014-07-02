@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import division
 import numpy as np
 import pandas as pd
 import networkx as nx
@@ -34,7 +35,7 @@ def test_ordered_table_DataFrame():
     table = [(0, 1),
              (2, 3)]
     table = pd.DataFrame(table)
-    
+
     a, b, c, d = analyses._ordered_table(table)
     assert a == 0
     assert b == 1
@@ -49,9 +50,9 @@ def test_ordered_table_typeError():
 
     with pytest.raises(TypeError):
         a, b, c, d = analyses._ordered_table(table)
-    
 
-    
+
+
 def test_odds_ratio():
     table = [(1, 2),
              (3, 4)]
@@ -81,6 +82,18 @@ def test_chi2():
     assert np.allclose(chi2, 0.1786, atol=.01)
 
 
+def test_AR():
+    table = [(1, 2),
+             (3, 4)]
+
+    ar, arp, par, parp = analyses.attributable_risk(table)
+
+    assert np.allclose(ar, -.09524, atol=.01)
+    assert np.allclose(arp, -28.5714, atol=.01)
+    assert np.allclose(par, -.02857, atol=.01)
+    assert np.allclose(parp, -7.143, atol=.01)
+
+
 def test_create2x2():
     df = pd.DataFrame({'Exposed':['Y', 'Y', 'N', 'Y'], \
                           'Sick':['Y', 'N', 'N', 'Y']})
@@ -96,7 +109,7 @@ def test_create2x2():
 def test_2x2_errorRaises():
     df = pd.DataFrame({'Exposed':['Y', 'Y', 'N', 'Y'], \
                           'Sick':['Y', 'N', 'N', 'Y']})
-            
+
     with pytest.raises(TypeError):
         table = analyses.create_2x2(df, 'Exposed', 'Sick', ['Y', 'N'], \
             'Y')
@@ -115,10 +128,10 @@ def _create_graph():
     G.node[4]['health'] = 'dead'
     G.node[5]['health'] = 'alive'
     G.add_edges_from([(3, 4), (3, 5)])
-    
+
     return G
 
-    
+
 def test_generation_analysis():
     G = _create_graph()
     table = analyses.generation_analysis(G, 'health', plot=False)
@@ -128,7 +141,7 @@ def test_generation_analysis():
     assert table.ix[1][0] == 1
     assert table.ix[1][1] == 1
 
-    
+
 def test_reproduction_number_index():
     G = _create_graph()
     R = analyses.reproduction_number(G, index_cases=True, plot=False)
@@ -147,4 +160,35 @@ def test_reproduction_number_noindex():
     assert R.iget(0) == 0
     assert R.iget(1) == 0
 
-    
+
+def test_numeric_summary():
+    df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+    summ = analyses.summary(df.Age)
+
+    assert summ['count'] == 3
+    assert summ['missing'] == 0
+    assert summ['min'] == 10
+    assert summ['median'] == 12
+    assert summ['mean'] == 12
+    assert summ['std'] == 2
+    assert summ['max'] == 14
+
+
+def test_categorical_summary():
+    df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+    summ = analyses.summary(df.Group)
+
+    assert summ.ix[0]['count'] == 2
+    assert  np.allclose(summ.ix[0]['freq'], 2/3, atol=.01)
+
+
+def test_grouped_summary():
+    df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+    summ = analyses.summary(df.Age, df.Group)
+
+    assert len(summ) == 2
+    assert len(summ.columns) == 7
+
+
+
+

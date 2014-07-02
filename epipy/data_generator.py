@@ -1,4 +1,7 @@
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
+
+from __future__ import division
 import numpy as np
 import pandas as pd
 from datetime import timedelta, datetime
@@ -47,6 +50,11 @@ def generate_example_data(cluster_size, outbreak_len, clusters, gen_time, attrib
 
         for n in range(rng):
             date = _date_choice(ix_date[0], gen_time)[0]
+
+        dates = [ix_date[0]]
+        for n in range(rng):
+            date = _date_choice(dates[-1], gen_time)[0]
+            dates.append(date)
 
             if attribute.lower() == 'sex':
                 attr =  np.random.choice(['Male', 'Female'], size=1)[0]
