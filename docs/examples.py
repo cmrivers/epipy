@@ -61,7 +61,7 @@ fig.savefig(os.path.join(dir, '../figs/test_casetree.png'), bbox_inches='tight')
 fig, ax = epipy.checkerboard_plot(test_df, 'ID', 'Cluster', 'Date')
 #ax.set_title("Checkerboard plot using example outbreak data")
 fig.savefig(os.path.join(dir, '../figs/test_checkerboard.png'), bbox_inches='tight')
-=======
+
 # Generate example data
 example_df = epipy.generate_example_data(cluster_size=7, outbreak_len=180, clusters=7, gen_time=4, attribute='health')
 
@@ -74,7 +74,7 @@ ax.set_title('Example outbreak data')
 # Checkerboard plot
 fig, ax = epipy.checkerboard_plot(example_df, 'ID', 'Cluster', 'Date')
 ax.set_title("Example outbreak data")
->>>>>>> 5d2bbda6261c4906520592480226022cc4e6d357
+
 
 
 ############################
