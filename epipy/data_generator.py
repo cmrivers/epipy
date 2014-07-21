@@ -44,15 +44,18 @@ def generate_example_data(cluster_size, outbreak_len, clusters, gen_time, attrib
         ix_rng = pd.date_range('1/1/2014', periods=outbreak_len, freq='D')
         ix_date = np.random.choice(ix_rng, size=1)
 
-        rng = int(np.random.normal(cluster_size, 2, 1))
+        rng = int(np.random.normal(cluster_size, 1, 1))
         if rng < 2:
             rng += 1
+
+        for n in range(rng):
+            date = _date_choice(ix_date[0], gen_time)[0]
 
         dates = [ix_date[0]]
         for n in range(rng):
             date = _date_choice(dates[-1], gen_time)[0]
             dates.append(date)
-            
+
             if attribute.lower() == 'sex':
                 attr =  np.random.choice(['Male', 'Female'], size=1)[0]
             elif attribute.lower() == 'health':

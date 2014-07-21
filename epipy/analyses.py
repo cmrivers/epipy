@@ -53,6 +53,89 @@ def _conf_interval(ratio, std_error):
 
     return (lci, uci)
 
+def _numeric_summary(column):
+    """
+    Finds count, number of missing values, min, median, mean, std, and
+    max.
+    See summary()
+    """
+    names = ['count', 'missing', 'min', 'median', 'mean', 'std', 'max']
+    _count = len(column)
+    _miss = _count - len(column.dropna())
+    _min = column.min()
+    _median = column.median()
+    _mean = column.mean()
+    _std = column.std()
+    _max = column.max()
+    summ = pd.Series([_count, _miss, _min, _median, _mean, _std, _max], index=names)
+
+    return summ
+
+
+def _categorical_summary(column, n=None):
+    """
+    Finds count and frequency of each unique value in the column.
+    See summary().
+    """
+    if n is not None:
+        _count = column.value_counts()[:n]
+    else:
+        _count = column.value_counts()
+    names = ['count', 'freq']
+    _freq = column.value_counts(normalize=True)[:n]
+    summ = pd.DataFrame([_count, _freq], index=names).T
+
+    return summ
+
+
+def _summary_calc(column, by=None):
+    """
+    Calculates approporiate summary statistics based on data type.
+    PARAMETERS
+    ----------------------
+    column = one column (series) of pandas df
+    by = optional. stratifies summary statistics by each value in the
+                column.
+
+    RETURNS
+    ----------------------
+    if column data type is numeric, returns summary statistics
+    if column data type is an object, returns count and frequency of
+        top 5 most common values
+    """
+    if column.dtype == 'float64' or column.dtype == 'int64':
+        coltype = 'numeric'
+    elif column.dtype == 'object':
+        coltype = 'object'
+
+
+    if by is None:
+        if coltype == 'numeric':
+            summ = _numeric_summary(column)
+
+        elif coltype == 'object':
+            summ = _categorical_summary(column, 5)
+
+    else:
+
+        if coltype == 'numeric':
+            column_list = []
+
+            vals = by.dropna().unique()
+            for value in vals:
+                subcol = column[by == value]
+                summcol = _numeric_summary(subcol)
+                column_list.append(summcol)
+
+            summ = pd.DataFrame(column_list, index=vals)
+
+        elif coltype == 'object':
+            subcol = column.groupby(by)
+            _summ = _categorical_summary(subcol)
+            summ = _summ.sort()
+
+    return summ
+
 
 def reproduction_number(G, index_cases=True, plot=True):
     """
@@ -126,7 +209,7 @@ def generation_analysis(G, attribute, plot=True):
     if plot == True:
         fig, ax = plt.subplots()
         ax.set_aspect('auto')
-        pd.crosstab(gen_df.generation, gen_df[attribute]).plot(kind='bar', ax=ax, alpha=.5)
+        pd.crosstab(gen_df.generation, gen_df[attribute]).plot(kind='bar', ax=ax, alpha=.5, rot=0)
         ax.set_xlabel('Generation')
         ax.set_ylabel('Case count')
         ax.grid(False)
@@ -227,6 +310,8 @@ def odds_ratio(table):
     return round(ratio, 2), or_ci
 
 
+
+
 def relative_risk(table, display=True):
     """
     Calculates the relative risk and 95% confidence interval. See also
@@ -314,90 +399,6 @@ def chi2(table):
     return chi2, p, dof, expected
 
 
-def _numeric_summary(column):
-    """
-    Finds count, number of missing values, min, median, mean, std, and
-    max.
-    See summary()
-    """
-    names = ['count', 'missing', 'min', 'median', 'mean', 'std', 'max']
-    _count = len(column)
-    _miss = _count - len(column.dropna())
-    _min = column.min()
-    _median = column.median()
-    _mean = column.mean()
-    _std = column.std()
-    _max = column.max()
-    summ = pd.Series([_count, _miss, _min, _median, _mean, _std, _max], index=names)
-
-    return summ
-
-
-def _categorical_summary(column, n=None):
-    """
-    Finds count and frequency of each unique value in the column.
-    See summary().
-    """
-    if n is not None:
-        _count = column.value_counts()[:n]
-    else:
-        _count = column.value_counts()
-    names = ['count', 'freq']
-    _freq = column.value_counts(normalize=True)[:n]
-    summ = pd.DataFrame([_count, _freq], index=names).T
-
-    return summ
-
-
-def _summary_calc(column, by=None):
-    """
-    Calculates approporiate summary statistics based on data type.
-    PARAMETERS
-    ----------------------
-    column = one column (series) of pandas df
-    by = optional. stratifies summary statistics by each value in the
-                column.
-
-    RETURNS
-    ----------------------
-    if column data type is numeric, returns summary statistics
-    if column data type is an object, returns count and frequency of
-        top 5 most common values
-    """
-    if column.dtype == 'float64' or column.dtype == 'int64':
-        coltype = 'numeric'
-    elif column.dtype == 'object':
-        coltype = 'object'
-
-
-    if by is None:
-        if coltype == 'numeric':
-            summ = _numeric_summary(column)
-
-        elif coltype == 'object':
-            summ = _categorical_summary(column, 5)
-
-    else:
-
-        if coltype == 'numeric':
-            column_list = []
-
-            vals = by.dropna().unique()
-            for value in vals:
-                subcol = column[by == value]
-                summcol = _numeric_summary(subcol)
-                column_list.append(summcol)
-
-            summ = pd.DataFrame(column_list, index=vals)
-
-        elif coltype == 'object':
-            subcol = column.groupby(by)
-            _summ = _categorical_summary(subcol)
-            summ = _summ.sort()
-
-    return summ
-
-
 def summary(data, by=None):
     """
     Displays approporiate summary statistics for each column in a line listing.
@@ -450,6 +451,7 @@ def summary(data, by=None):
             print column, '\n'
             print summ
 
+
 def diagnostic_accuracy(table, display=True):
     """
     Calculates the sensitivity, specificity, negative and positive predictive values
@@ -489,6 +491,7 @@ def diagnostic_accuracy(table, display=True):
         print 'Negative Predictive Value: {} (95% CI: {})\n'.format(round(NPV, 2), NPV_ci)
 
     return sen,sen_ci,spec,spec_ci,PPV,PPV_ci,NPV,NPV_ci
+
 
 def kappa_agreement(table, display=True):
     """
