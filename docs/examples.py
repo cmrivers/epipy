@@ -24,7 +24,6 @@ except:
 # TEST DATA EXAMPLE #
 #################################
 
-<<<<<<< HEAD
 example_df = epipy.generate_example_data(cluster_size=6, outbreak_len=180, clusters=8,
                                          gen_time=5, attribute='health')
 test_clusters = epipy.cluster_builder(example_df, 'Cluster', 'ID', 'Date', 'health', 5, 1)
