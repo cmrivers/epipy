@@ -29,11 +29,13 @@ example_df = epipy.generate_example_data(cluster_size=6, outbreak_len=180, clust
 fig, ax = epipy.case_tree_plot(example_df, cluster_id='Cluster', case_id='ID', date_col='Date', color='health', gen_mean=5, gen_sd=1 )
 ax.set_title('Example outbreak data')
 ax.set_ylabel('Generations')
+fig.show()
 
 
 # Checkerboard plot
 fig, ax = epipy.checkerboard_plot(example_df, 'ID', 'Cluster', 'Date')
 ax.set_title("Example outbreak data")
+fig.show()
 
 ############################
 ## MERS-CoV DATA EXAMPLE ###
@@ -52,6 +54,7 @@ fig, ax = epipy.case_tree_plot(mers_df, cluster_id='Cluster ID', \
                         case_id='Case #', date_col='dates', gen_mean = 5, \
                         gen_sd = 4, color='Health status')
 ax.set_title('Human clusters of MERS-CoV')
+fig.show()
 
 # Checkerboard plot
 fig, ax = epipy.checkerboard_plot(mers_df, 'Case #', 'Cluster ID', 'dates')
@@ -75,6 +78,7 @@ plt.title('Approximate onset or report date')
 plt.figure()
 curve, fig, ax = epipy.epicurve_plot(mers_df, 'dates', freq='month')
 plt.title('Approximate onset or report date of MERS cases')
+fig.show()
 
 #################
 ### ANALYSES ####
@@ -87,11 +91,12 @@ mers_G = epipy.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #',
 
 # Analyze attribute by generation
 fig, ax, table = epipy.generation_analysis(mers_G, attribute='Health status', plot=True)
-
+fig.show()
 
 # Basic reproduction numbers
 R, fig, ax = epipy.reproduction_number(mers_G, index_cases=True, plot=True)
 print 'R0 median: {}'.format(R.median()) # the series object returned can be manipulated further
+fig.show()
 
 #2X2 table
 mers_df['condensed_health'] = mers_df['Health status'].replace(['Critical', 'Alive', 'Asymptomatic', 'Mild', 'Recovered', 'Reocvered'], 'Alive')
