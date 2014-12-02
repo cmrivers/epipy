@@ -26,6 +26,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 from random import choice, sample
 from matplotlib import cm
+import seaborn as sns
 
 def build_graph(df, cluster_id, case_id, date_col, color, gen_mean, gen_sd):
     """
@@ -52,13 +53,13 @@ def build_graph(df, cluster_id, case_id, date_col, color, gen_mean, gen_sd):
 
     for i in G.nodes():
         G.node[i]['generation'] = _generations(G, i)
-    
+
     return G
 
 
 def case_tree_plot(df, cluster_id, case_id, date_col, color, \
                     gen_mean, gen_sd, node_size=100, loc='best',\
-                    legend=True):
+                    legend=True, color_dict=None):
     """
     Plot casetree
     df = pandas dataframe, line listing
@@ -76,7 +77,7 @@ def case_tree_plot(df, cluster_id, case_id, date_col, color, \
 
     G = build_graph(df, cluster_id, case_id, date_col, color, \
                     gen_mean, gen_sd)
-    
+
     fig, ax = plt.subplots(figsize=(12, 8))
     ax.xaxis_date()
     ax.set_aspect('auto')
@@ -88,7 +89,13 @@ def case_tree_plot(df, cluster_id, case_id, date_col, color, \
     coords = _layout(G)
     plt.ylim(ymin=-.05, ymax=max([val[1] for val in coords.itervalues()])+1)
 
-    colormap, color_floats = _colors(G, color)
+    if color_dict is None:
+        categories = df[color].unique()
+        colors = sns.color_palette('deep', len(categories))
+        colormap = dict(zip(categories, colors))
+    else:
+        colormap = color_dict
+    #colormap, color_floats = _colors(G, color)
 
     if legend == True:
         x_val = G.nodes()[0]
@@ -101,8 +108,8 @@ def case_tree_plot(df, cluster_id, case_id, date_col, color, \
 
         ax.legend(lines, [k for k in colormap.iterkeys()], loc=loc)
 
-    nx.draw_networkx(G, ax=ax, with_labels=False, pos=coords, node_color=color_floats,
-                     node_size=node_size, alpha=.6)
+    nx.draw_networkx(G, ax=ax, with_labels=False, pos=coords, node_color=colormap.values(),
+                     node_size=node_size, alpha=.8)
 
     return fig, ax
 
@@ -120,8 +127,8 @@ def _colors(G, color):
         categories.append(G.node[node][color])
 
     # create color map of attributes and colors
-    colors = cm.rainbow(np.linspace(0, 1, num=len(categories)*2))
-    colors = sample(colors, len(categories))
+    colors = sns.color_palette('deep', len(categories))
+    #colors = cm.rainbow(np.linspace(0, 1, num=len(categories)))
     colordict = dict(zip(categories, colors))
 
     color_floats = []
@@ -165,7 +172,7 @@ def _layout(G):
         else:
             jittery = np.random.uniform(-.2, .2, 1)
             ygen = generation + jittery
-        
+
         positions.append([xcord, ygen])
 
     return dict(zip(G, np.array(positions)))
