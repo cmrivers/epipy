@@ -59,7 +59,7 @@ def build_graph(df, cluster_id, case_id, date_col, color, gen_mean, gen_sd):
 
 def case_tree_plot(df, cluster_id, case_id, date_col, color, \
                     gen_mean, gen_sd, node_size=100, loc='best',\
-                    legend=True, color_dict=None):
+                    legend=True, color_dict=None, fig=None, ax=None):
     """
     Plot casetree
     df = pandas dataframe, line listing
@@ -74,28 +74,22 @@ def case_tree_plot(df, cluster_id, case_id, date_col, color, \
     node_size = on (display node) or off (display edge only). Default is on.
     loc = legend location. See matplotlib args.
     """
-
     G = build_graph(df, cluster_id, case_id, date_col, color, \
-                    gen_mean, gen_sd)
+                      gen_mean, gen_sd)
 
-    fig, ax = plt.subplots(figsize=(12, 8))
+
+    if ax is None or fig is None:
+        fig, ax = plt.subplots(figsize=(12, 8))
+
+    fig.autofmt_xdate()
     ax.xaxis_date()
     ax.set_aspect('auto')
     axprop =  ax.axis()
-    ax.set_ylabel('Generations')
-    ax.grid(True)
-    fig.autofmt_xdate()
 
     coords = _layout(G)
     plt.ylim(ymin=-.05, ymax=max([val[1] for val in coords.itervalues()])+1)
 
-    if color_dict is None:
-        categories = df[color].unique()
-        colors = sns.color_palette('deep', len(categories))
-        colormap = dict(zip(categories, colors))
-    else:
-        colormap = color_dict
-    #colormap, color_floats = _colors(G, color)
+    colormap, color_floats = _colors(G, color)
 
     if legend == True:
         x_val = G.nodes()[0]
@@ -103,7 +97,7 @@ def case_tree_plot(df, cluster_id, case_id, date_col, color, \
 
         for key, value in colormap.iteritems():
             plt.scatter(G.node[x_val]['pltdate'], value[0], color=value, alpha=0)
-            line = plt.Line2D(range(1), range(1), color=value, marker='o', markersize=6, alpha=.5, label=key)
+            line = plt.Line2D(range(1), range(1), color=value, marker='o', markersize=6, alpha=.8, label=key)
             lines.append(line)
 
         ax.legend(lines, [k for k in colormap.iterkeys()], loc=loc)
