@@ -92,7 +92,7 @@ def case_tree_plot(df, cluster_id, case_id, date_col, color, \
     if color_dict == 'default':
         colormap, color_floats = _colors(G, color)
     else:
-        colormap, color_floats = _colors(G, color, colordict=colordict)
+        colormap, color_floats = _colors(G, color, colordict=color_dict)
 
     if legend == True:
         x_val = G.nodes()[0]
