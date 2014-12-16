@@ -105,7 +105,7 @@ def case_tree_plot(df, cluster_id, case_id, date_col, color, \
 
         ax.legend(lines, [k for k in colormap.iterkeys()], loc=loc)
 
-    nx.draw_networkx(G, ax=ax, with_labels=True, pos=coords, node_color=color_floats,
+    nx.draw_networkx(G, ax=ax, with_labels=False, pos=coords, node_color=color_floats,
                      node_size=node_size, alpha=.8)
 
     return fig, ax
