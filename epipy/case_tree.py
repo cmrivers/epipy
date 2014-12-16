@@ -26,6 +26,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 from random import choice, sample
 from matplotlib import cm
+import seaborn as sns
 
 def build_graph(df, cluster_id, case_id, date_col, color, gen_mean, gen_sd):
     """
@@ -52,13 +53,13 @@ def build_graph(df, cluster_id, case_id, date_col, color, gen_mean, gen_sd):
 
     for i in G.nodes():
         G.node[i]['generation'] = _generations(G, i)
-    
+
     return G
 
 
 def case_tree_plot(df, cluster_id, case_id, date_col, color, \
                     gen_mean, gen_sd, node_size=100, loc='best',\
-                    legend=True):
+                    legend=True, color_dict=None, fig=None, ax=None):
     """
     Plot casetree
     df = pandas dataframe, line listing
@@ -73,17 +74,17 @@ def case_tree_plot(df, cluster_id, case_id, date_col, color, \
     node_size = on (display node) or off (display edge only). Default is on.
     loc = legend location. See matplotlib args.
     """
-
     G = build_graph(df, cluster_id, case_id, date_col, color, \
-                    gen_mean, gen_sd)
-    
-    fig, ax = plt.subplots(figsize=(12, 8))
+                      gen_mean, gen_sd)
+
+
+    if ax is None or fig is None:
+        fig, ax = plt.subplots(figsize=(12, 8))
+
+    fig.autofmt_xdate()
     ax.xaxis_date()
     ax.set_aspect('auto')
     axprop =  ax.axis()
-    ax.set_ylabel('Generations')
-    ax.grid(True)
-    fig.autofmt_xdate()
 
     coords = _layout(G)
     plt.ylim(ymin=-.05, ymax=max([val[1] for val in coords.itervalues()])+1)
@@ -96,13 +97,13 @@ def case_tree_plot(df, cluster_id, case_id, date_col, color, \
 
         for key, value in colormap.iteritems():
             plt.scatter(G.node[x_val]['pltdate'], value[0], color=value, alpha=0)
-            line = plt.Line2D(range(1), range(1), color=value, marker='o', markersize=6, alpha=.5, label=key)
+            line = plt.Line2D(range(1), range(1), color=value, marker='o', markersize=6, alpha=.8, label=key)
             lines.append(line)
 
         ax.legend(lines, [k for k in colormap.iterkeys()], loc=loc)
 
-    nx.draw_networkx(G, ax=ax, with_labels=False, pos=coords, node_color=color_floats,
-                     node_size=node_size, alpha=.6)
+    nx.draw_networkx(G, ax=ax, with_labels=False, pos=coords, node_color=colormap.values(),
+                     node_size=node_size, alpha=.8)
 
     return fig, ax
 
@@ -120,8 +121,8 @@ def _colors(G, color):
         categories.append(G.node[node][color])
 
     # create color map of attributes and colors
-    colors = cm.rainbow(np.linspace(0, 1, num=len(categories)*2))
-    colors = sample(colors, len(categories))
+    colors = sns.color_palette('deep', len(categories))
+    #colors = cm.rainbow(np.linspace(0, 1, num=len(categories)))
     colordict = dict(zip(categories, colors))
 
     color_floats = []
@@ -165,7 +166,7 @@ def _layout(G):
         else:
             jittery = np.random.uniform(-.2, .2, 1)
             ygen = generation + jittery
-        
+
         positions.append([xcord, ygen])
 
     return dict(zip(G, np.array(positions)))
