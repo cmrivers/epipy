@@ -59,7 +59,7 @@ def build_graph(df, cluster_id, case_id, date_col, color, gen_mean, gen_sd):
 
 def case_tree_plot(df, cluster_id, case_id, date_col, color, \
                     gen_mean, gen_sd, node_size=100, loc='best',\
-                    legend=True, color_dict=None, fig=None, ax=None):
+                    legend=True, color_dict='default', fig=None, ax=None):
     """
     Plot casetree
     df = pandas dataframe, line listing
@@ -89,7 +89,10 @@ def case_tree_plot(df, cluster_id, case_id, date_col, color, \
     coords = _layout(G)
     plt.ylim(ymin=-.05, ymax=max([val[1] for val in coords.itervalues()])+1)
 
-    colormap, color_floats = _colors(G, color)
+    if color_dict == 'default':
+        colormap, color_floats = _colors(G, color)
+    else:
+        colormap, color_floats = _colors(G, color, colordict=colordict)
 
     if legend == True:
         x_val = G.nodes()[0]
@@ -102,13 +105,13 @@ def case_tree_plot(df, cluster_id, case_id, date_col, color, \
 
         ax.legend(lines, [k for k in colormap.iterkeys()], loc=loc)
 
-    nx.draw_networkx(G, ax=ax, with_labels=False, pos=coords, node_color=colormap.values(),
+    nx.draw_networkx(G, ax=ax, with_labels=True, pos=coords, node_color=color_floats,
                      node_size=node_size, alpha=.8)
 
     return fig, ax
 
 
-def _colors(G, color):
+def _colors(G, color, colordict=None):
     """
     Determines colors of the node based on node attribute,
 	e.g. case severity or gender.
@@ -116,14 +119,15 @@ def _colors(G, color):
     color = name of node attribute in graph used to assign color
     """
     # collect list of unique attributes from graph
-    categories = []
-    for node in G.nodes():
-        categories.append(G.node[node][color])
+    if colordict is None:
+        categories = []
+        for node in G.nodes():
+            categories.append(G.node[node][color])
 
-    # create color map of attributes and colors
-    colors = sns.color_palette('deep', len(categories))
-    #colors = cm.rainbow(np.linspace(0, 1, num=len(categories)))
-    colordict = dict(zip(categories, colors))
+        categories = np.unique(categories)
+        # create color map of attributes and colors
+        colors = sns.color_palette('deep', len(categories))
+        colordict = dict(zip(categories, colors))
 
     color_floats = []
     for node in G.nodes():
