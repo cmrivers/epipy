@@ -43,7 +43,7 @@ def _plot(_df):
 
 
 
-def or_plot(df, risk_cols, outcome_col, risk_order=False):
+def or_plot(df, risk_cols, outcome_col, risk_order, outcome_order):
     """
     df = pandas dataframe of line listing
     cols = list of columns to include in analysis
@@ -52,15 +52,15 @@ def or_plot(df, risk_cols, outcome_col, risk_order=False):
     ratio_df = []
     cnt = 1
     for risk_col in risk_cols:
-        if risk_order == False:
-            risks = ["{}".format(val) for val in df[risk_col].dropna().unique()]
-            outcome_order = ["{}".format(val) for val in df[outcome_col].dropna().unique()]
-        else:
-            outcome_order = risk_order[0]
-            risks = risk_order[cnt]
+        #if risk_order == False:
+        #    risks = ["{}".format(val) for val in df[risk_col].dropna().unique()]
+        #    outcome_order = ["{}".format(val) for val in df[outcome_col].dropna().unique()]
+        #else:
+        #outcome_order = risk_order[0]
+        #risks = risk_order[cnt]
 
-        table = create_2x2(df, risk_col, outcome_col, risks, outcome_order)
-        ratio, or_ci = epi.odds_ratio(table)
+        table = analyses.create_2x2(df, risk_col, outcome_col, outcome_order, risk_order)
+        ratio, or_ci = analyses.odds_ratio(table)
         ratio_df.append({'names': risk_col, 'ratio':ratio, 'lower':or_ci[0], 'upper':or_ci[1]})
 
         cnt += 1
