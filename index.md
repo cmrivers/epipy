@@ -5,15 +5,18 @@ tagline: Python tools for epidemiology
 ---
 {% include JB/setup %}
 
-Epipy is a Python package for epidemiology. It contains (or will contain...)
-tools for analyzing and visualizing epidemiology data. Epipy can currently produce:
+Epipy is a Python package for epidemiology. It contains tools for analyzing and visualizing epidemiology data. Epipy can currently produce:
 
 * [stratified summary statistics](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
-* [case tree](http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/) and [checkerboard plots](http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/)
+* [case trees](http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/) and [checkerboard plots](http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/)
 * [epicurves](http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves/)
 * [analysis of case attribute (e.g. sex) by generation](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
-* [2x2 tables with odds ratio and relative risk](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
+* [easily create 2x2 tables](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
+* produce odds ratios, attributable risk, diagnostic accuracy, kappa agreement, and relative risk for 2x2 tables
 * [summary of cluster basic reproduction numbers](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
+* odds ratio plots^
+* rolling proportion plots^
+^dev version only
 
 
 Installation
@@ -27,7 +30,7 @@ or clone the [github repository](http://github.com/cmrivers/epipy) and install u
     git clone https://github.com/cmrivers/epipy.git
     python setup.py install
 
-Note that I use the package [mpltools](http://tonysyu.github.io/mpltools/) to produce the nice ggplot-style plot aesthetics you see in my examples. Using mpltools is optional, but I highly recommend it.
+Note that I use the package [seaborn](stanford.edu/~mwaskom/software/seaborn/) to produce the nice ggplot-style plot aesthetics you see in my examples. Using mpltools is optional, but I highly recommend it.
 
 
 Quickstart
@@ -38,8 +41,7 @@ Quickstart
     import pandas as pd
 
     # optional import
-    from mpltools import style
-    style.use('ggplot')
+    import seaborn as sns
 
     example_df = epi.get_data('example_data')
     fig, ax = epi.case_tree_plot(example_df, cluster_id = 'Cluster', \
