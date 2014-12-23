@@ -28,8 +28,7 @@ def _plot(_df):
     fig, ax = plt.subplots(figsize=(8, 12))
     ax.set_aspect('auto')
     ax.set_xlabel('Odds ratio')
-    ax.grid(True)
-
+    ax.grid(False)
     ax.set_ylim(-.5, len(df) - .5)
     plt.yticks(df.index)
 
@@ -38,7 +37,7 @@ def _plot(_df):
         ax.fill_between([df.lower[pos], df.upper[pos]], pos-.01, pos+.01, color='grey', alpha=.3)
 
     ax.set_yticklabels(df.names)
-
+    ax.vlines(x=1, ymin=-.5, ymax=len(df)-.5, colors='grey', linestyles='--')
     return fig, ax
 
 
