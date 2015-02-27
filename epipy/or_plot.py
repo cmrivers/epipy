@@ -67,7 +67,6 @@ def or_plot(df, risk_cols, outcome_col, risk_order, outcome_order, fig=None, ax=
         _df = df[[outcome_col, risk_col]].dropna(how='any')
 
         if len(_df[outcome_col].unique()) > 2:
-            print _df[outcome_col].unique()
             raise Exception('More than two unique values in the outcome')
 
         if len(_df[risk_col].unique()) > 2:
