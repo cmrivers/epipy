@@ -13,7 +13,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import analyses
 
-def _plot(_df):
+
+def _plot(_df, fig, ax):
     """
     """
 
@@ -25,7 +26,9 @@ def _plot(_df):
 
     df.index = range(len(df))  # reset the index to reflect order
 
-    fig, ax = plt.subplots(figsize=(8, 12))
+    if fig is None and ax is None:
+        fig, ax = plt.subplots(figsize=(8, 12))
+
     ax.set_aspect('auto')
     ax.set_xlabel('Odds ratio')
     ax.grid(False)
@@ -38,33 +41,49 @@ def _plot(_df):
 
     ax.set_yticklabels(df.names)
     ax.vlines(x=1, ymin=-.5, ymax=len(df)-.5, colors='grey', linestyles='--')
+
     return fig, ax
 
 
 
-def or_plot(df, risk_cols, outcome_col, risk_order, outcome_order):
+def or_plot(df, risk_cols, outcome_col, risk_order, outcome_order, fig=None, ax=None):
     """
     df = pandas dataframe of line listing
     cols = list of columns to include in analysis
+    risk_order: dictionary with risk_cols as keys, and a list of values as values, e.g. {'sex':['male', 'female']}
+    outcome_order: list of values, e.g. ['alive', 'dead']
     """
 
     ratio_df = []
-    cnt = 1
+
     for risk_col in risk_cols:
-        #if risk_order == False:
+      #  if risk_order != False:
+        order = risk_order[risk_col]
+
+        #elif risk_order == False:
         #    risks = ["{}".format(val) for val in df[risk_col].dropna().unique()]
         #    outcome_order = ["{}".format(val) for val in df[outcome_col].dropna().unique()]
-        #else:
-        #outcome_order = risk_order[0]
-        #risks = risk_order[cnt]
 
-        table = analyses.create_2x2(df, risk_col, outcome_col, outcome_order, risk_order)
+        _df = df[[outcome_col, risk_col]].dropna(how='any')
+
+        if len(_df[outcome_col].unique()) > 2:
+            print _df[outcome_col].unique()
+            raise Exception('More than two unique values in the outcome')
+
+        if len(_df[risk_col].unique()) > 2:
+            raise Exception('More than two unique values in {}'.format(risk_col))
+
+        table = analyses.create_2x2(_df, risk_col, outcome_col, order, outcome_order)
+
         ratio, or_ci = analyses.odds_ratio(table)
         ratio_df.append({'names': risk_col, 'ratio':ratio, 'lower':or_ci[0], 'upper':or_ci[1]})
 
-        cnt += 1
+    print ratio_df
+    fig, ax = _plot(ratio_df, fig, ax)
 
-    fig, ax = _plot(ratio_df)
+    return fig, ax
+
+
 
 
 
