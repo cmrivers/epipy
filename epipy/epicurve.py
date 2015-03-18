@@ -27,7 +27,7 @@ def epicurve_plot(df, date_col, freq, title=None, fig= None, ax=None):
     date_format = datetime string format, default is "%Y-%m-%d"
     '''
 
-    if ax == None
+    if ax == None:
         fig, ax = plt.subplots()
 
     df = df[df[date_col].isnull() == False]
