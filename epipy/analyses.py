@@ -298,8 +298,7 @@ def odds_ratio(table):
     ----------------------
     returns and prints odds ratio and tuple of 95% confidence interval
     """
-    table = table.replace(0, .1)
-
+    
     a, b, c, d = _ordered_table(table)
 
     ratio = (a*d)/(b*c)
@@ -326,8 +325,7 @@ def relative_risk(table, display=True):
     ----------------------
     returns and prints relative risk and tuple of 95% confidence interval
     """
-    table = table.replace(0, .1)
-
+    
     a, b, c, d = _ordered_table(table)
 
     rr = (a/(a+b))/(c/(c+d))
