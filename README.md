@@ -1,7 +1,7 @@
 EpiPy
 ========
 A python package for epidemiology. Epipy is a Python package for epidemiology.
-It contains (or will contain…) tools for analyzing and visualizing epidemiology data.
+It contains tools for analyzing and visualizing epidemiology data.
 Epipy can currently produce:
 
 * stratified summary statistics
