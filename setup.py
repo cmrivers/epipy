@@ -24,7 +24,8 @@ setup(
                'epipy/checkerboard.py',
                'epipy/data_generator.py',
                 'epipy/epicurve.py',
-                'epipy/analyses.py'],
+                'epipy/analyses.py',
+				'epipy/or_plot.py'],
     long_description='README.md',
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
