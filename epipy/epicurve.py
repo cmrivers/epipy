@@ -11,7 +11,6 @@
 '''
 from __future__ import division
 import epipy
-from epipy.basics import date_convert
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -41,7 +40,7 @@ def epicurve_plot(df, date_col, freq, title=None, fig= None, ax=None):
     elif freq == 'm':
 	#convert dates to months
         format_date = df.new_col.dropna().map(lambda x: str(x.strftime("%Y/%m")))
-        form = format_date.map(lambda x: date_convert(x, "%Y/%m"))
+        form = format_date.map(lambda x: epipy.basics.date_convert(x, "%Y/%m"))
 	#count number of cases per month
         curve = pd.DataFrame(form.value_counts(), columns=['count'])
 
