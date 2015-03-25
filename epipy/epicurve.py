@@ -11,7 +11,7 @@
 '''
 from __future__ import division
 import epipy
-from .basics import date_convert
+from epipy.basics import date_convert
 import pandas as pd
 import matplotlib.pyplot as plt
 
