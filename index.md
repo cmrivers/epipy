@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Epipy
+title: Introduction
 tagline: Python tools for epidemiology
 ---
 {% include JB/setup %}
