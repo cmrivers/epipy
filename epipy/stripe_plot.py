@@ -4,21 +4,27 @@ Created on Sun Apr  5 09:02:11 2015
 
 @author: caitlin
 """
-
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
-cases = pd.read_csv("cases.csv", parse_dates=['onset', 'death', 'discharged'], infer_datetime_format=True)
-cases = cases.replace('nan', np.nan)
-cases['combined_outcome'] = cases['death'].combine_first(cases['discharged'])
-cases = cases[['number', 'onset', 'combined_outcome', 'outcome']].dropna(how='any').head(15)
-
 # %%
-def time_plot(df, yticks, date1, date2, color, color_dict=None, legend=True):
-    
+def time_plot(df, yticks, date1, date2, color_col, color_dict=None, legend=True):
+    """
+    df = pandas dataframe of line list
+    yticks = column with ytick labels, e.g. case number
+    date1 = start date, e.g. onset date
+    date2 = end date, e.g. death date 
+    color = column with color identifiers, e.g. patient sex or outcome
+    color_dict = optional dictionary with color categories as keys, and colors as values
+    legend = boolean, optional
+    ------------
+    returns fig, ax
+    ------------
+    Example useage:
+    fig, ax = time_plot(cases, 'case_id', 'onset_date', 'combined_outcome_date', 'categorical_outcome')
+    """
     fig, ax = plt.subplots()
     ax.xaxis_date()
     ax.set_aspect('auto')
@@ -27,7 +33,7 @@ def time_plot(df, yticks, date1, date2, color, color_dict=None, legend=True):
     plt.ylim(-1, len(df))
     plt.yticks(np.arange(len(df)), df[yticks].values)
     
-    color_keys = df[color].values
+    color_keys = df[color_col].values
     if color_dict == None:
         color_choices = sns.color_palette('deep', len(color_keys))
     color_dict = dict(zip(color_keys, color_choices))
@@ -40,7 +46,7 @@ def time_plot(df, yticks, date1, date2, color, color_dict=None, legend=True):
         
         y1 = counter
         
-        col = color_dict[df.xs(ix)[color]]
+        col = color_dict[df.xs(ix)[color_col]]
         
         ax.scatter(x1, y1, color=col)
         ax.scatter(x2, y1, color=col)
@@ -61,7 +67,4 @@ def time_plot(df, yticks, date1, date2, color, color_dict=None, legend=True):
 
     return fig, ax
 
-fig, ax = time_plot(cases, 'number', 'onset', 'combined_outcome', 'outcome')
-ax.set_title('Case histories of MERS patients')
-ax.set_xlabel('Dates of onset, outcome')
-ax.set_ylabel('Case number')
+
