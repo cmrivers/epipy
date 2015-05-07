@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
@@ -7,10 +6,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>MERS-CoV case tree</title>
-	<meta name="author" content="Caitlin Rivers">
-	<link href='/assets/themes/the-program/css/style.css' rel="stylesheet" media="all">
-	<link href="http://feeds.feedburner.com/" rel="alternate" title="MERS-CoV case tree" type="application/atom+xml">
+	<title>{{ page.title }}</title>
+	<meta name="author" content="{{ site.author.name }}">
+	<link href='{{ ASSET_PATH }}/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/{{ site.author.feedbaname }}" rel="alternate" title="{{ page.title }}" type="application/atom+xml">
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
 </head>
 <body>
@@ -21,7 +20,7 @@
 			<div class="unit-inner unit-head-inner">
 				<nav class="nav-global">
 					<ul>
-						<li class="logo"><a href="/">Epipy</a></li>
+						<li class="logo"><a href="/">{{ site.title }}</a></li>
 						<li class="archive"><a href="/archive.html">archive</a></li>
 						<li class="page"><a href="/pages.html">pages</a></li>
 						<li class="category"><a href="/categories.html">categories</a></li>
@@ -37,52 +36,7 @@
 		<div class="unit-body">
 			<div class="unit-inner unit-body-inner">
 				<div class="entry-content">
-					
-<article class="unit-article layout-page">
-	<div class="unit-inner unit-article-inner">
-		<div class="content">
-			<header>
-				<div class="unit-head">
-					<div class="unit-inner unit-head-inner">
-						<h1 class="h2 entry-title">MERS-CoV case tree</h1>
-					</div><!-- unit-inner -->
-				</div><!-- unit-head -->
-			</header>
-
-			<div class="bd">
-				<div class="entry-content">
-					
-<p>I have been collecting a line list of MERS cases using publicly available data
-like <a href="http://www.who.int/csr/don/en/">WHO Disease Outbreak News reports</a>.
-Where possible, I’ve been trying to piece together human to human clusters -
-it’s guess-work at best, and I can’t promise it’s anything close to being correct.</p>
-
-<p>The x-axis is time of illness onset or diagnosis, and the y-axis is generation.
-Nodes at generation 0 are thought to be acquired from an animal source. If that
- human were to pass the disease to two other humans, those two subsequent cases
- are both generation 1.</p>
-
-<p>Learn more about <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case tree plots</a>
-or visit the full <a href="http://cmrivers.github.io/epipy/mers.html">MERS-CoV example</a>.</p>
-
-<p><img src="https://github.com/cmrivers/epipy/blob/master/figs/MERS_casetree.png?raw=True" alt="Case tree plot of MERS clusters" /></p>
-
-				</div><!-- entry-content -->
-			</div><!-- bd -->
-
-			<footer class="unit-foot">
-				<div class="unit-inner unit-foot-inner">
-					<p class="gotop">
-						<a href="#page">Back to Top</a>
-					</p>
-				</div>
-			</footer>
-
-		</div><!-- content -->
-	</div><!-- unit-inner -->
-</article>
-
-
+					{{ content }}
 				</div>
 			</div><!-- unit-inner -->
 		</div><!-- unit-body -->
@@ -93,10 +47,10 @@ or visit the full <a href="http://cmrivers.github.io/epipy/mers.html">MERS-CoV e
 				<div class="misc vcard">
 					<h4>about</h4>
 					<ul>
-						<li class="contact"><address><span class="author fn n">Caitlin Rivers</span> - <span class="fn email"></span></address></li>
-						<li class="github"><a href="http://github.com/cmrivers/" rel="me">github.com/cmrivers</a></li>
-						<li class="twitter"><a href="http://twitter.com/cmyeaton/" rel="me">twitter.com/cmyeaton</a></li>
-						<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>
+						<li class="contact"><address><span class="author fn n">{{ site.author.name }}</span> - <span class="fn email">{{ site.author.email }}</span></address></li>
+						<li class="github"><a href="http://github.com/{{ site.author.github }}/" rel="me">github.com/{{ site.author.github }}</a></li>
+						<li class="twitter"><a href="http://twitter.com/{{ site.author.twitter }}/" rel="me">twitter.com/{{ site.author.twitter }}</a></li>
+						<li class="rss"><a href="http://feeds.feedburner.com/{{ site.author.feedname }}">Subscribe to RSS Feed</a></li>
 					</ul>
 				</div><!-- misc -->
 				<p class="licence">
@@ -116,7 +70,7 @@ or visit the full <a href="http://cmrivers.github.io/epipy/mers.html">MERS-CoV e
 		};
 	load('//platform.twitter.com/widgets.js', 'tweetjs');
 	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
-	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/mers_casetree.html" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="{{ page.url }}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
 	}(document, 'script'));
 </script>
 <script>
@@ -124,7 +78,6 @@ or visit the full <a href="http://cmrivers.github.io/epipy/mers.html">MERS-CoV e
 (function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
 </script>
   
-  
+  {% include JB/analytics %}
 </body>
 </html>
-
