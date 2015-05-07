@@ -89,7 +89,7 @@ table returns:
 **Stratified summary statistics**
 
     df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
-    epi.analyses.summary(df.Age, by=df.Group)
+    epi.summary(df.Age, by=df.Group)
 
 returns:
 
