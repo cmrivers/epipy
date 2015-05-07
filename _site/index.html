@@ -1,31 +1,47 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="author" content="Caitlin Rivers" />
+    <meta charset="utf-8">
     <title>Epipy</title>
+    
+    <meta name="author" content="Caitlin Rivers">
 
-    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
-    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
-    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header"><a href="/">Epipy</a></h1>
-        <p class="header">Python tools for epidemiology</p>
-        <ul>
-          
-          
-          
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a class="brand" href="/">Epipy</a>
+          <ul class="nav">
+            
+            
+            
 
 
   
@@ -76,65 +92,87 @@
 
 
 
-        </ul>
-        
-        
-        <div class="misc vcard">
-          <h4>about</h4>
-          <ul>
-            
-            
-            <li class="github"><a href="http://github.com/cmrivers/" rel="me">github.com/cmrivers</a></li>
-            
-            
-            <li class="twitter"><a href="http://twitter.com/cmyeaton/" rel="me">twitter.com/cmyeaton</a></li>
-            
-            
-            
-            
-            
           </ul>
-        </div><!-- misc -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
         
-      </header>
+<div class="page-header">
+  <h1>Epipy  <small>Python tools for epidemiology</small></h1>
+</div>
 
-      <section>
-      
-<section>
-  <h1>Epipy</h1>
+<div class="row-fluid">
+  <div class="span12">
+    
+<p>Epipy is a Python package for epidemiology. It contains tools for analyzing and visualizing epidemiology data.</p>
 
-  <p>Epipy is a Python package for epidemiology. It contains (or will contain…) tools for analyzing and visualizing epidemiology data. Epipy can currently produce:</p>
-
-<ul>
-<li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">stratified summary statistics</a></li>
-
-<li><a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case tree</a> and <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/">checkerboard plots</a></li>
-
-<li><a href="http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves/">epicurves</a></li>
-
-<li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">analysis of case attribute (e.g. sex) by generation</a></li>
-
-<li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">2x2 tables with odds ratio and relative risk</a></li>
-
-<li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">summary of cluster basic reproduction numbers</a></li>
-</ul>
-
-<p>Please note that epipy is still in development.</p>
+<p>To check out the code, report a bug, or contribute features, visit <a href="http://github.com/cmrivers/epipy">github</a>, or visit me on <a href="www.twitter.com/cmyeaton">twitter</a>.</p>
 
 <h2 id="installation">Installation</h2>
-
 <p>Install using pip:</p>
 
-<pre><code>pip install epipy</code></pre>
+<pre><code>pip install epipy
+</code></pre>
 
 <p>or clone the <a href="http://github.com/cmrivers/epipy">github repository</a> and install using setup.py:</p>
 
 <pre><code>git clone https://github.com/cmrivers/epipy.git
-python setup.py install</code></pre>
+python setup.py install
+</code></pre>
 
-<p>Note that I use the package <a href="http://tonysyu.github.io/mpltools/">mpltools</a> to produce the nice ggplot-style plot aesthetics you see in my examples. Using mpltools is optional, but I highly recommend it.</p>
+<p>Note that I use the package <a href="http://stanford.edu/~mwaskom/software/seaborn/">seaborn</a> to produce the nice plot aesthetics you see in my examples. Using seaborn is optional, but I highly recommend it.</p>
 
-<h2 id="quickstart">Quickstart</h2>
+<h2 id="documentation">Documentation</h2>
+<p>##Basic epidemiology</p>
+
+<ul>
+  <li><a href="cmrivers.github.io/epipy/analyses/2015/05/07/summarystats.md">Summary statistics</a></li>
+  <li><a href="cmrivers.github.io/epipy/analyses/2015/05/07/summarystats.md">2x2 table</a>
+    <ul>
+      <li>Odds ratio</li>
+      <li>Relative risk</li>
+      <li>Attributable risk</li>
+      <li>Chi square</li>
+      <li>Diagnostic accuracy</li>
+    </ul>
+  </li>
+  <li>[Cluster analysis]</li>
+</ul>
+
+<h2 id="plotting">Plotting</h2>
+
+<ul>
+  <li>Case tree plot</li>
+  <li>Checkerboard plot</li>
+  <li>Epicurves</li>
+  <li>Odds ratio plot</li>
+  <li>Rolling proportion plot</li>
+  <li>Stripe plot</li>
+</ul>
+
+<h2 id="tutorial">Tutorial</h2>
+<p><a href="http://cmrivers.github.io/epipy/mers.html">See an example with outbreak data</a></p>
+
+<p><strong>Loading example data</strong></p>
+
+<pre><code>import epipy
+import pandas as pd
+import seaborn
+
+mers = epipy.get_data('mers_line_list')
+table = epipy.create_2x2(df=mers, row='Sex', column='Health status', row_order=['M', 'F'], col_order=['Alive', 'Dead'])
+
+
+
+   Alive  Dead  All
+ M   18     46  101
+ F   11     16   60
+ All 30     70  185
+</code></pre>
 
 <p><strong>Case tree plot</strong></p>
 
@@ -143,23 +181,25 @@ import pandas as pd
 
 # optional import
 from mpltools import style
-style.use(&#39;ggplot&#39;)
+style.use('ggplot')
 
-example_df = epi.get_data(&#39;example_data&#39;)
-fig, ax = epi.case_tree_plot(example_df, cluster_id = &#39;Cluster&#39;, \
-          case_id =&#39;ID&#39;, date_col=&#39;Date&#39;, color=&#39;Cluster&#39;, \
+example_df = epi.get_data('example_data')
+fig, ax = epi.case_tree_plot(example_df, cluster_id = 'Cluster', \
+          case_id ='ID', date_col='Date', color='Cluster', \
           gen_mean=4, gen_sd = 1)
-ax.set_title(&#39;Example outbreak data&#39;)</code></pre>
+ax.set_title('Example outbreak data')
+</code></pre>
 
 <p><img src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true" alt="Casetree plot" /></p>
 
 <p><strong>Generation analysis</strong></p>
 
-<pre><code>mers_df = epi.get_data(&#39;mers_line_list&#39;)
-mers_G = epi.build_graph(mers_df, cluster_id=&#39;Cluster ID&#39;, case_id=&#39;Case #&#39;,
-	        date_col=&#39;dates&#39;, color=&#39;Health status&#39;, gen_mean=5, gen_sd=4)
-fig, ax, table = epi.generation_analysis(mers_G, attribute=&#39;Health status&#39;, \
-                                         plot=True)</code></pre>
+<pre><code>mers_df = epi.get_data('mers_line_list')
+mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #',
+	        date_col='dates', color='Health status', gen_mean=5, gen_sd=4)
+fig, ax, table = epi.generation_analysis(mers_G, attribute='Health status', \
+                                         plot=True)
+</code></pre>
 
 <p>table returns:</p>
 
@@ -174,39 +214,50 @@ generation
 6                  1             0         0     1     0          0    2
 7                  1             0         0     0     0          0    1
 8                  0             0         0     0     0          1    1
-All               16            18        12    38    11          5  101</code></pre>
+All               16            18        12    38    11          5  101
+</code></pre>
 
 <p><img src="https://github.com/cmrivers/epipy/blob/master/figs/mers_generation_hist.png?raw=true" alt="Health status by generation" /></p>
 
 <p><strong>Epidemic curve</strong></p>
 
-<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;m&#39;)
-ax.set_title(&#39;Approximate onset or report date of MERS cases&#39;)</code></pre>
+<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='m')
+ax.set_title('Approximate onset or report date of MERS cases')
+</code></pre>
 
 <p><img src="https://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true" alt="Daily epicurve" /></p>
 
 <p><strong>Stratified summary statistics</strong></p>
 
-<pre><code>df = pd.DataFrame({&#39;Age&#39; : [10, 12, 14], &#39;Group&#39; : [&#39;A&#39;, &#39;B&#39;, &#39;B&#39;] })
-epi.summary(df.Age, by=df.Group)</code></pre>
+<pre><code>df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+epi.summary(df.Age, by=df.Group)
+</code></pre>
 
 <p>returns:</p>
 
 <pre><code>    count  missing  min  median  mean      std   max
 A      1        0   10      10    10       NaN   10
-B      2        0   12      13    13  1.414214   14</code></pre>
+B      2        0   12      13    13  1.414214   14
+</code></pre>
 
-  
-</section>
+<p>Next: see an  or read the <a href="http://cmrivers.github.io/epipy/categories.html">documentation</a></p>
+
+  </div>
+</div>
 
 
-      </section>
-
+      </div>
+      <hr>
       <footer>
-      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+        <p>&copy; 2015 Caitlin Rivers
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
       </footer>
+
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+
+    
   </body>
 </html>
 

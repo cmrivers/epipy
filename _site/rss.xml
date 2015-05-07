@@ -5,39 +5,186 @@
         <description>Epipy - Caitlin Rivers</description>
         <link>http://cmrivers.github.io/epipy</link>
         <link>http://cmrivers.github.io/epipy</link>
-        <lastBuildDate>2014-02-04T09:53:27-05:00</lastBuildDate>
-        <pubDate>2014-02-04T09:53:27-05:00</pubDate>
+        <lastBuildDate>2015-05-07T11:08:46-04:00</lastBuildDate>
+        <pubDate>2015-05-07T11:08:46-04:00</pubDate>
         <ttl>1800</ttl>
 
 
         <item>
-                <title>Case Trees</title>
-                <description>&lt;p&gt;&lt;a href=&quot;http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/&quot;&gt;Case tree plots&lt;/a&gt; allow unusual insight into the dynamics of an outbreak. Epipy currently has two functions to analyze the emerging zoonoses that case tree plots were developed to represent.&lt;/p&gt;
+                <title>Tables</title>
+                <description>
+&lt;h2 id=&quot;contingency-tables--analyses&quot;&gt;Contingency tables &amp;amp; analyses&lt;/h2&gt;
 
-&lt;h2 id=&quot;basic_reproduction_number&quot;&gt;Basic reproduction number&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://sphweb.bumc.bu.edu/otlt/MPH-Modules/EP/EP713_Association/EP713_Association_print.html&quot;&gt;2x2 tables&lt;/a&gt; are commonly used to assess risk in epidemiology. The rows represent a risk factor, like exposure to a disease, or sex. The columns represent an outcome, like infection status, or whether the disease was severe or mild.&lt;/p&gt;
+
+&lt;h3 id=&quot;create-a-2x2-table&quot;&gt;Create a 2x2 table&lt;/h3&gt;
+
+&lt;p&gt;Both rows and columns must be binary. Note that you must tell epipy how you wish the table to be organized by providing a list of values.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import epipy
+import pandas as pd
+
+mers_df = epipy.get_data(&#39;mers_line_list&#39;)
+table = epipy.create_2x2(mers_df, row=&#39;Sex&#39;, &#39;Health status&#39;,
+                [&#39;M&#39;, &#39;F&#39;], [&#39;Dead&#39;, &#39;Alive&#39;])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;table returns:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;     Dead  Alive  All
+M      46     54  101
+F      16     44   60
+All    70    114  185
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;analyze-a-2x2-table&quot;&gt;Analyze a 2x2 table&lt;/h3&gt;
+
+&lt;p&gt;2x2 tables are used to calculate odds ratios, relative risk, and chi square tests.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;epipy.analyze_2x2(table)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;returns:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Odds ratio: 0.57 (95% CI: (0.22, 1.46))
+Relative risk: 0.69 (95% CI: (0.38, 1.26))
+
+Attributable risk: -0.126 (95% CI: (-0.34, 0.08))
+Attributable risk percent: -44.86% (95% CI: (-43.19, -46.517))
+Population attributable risk: -0.089
+Population attributable risk percent: -27.84%
+
+Chi square: 2.91278015543
+p value: 0.57252592908
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alternatively, you can call each function separately:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;epipy.odds_ratio(table)
+epipy.relative_risk(table)
+epipy.chi2(table)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://cmrivers.github.io/epipy/categories.html&quot;&gt;Back to documentation&lt;/a&gt;&lt;/p&gt;
+</description>
+                <link>http://cmrivers.github.io/epipy/analyses/2015/05/07/tables</link>
+                <guid>http://cmrivers.github.io/epipy/analyses/2015/05/07/tables</guid>
+                <pubDate>2015-05-07T00:00:00-04:00</pubDate>
+        </item>
+
+        <item>
+                <title>Summarystats</title>
+                <description>
+&lt;h2 id=&quot;summary-statistics&quot;&gt;Summary statistics&lt;/h2&gt;
+
+&lt;p&gt;The summary() function will return summary statistics if the column contains
+numeric values, and the count and frequency of top 5 most common values if the column
+contains non-numeric values. Summary can be used either on a single column, or on
+a whole dataframe.&lt;/p&gt;
+
+&lt;p&gt;It can also return stratified summary statistics using the by argument.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import epipy
+import pandas as pd
+
+df = pd.DataFrame({&#39;Age&#39; : [10, 12, 14], &#39;Group&#39; : [&#39;A&#39;, &#39;B&#39;, &#39;B&#39;] })
+epipy.summary(df.Age)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;returns:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;count       3
+missing     0
+min        10
+median     12
+mean       12
+std         2
+max        14
+dtype: float64
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;epipy.summary(df.Group)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;returns:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;   count      freq
+B      2  0.666667
+A      1  0.333333
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;finally:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;epipy.summary(df.Age, by=df.Group)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;returns:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;   count  missing  min  median  mean      std   max
+A      1        0   10      10    10       NaN   10
+B      2        0   12      13    13  1.414214   14
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://cmrivers.github.io/epipy/categories.html&quot;&gt;Back to documentation&lt;/a&gt;&lt;/p&gt;
+</description>
+                <link>http://cmrivers.github.io/epipy/analyses/2015/05/07/summarystats</link>
+                <guid>http://cmrivers.github.io/epipy/analyses/2015/05/07/summarystats</guid>
+                <pubDate>2015-05-07T00:00:00-04:00</pubDate>
+        </item>
+
+        <item>
+                <title>Case Tree_analyses</title>
+                <description>
+&lt;p&gt;&lt;a href=&quot;http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/&quot;&gt;Case tree plots&lt;/a&gt; are useful for visualizing and analyzing small clusters of zoonotic disease with limited human to human potential. Examples include MERS-CoV and Ebola.&lt;/p&gt;
+
+&lt;h2 id=&quot;basic-reproduction-number&quot;&gt;Basic reproduction number&lt;/h2&gt;
 
 &lt;p&gt;&lt;strong&gt;What is the basic reproduction number?&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;The &lt;a href=&quot;http://en.wikipedia.org/wiki/Basic_reproduction_number&quot;&gt;basic reproduction number&lt;/a&gt;, also called R0, is the average number of secondary cases each case produces in a fully susceptible population. In order for an outbreak to sustain itself, R0 must be greater than 1. The higher the R0, the more infectious the disease.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;http://en.wikipedia.org/wiki/Basic_reproduction_number&quot;&gt;basic reproduction number&lt;/a&gt;,
+also called R0, is the average number of secondary cases each case produces
+in a fully susceptible population. In order for an outbreak to sustain itself,
+R0 must be greater than 1. The higher the R0, the more infectious the disease.&lt;/p&gt;
 
-&lt;p&gt;For most outbreaks, R0 must be estimated. Case tree plots have the advantage of showing the exact number of secondary cases per source case.&lt;/p&gt;
+&lt;p&gt;For most outbreaks, R0 must be estimated. Case tree plots have the advantage
+of showing the exact number of secondary cases per source case.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;For this example, we’ll use data from the MERS-CoV packaged with epipy. You may need to change the path below. To start, first build out the graph. Then simply call reproduction_number(), which will return a series object, and a histogram of the R0s. The function has an option to exclude index cases (index_cases=False), which is useful if you want to calculate the human to human reproduction number without considering zoonotically acquired cases.&lt;/p&gt;
+&lt;p&gt;For this example, we’ll use data from the MERS-CoV packaged with epipy.
+You may need to change the path below. To start, first build out the graph.
+Then simply call reproduction_number(), which will return a series object,
+and a histogram of the R0s. The function has an option to exclude index cases
+(index_cases=False), which is useful if you want to calculate the human
+to human reproduction number without considering zoonotically acquired cases.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;import epipy as epi
+&lt;pre&gt;&lt;code&gt;import epipy
 import pandas as pd
 
-mers_df = epi.get_data(&amp;#39;mers_line_list.csv&amp;#39;)
-mers_G = epi.build_graph(mers_df, cluster_id=&amp;#39;Cluster ID&amp;#39;, case_id=&amp;#39;Case #&amp;#39;,
-	        date_col=&amp;#39;dates&amp;#39;, color=&amp;#39;Health status&amp;#39;, gen_mean=5, gen_sd=4)
+data = epipy.generate_example_data(cluster_size=10, outbreak_len=100, clusters=10, gen_time=5)
+&lt;/code&gt;&lt;/pre&gt;
 
-R, fig, ax = epi.reproduction_number(mers_G, index_cases=True, plot=True)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you’re working with case tree plots, you can get the graph from the case_tree_plot function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;G, fig, ax = epipy.case_tree_plot(data, cluster_id=&#39;Cluster&#39;, case_id=&#39;ID&#39;, date_col=&#39;Date&#39;, color=&#39;Cluster&#39;, gen_mean=5, gen_sd=2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But if you want don’t want to produce the plot, you can get the same thing using the build_graph function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;G = epipy.build_graph(data, &#39;Cluster&#39;, &#39;ID&#39;, &#39;Date&#39;, &#39;Cluster&#39;, 5, 2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can then use the graph to assess the reproduction number. You may choose whether or not to include the index cases in the calculation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;R, fig, ax = epipy.reproduction_number(G, index_cases=True, plot=True)
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The series object, R in the above example, can be manipulated further.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;print R.describe()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;print R.describe()
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The R variable returns:&lt;/p&gt;
 
@@ -49,145 +196,66 @@ min        0.000000
 50%        0.000000
 75%        2.000000
 max        5.000000
-dtype: float64&lt;/code&gt;&lt;/pre&gt;
+dtype: float64
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;And the figure returns:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/r0_hist.png?raw=true&quot; alt=&quot;Histogram of reproduction numbers&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;generation_analyses&quot;&gt;Generation analyses&lt;/h2&gt;
+&lt;h2 id=&quot;generation-analyses&quot;&gt;Generation analyses&lt;/h2&gt;
 
-&lt;p&gt;Epidemiologists may also be interested in how the disease changes from one generation to the next. Are cases acquired from animals more severe than human acquired cases? Does severity decrease as the disease passes from person to person? Are index cases more likely to be men? The generation_analysis() function returns a table of case attributes by generation, as well as an optional bar graph.&lt;/p&gt;
+&lt;p&gt;Epidemiologists may also be interested in how the disease changes from
+one generation to the next. Are cases acquired from animals more severe
+than human acquired cases? Does severity decrease as the disease passes
+from person to person? Are index cases more likely to be men?
+The generation_analysis() function returns a table of case attributes by
+generation, as well as an optional bar graph.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;fig, ax, table = epi.generation_analysis(mers_G, attribute=&amp;#39;Health status&amp;#39;, \
-                                         plot=True)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;fig, ax, table = fig, ax, table = epipy.generation_analysis(G, attribute=&#39;sex&#39;)
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The table variable returns:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;Health status  Alive  Asymptomatic  Critical  Dead  Mild  Recovered  All
+&lt;pre&gt;&lt;code&gt;sex by generation
+sex         Female  Male  All
 generation
-0                  5             1         3    12     1          0   22
-1                  6             7         3    10     8          0   35
-2                  2             5         2     7     2          2   20
-3                  0             5         4     5     0          2   16
-4                  1             0         0     2     0          0    3
-5                  0             0         0     1     0          0    1
-6                  1             0         0     1     0          0    2
-7                  1             0         0     0     0          0    1
-8                  0             0         0     0     0          1    1
-All               16            18        12    38    11          5  101&lt;/code&gt;&lt;/pre&gt;
+0                3     7   10
+1                3     8   11
+2                5     8   13
+3                5     7   12
+4                9     5   14
+5                5     7   12
+6                7     3   10
+7                4     3    7
+8                0     3    3
+9                1     0    1
+All             42    51   93
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;And the figure returns:&lt;/p&gt;
+&lt;p&gt;And the figure returns a histogram of number of cases at each generation, by attribute:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/mers_generation_hist.png?raw=true&quot; alt=&quot;Health status by generation&quot; /&gt;&lt;/p&gt;</description>
-                <link>http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees</link>
-                <guid>http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees</guid>
-                <pubDate>2014-02-02T00:00:00-05:00</pubDate>
-        </item>
+&lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/example_data_generation_hist.png?raw=true&quot; alt=&quot;Health status by generation&quot; /&gt;&lt;/p&gt;
 
-        <item>
-                <title>Basic Epidemiology</title>
-                <description>&lt;h2 id=&quot;summary_statistics&quot;&gt;Summary statistics&lt;/h2&gt;
-
-&lt;p&gt;The summary() function will return summary statistics if the column contains numeric values, and the count and frequency of top 5 most common values if the column contains non-numeric values. Summary can be used either on a single column, or on a whole dataframe.&lt;/p&gt;
-
-&lt;p&gt;It can also return stratified summary statistics using the by argument.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;import epipy as epi
-import pandas as pd
-
-df = pd.DataFrame({&amp;#39;Age&amp;#39; : [10, 12, 14], &amp;#39;Group&amp;#39; : [&amp;#39;A&amp;#39;, &amp;#39;B&amp;#39;, &amp;#39;B&amp;#39;] })
-epi.summary(df.Age)&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;returns:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;count       3
-missing     0
-min        10
-median     12
-mean       12
-std         2
-max        14
-dtype: float64&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;epi.summary(df.Group)&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;returns:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;   count      freq
-B      2  0.666667
-A      1  0.333333&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;finally:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;epi.summary(df.Age, by=df.Group)&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;returns:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;   count  missing  min  median  mean      std   max
-A      1        0   10      10    10       NaN   10
-B      2        0   12      13    13  1.414214   14&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;2x2_table&quot;&gt;2x2 table&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://sphweb.bumc.bu.edu/otlt/MPH-Modules/EP/EP713_Association/EP713_Association_print.html&quot;&gt;2x2 tables&lt;/a&gt; are commonly used to assess risk in epidemiology. The rows represent a risk factor, like exposure to a disease, or sex. The columns represent an outcome, like infection status, or whether the disease was severe or mild.&lt;/p&gt;
-
-&lt;h3 id=&quot;create_a_2x2_table&quot;&gt;Create a 2x2 table&lt;/h3&gt;
-
-&lt;p&gt;Both rows and columns must be binary, so in the example below I collapse the health status values into dead and alive. Note that you must tell epipy how you wish the table to be organized by providing a list of values.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;import epipy as epi
-import pandas as pd
-
-mers_df = epi.get_data(&amp;#39;mers_line_list.csv&amp;#39;)
-mers_df[&amp;#39;condensed_health&amp;#39;] = mers_df[&amp;#39;Health status&amp;#39;].
-                                replace([&amp;#39;Critical&amp;#39;, &amp;#39;Alive&amp;#39;, &amp;#39;Asymptomatic&amp;#39;,
-                                &amp;#39;Mild&amp;#39;, &amp;#39;Recovered&amp;#39;, &amp;#39;Reocvered&amp;#39;], &amp;#39;Alive&amp;#39;)
-table = epi.create_2x2(mers_df, &amp;#39;Sex&amp;#39;, &amp;#39;condensed_health&amp;#39;,
-                [&amp;#39;M&amp;#39;, &amp;#39;F&amp;#39;], [&amp;#39;Dead&amp;#39;, &amp;#39;Alive&amp;#39;])&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;table returns:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;     Dead  Alive  All
-M      46     54  101
-F      16     44   60
-All    70    114  185&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;analyze_a_2x2_table&quot;&gt;Analyze a 2x2 table&lt;/h3&gt;
-
-&lt;p&gt;2x2 tables are used to calculate odds ratios, relative risk, and chi square tests.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;epi.analyze_2x2(table)&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;returns:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Odds ratio: 2.34 (95% CI: (1.17, 4.69))
-Relative risk: 1.73 (95% CI: (1.08, 2.76))
-
-Chi square: 5.95216712234
-p value: 0.202749053116&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Alternatively, you can call each function separately:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;epi.odds_ratio(table)
-epi.relative_risk(table)
-epi.chi2(table)&lt;/code&gt;&lt;/pre&gt;</description>
-                <link>http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology</link>
-                <guid>http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology</guid>
-                <pubDate>2014-02-02T00:00:00-05:00</pubDate>
+&lt;p&gt;&lt;a href=&quot;http://cmrivers.github.io/epipy/categories.html&quot;&gt;Back to documentation&lt;/a&gt;&lt;/p&gt;
+</description>
+                <link>http://cmrivers.github.io/epipy/analyses/2015/05/07/case-tree_analyses</link>
+                <guid>http://cmrivers.github.io/epipy/analyses/2015/05/07/case-tree_analyses</guid>
+                <pubDate>2015-05-07T00:00:00-04:00</pubDate>
         </item>
 
         <item>
                 <title>Epicurves</title>
-                <description>&lt;h2 id=&quot;epicurves&quot;&gt;Epicurves&lt;/h2&gt;
+                <description>
+&lt;h2 id=&quot;epicurves&quot;&gt;Epicurves&lt;/h2&gt;
 
-&lt;h3 id=&quot;what_is_an_epicurve&quot;&gt;What is an epicurve?&lt;/h3&gt;
+&lt;h3 id=&quot;what-is-an-epicurve&quot;&gt;What is an epicurve?&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.med.uottawa.ca/sim/data/Public_Health_Epidemic_Curves_e.htm&quot;&gt;Epidemic curves&lt;/a&gt;, or epicurves, are a common way to visualize outbreaks. They are plotted as the count of incident (new) cases over time. Traditional epicurves are bar plots, not line plots.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.med.uottawa.ca/sim/data/Public_Health_Epidemic_Curves_e.htm&quot;&gt;Epidemic curves&lt;/a&gt;,
+or epicurves, are a common way to visualize outbreaks. They are plotted as the count of
+incident (new) cases over time. Traditional epicurves are bar plots, not line plots.&lt;/p&gt;
 
 &lt;h3 id=&quot;examples&quot;&gt;Examples&lt;/h3&gt;
 
@@ -196,29 +264,39 @@ epi.chi2(table)&lt;/code&gt;&lt;/pre&gt;</description>
 &lt;pre&gt;&lt;code&gt;import epipy as epi
 import pandas as pd
 
-mers_df = epi.get_data(&amp;#39;mers_line_list&amp;#39;)
-curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, freq=&amp;#39;month&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+mers_df = epi.get_data(&#39;mers_line_list&#39;)
+curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;month&#39;)
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true&quot; alt=&quot;Monthly epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;The curve variable returns a table with a list of dates and their frequency. Monthly epicurves work by reassigning all cases for that month to the first day of the month. For the MERS data, it looks like this:&lt;/p&gt;
+&lt;p&gt;The curve variable returns a table with a list of dates and their frequency.
+Monthly epicurves work by reassigning all cases for that month to the first day of the month.
+For the MERS data, it looks like this:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;            count           plotdates
 2013-06-01     27 2013-06-01 00:00:00
 2013-09-01     25 2013-09-01 00:00:00
 2013-04-01     23 2013-04-01 00:00:00
 2013-08-01     18 2013-08-01 00:00:00
-2013-10-01     17 2013-10-01 00:00:00&lt;/code&gt;&lt;/pre&gt;
+2013-10-01     17 2013-10-01 00:00:00
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;You may also plot the frequency by day, month or year using the freq argument.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, freq=&amp;#39;day&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;day&#39;)
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png?raw=true&quot; alt=&quot;Daily epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, freq=&amp;#39;y&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;y&#39;)
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png?raw=true&quot; alt=&quot;Yearly epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png?raw=true&quot; alt=&quot;Yearly epicurve of MERS-CoV&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next: &lt;a href=&quot;http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/&quot;&gt;Checkerboard plot&lt;/a&gt;&lt;/p&gt;
+
+</description>
                 <link>http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves</link>
                 <guid>http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves</guid>
                 <pubDate>2014-02-01T00:00:00-05:00</pubDate>
@@ -226,25 +304,34 @@ curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&amp;#39;dates&amp;#39;, fr
 
         <item>
                 <title>Checkerboard Plot</title>
-                <description>&lt;h2 id=&quot;checkerboard_plot&quot;&gt;Checkerboard plot&lt;/h2&gt;
+                <description>
+&lt;h2 id=&quot;checkerboard-plot&quot;&gt;Checkerboard plot&lt;/h2&gt;
 
-&lt;h3 id=&quot;what_is_a_checkerboard_plot&quot;&gt;What is a checkerboard plot?&lt;/h3&gt;
+&lt;h3 id=&quot;what-is-a-checkerboard-plot&quot;&gt;What is a checkerboard plot?&lt;/h3&gt;
 
-&lt;p&gt;I developed checkerboard plots to display similar data as a &lt;a href=&quot;http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/&quot;&gt;case tree plot&lt;/a&gt;, but instead of a network it shows a simple time series for each human to human cluster. It does not attempt to determine the structure of the transmission network.&lt;/p&gt;
+&lt;p&gt;I developed checkerboard plots to display similar data as a
+&lt;a href=&quot;http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/&quot;&gt;case tree plot&lt;/a&gt;,
+but instead of a network it shows a simple time series for each human to human cluster.
+It does not attempt to determine the structure of the transmission network.&lt;/p&gt;
 
 &lt;h3 id=&quot;examples&quot;&gt;Examples&lt;/h3&gt;
 
-&lt;p&gt;First, load in the example data packaged with epipy. Then simply call the checkerboard() function with column labels that correspond to columns containing unique case id numbers, cluster membership, and the date of illness onset or report. The label argument is optional; if set to off, no case id numbers will be displayed.&lt;/p&gt;
+&lt;p&gt;First, load in the example data packaged with epipy.
+Then simply call the checkerboard() function with column labels that correspond to columns
+containing unique case id numbers, cluster membership, and the date of illness onset or report.
+The label argument is optional; if set to off, no case id numbers will be displayed.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;import epipy as epi
 import pandas as pd
 
-df = epi.get_data(&amp;#39;example_data&amp;#39;)
-fig, ax = epi.checkerboard_plot(df, case_id=&amp;#39;ID&amp;#39;, cluster_id=&amp;#39;Cluster&amp;#39;, \
-          date_col=&amp;#39;Date&amp;#39;, labels=&amp;#39;on&amp;#39;)
-ax.set_title(&amp;#39;Example outbreak data&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+df = epi.get_data(&#39;example_data&#39;)
+fig, ax = epi.checkerboard_plot(df, case_id=&#39;ID&#39;, cluster_id=&#39;Cluster&#39;, \
+          date_col=&#39;Date&#39;, labels=&#39;on&#39;)
+ax.set_title(&#39;Example outbreak data&#39;)
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png?raw=true&quot; alt=&quot;Checkerboard plot&quot; /&gt;&lt;/p&gt;</description>
+&lt;p&gt;Next: &lt;a href=&quot;http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/&quot;&gt;Case tree plot&lt;/a&gt;&lt;/p&gt;
+</description>
                 <link>http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot</link>
                 <guid>http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot</guid>
                 <pubDate>2014-02-01T00:00:00-05:00</pubDate>
@@ -252,47 +339,72 @@ ax.set_title(&amp;#39;Example outbreak data&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 
         <item>
                 <title>Case Tree Plot</title>
-                <description>&lt;h2 id=&quot;case_tree_plot&quot;&gt;Case tree plot&lt;/h2&gt;
+                <description>
+&lt;h2 id=&quot;case-tree-plot&quot;&gt;Case tree plot&lt;/h2&gt;
 
-&lt;h3 id=&quot;what_is_a_case_tree_plot&quot;&gt;What is a case tree plot?&lt;/h3&gt;
+&lt;h3 id=&quot;what-is-a-case-tree-plot&quot;&gt;What is a case tree plot?&lt;/h3&gt;
 
-&lt;p&gt;I developed case tree plots are a way to visualize zoonotic disease. However, it can also be used to visualizing environmentally-acquired dieases, or anything that emerges multiple times, is passed from person to person, and then dies out. Tweets and retweets might be a useful non-epi example.&lt;/p&gt;
+&lt;p&gt;I developed case tree plots are a way to visualize zoonotic disease.
+However, it can also be used to visualizing environmentally-acquired
+dieases, or anything that emerges multiple times, is passed from person
+to person, and then dies out. Tweets and retweets might be a useful
+non-epi example.&lt;/p&gt;
 
-&lt;h3 id=&quot;how_do_i_read_a_case_tree_plot&quot;&gt;How do I read a case tree plot?&lt;/h3&gt;
+&lt;h3 id=&quot;how-do-i-read-a-case-tree-plot&quot;&gt;How do I read a case tree plot?&lt;/h3&gt;
 
-&lt;p&gt;The x-axis is time of illness onset or diagnosis, and the y-axis is generation. Nodes at generation 0 are known as index nodes. In the case of a zoonotic disease, the index node is a human case acquired from an animal source. If that human were to pass the disease to two other humans, those two subsequent cases are both generation 1.&lt;/p&gt;
+&lt;p&gt;The x-axis is time of illness onset or diagnosis, and the y-axis is
+generation. Nodes at generation 0 are known as index nodes.
+In the case of a zoonotic disease, the index node is a human case
+acquired from an animal source. If that human were to pass
+the disease to two other humans, those two subsequent cases are both
+generation 1.&lt;/p&gt;
 
-&lt;p&gt;The meaning of the color of the node varies based on the node attribute. In many cases, color just signifies membership to a particular human to human cluster. However, it could also represent health status (e.g. alive, dead), the sex of the patient, etc.&lt;/p&gt;
+&lt;p&gt;The meaning of the color of the node varies based on the node attribute.
+In many cases, color just signifies membership to a particular human to
+human cluster. However, it could also represent health status (e.g. alive, dead),
+the sex of the patient, etc.&lt;/p&gt;
 
 &lt;h3 id=&quot;examples&quot;&gt;Examples&lt;/h3&gt;
 
-&lt;p&gt;For this we will use example data in the data/ folder of epipy. For this example, we will color the nodes by cluster.&lt;/p&gt;
+&lt;p&gt;For this we will use example data in the data/ folder of epipy.
+For this example, we will color the nodes by cluster.&lt;/p&gt;
 
-&lt;p&gt;In order to build a case tree plot, you’ll have to provide the generation mean (gen_mean) and generation standard deviation (gen_sd). These values represent the time from when one case becomes infected to when a subsequent case becomes infected. Incubation period may be used when generation time is not known.&lt;/p&gt;
+&lt;p&gt;In order to build a case tree plot, you’ll have to provide the
+generation mean (gen_mean) and generation standard deviation (gen_sd).
+These values represent the time from when one case becomes infected to
+when a subsequent case becomes infected. Incubation period may be used
+when generation time is not known.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;import epipy as epi
 import pandas as pd
 
-df = epi.get_data(&amp;#39;example_data&amp;#39;)
-fig, ax = epi.case_tree_plot(df, cluster_id = &amp;#39;Cluster&amp;#39;, case_id =&amp;#39;ID&amp;#39;, \
-          date_col=&amp;#39;Date&amp;#39;, color=&amp;#39;Cluster&amp;#39;, gen_mean=4, gen_sd = 1)&lt;/code&gt;&lt;/pre&gt;
+df = epi.get_data(&#39;example_data&#39;)
+fig, ax = epi.case_tree_plot(df, cluster_id = &#39;Cluster&#39;, case_id =&#39;ID&#39;, \
+          date_col=&#39;Date&#39;, color=&#39;Cluster&#39;, gen_mean=4, gen_sd = 1)
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true&quot; alt=&quot;Casetree plot&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;If you want to change the node color to represent the health status of each case, simply change the color argument.&lt;/p&gt;
+&lt;p&gt;If you want to change the node color to represent the health status of each case,
+simply change the color argument.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;fig, ax = epi.case_tree_plot(df, cluster_id = &amp;#39;Cluster&amp;#39;, case_id =&amp;#39;ID&amp;#39;, \
-          date_col=&amp;#39;Date&amp;#39;, color=&amp;#39;health&amp;#39;, gen_mean=4, gen_sd = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;fig, ax = epi.case_tree_plot(df, cluster_id = &#39;Cluster&#39;, case_id =&#39;ID&#39;, \
+          date_col=&#39;Date&#39;, color=&#39;health&#39;, gen_mean=4, gen_sd = 1)
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true&quot; alt=&quot;Casetree plot with node attribute&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You can also turn the legend off, and change the size of the node using optional arguments.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;  fig, ax = epi.case_tree_plot(df, cluster_id = &amp;#39;Cluster&amp;#39;, \
-                case_id =&amp;#39;ID&amp;#39;, date_col=&amp;#39;Date&amp;#39;, color=&amp;#39;Cluster&amp;#39;, \
-                gen_mean=4, gen_sd = 1, node_size=25, legend=False)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;  fig, ax = epi.case_tree_plot(df, cluster_id = &#39;Cluster&#39;, \
+                case_id =&#39;ID&#39;, date_col=&#39;Date&#39;, color=&#39;Cluster&#39;, \
+                gen_mean=4, gen_sd = 1, node_size=25, legend=False)
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_noleg.png?raw=true&quot; alt=&quot;Case tree plot with no legend and small node size&quot; /&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&quot;http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_noleg.png?raw=true&quot; alt=&quot;Case tree plot with no legend and small node size&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next: &lt;a href=&quot;http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees/&quot;&gt;Case tree analyses&lt;/a&gt;&lt;/p&gt;
+</description>
                 <link>http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot</link>
                 <guid>http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot</guid>
                 <pubDate>2014-02-01T00:00:00-05:00</pubDate>

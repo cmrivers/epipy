@@ -1,31 +1,47 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="author" content="Caitlin Rivers" />
+    <meta charset="utf-8">
     <title>Epicurves</title>
+    
+    <meta name="author" content="Caitlin Rivers">
 
-    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
-    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
-    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header"><a href="/">Epipy</a></h1>
-        <p class="header">Python tools for epidemiology</p>
-        <ul>
-          
-          
-          
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a class="brand" href="/">Epipy</a>
+          <ul class="nav">
+            
+            
+            
 
 
   
@@ -76,38 +92,33 @@
 
 
 
-        </ul>
-        
-        
-        <div class="misc vcard">
-          <h4>about</h4>
-          <ul>
-            
-            
-            <li class="github"><a href="http://github.com/cmrivers/" rel="me">github.com/cmrivers</a></li>
-            
-            
-            <li class="twitter"><a href="http://twitter.com/cmyeaton/" rel="me">twitter.com/cmyeaton</a></li>
-            
-            
-            
-            
-            
           </ul>
-        </div><!-- misc -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
         
-      </header>
+<div class="page-header">
+  <h1>Epicurves <small>Epidemic curves</small></h1>
+</div>
 
-      <section>
+<div class="row-fluid post-full">
+  <div class="span12">
+    <div class="date">
+      <span>01 February 2014</span>
+    </div>
+    <div class="content">
       
-<section>
-  <h1>Epicurves</h1>
+<h2 id="epicurves">Epicurves</h2>
 
-  <h2 id="epicurves">Epicurves</h2>
+<h3 id="what-is-an-epicurve">What is an epicurve?</h3>
 
-<h3 id="what_is_an_epicurve">What is an epicurve?</h3>
-
-<p><a href="http://www.med.uottawa.ca/sim/data/Public_Health_Epidemic_Curves_e.htm">Epidemic curves</a>, or epicurves, are a common way to visualize outbreaks. They are plotted as the count of incident (new) cases over time. Traditional epicurves are bar plots, not line plots.</p>
+<p><a href="http://www.med.uottawa.ca/sim/data/Public_Health_Epidemic_Curves_e.htm">Epidemic curves</a>,
+or epicurves, are a common way to visualize outbreaks. They are plotted as the count of
+incident (new) cases over time. Traditional epicurves are bar plots, not line plots.</p>
 
 <h3 id="examples">Examples</h3>
 
@@ -116,41 +127,112 @@
 <pre><code>import epipy as epi
 import pandas as pd
 
-mers_df = epi.get_data(&#39;mers_line_list&#39;)
-curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;month&#39;)</code></pre>
+mers_df = epi.get_data('mers_line_list')
+curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='month')
+</code></pre>
 
 <p><img src="http://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true" alt="Monthly epicurve of MERS-CoV" /></p>
 
-<p>The curve variable returns a table with a list of dates and their frequency. Monthly epicurves work by reassigning all cases for that month to the first day of the month. For the MERS data, it looks like this:</p>
+<p>The curve variable returns a table with a list of dates and their frequency.
+Monthly epicurves work by reassigning all cases for that month to the first day of the month.
+For the MERS data, it looks like this:</p>
 
 <pre><code>            count           plotdates
 2013-06-01     27 2013-06-01 00:00:00
 2013-09-01     25 2013-09-01 00:00:00
 2013-04-01     23 2013-04-01 00:00:00
 2013-08-01     18 2013-08-01 00:00:00
-2013-10-01     17 2013-10-01 00:00:00</code></pre>
+2013-10-01     17 2013-10-01 00:00:00
+</code></pre>
 
 <p>You may also plot the frequency by day, month or year using the freq argument.</p>
 
-<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;day&#39;)</code></pre>
+<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='day')
+</code></pre>
 
 <p><img src="http://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png?raw=true" alt="Daily epicurve of MERS-CoV" /></p>
 
-<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;y&#39;)</code></pre>
+<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='y')
+</code></pre>
 
 <p><img src="http://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png?raw=true" alt="Yearly epicurve of MERS-CoV" /></p>
 
-  
-</section>
+<p>Next: <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/">Checkerboard plot</a></p>
 
 
-      </section>
-
-      <footer>
-      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
-      </footer>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+
+  
+    <ul class="tag_box inline">
+      <li><i class="icon-folder-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#plots-ref">
+    		plots <span>3</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="icon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/mers.html#plot-ref">plot <span>3</span></a></li>
+     
+    	<li><a href="/mers.html#epicurve-ref">epicurve <span>1</span></a></li>
+     
+    	<li><a href="/mers.html#epidemic curve-ref">epidemic curve <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/plots/2014/02/01/checkerboard-plot" title="Checkerboard Plot">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/analyses/2015/05/07/case-tree_analyses" title="Case Tree_analyses">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+</div>
+
+
+      </div>
+      <hr>
+      <footer>
+        <p>&copy; 2015 Caitlin Rivers
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div>
+
+    
   </body>
 </html>
 

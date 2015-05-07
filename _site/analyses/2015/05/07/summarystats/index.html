@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Checkerboard Plot</title>
+    <title>Summarystats</title>
     
     <meta name="author" content="Caitlin Rivers">
 
@@ -102,42 +102,69 @@
       <div class="content">
         
 <div class="page-header">
-  <h1>Checkerboard Plot <small>Checkerboard plots</small></h1>
+  <h1>Summarystats <small>Summar statistics</small></h1>
 </div>
 
 <div class="row-fluid post-full">
   <div class="span12">
     <div class="date">
-      <span>01 February 2014</span>
+      <span>07 May 2015</span>
     </div>
     <div class="content">
       
-<h2 id="checkerboard-plot">Checkerboard plot</h2>
+<h2 id="summary-statistics">Summary statistics</h2>
 
-<h3 id="what-is-a-checkerboard-plot">What is a checkerboard plot?</h3>
+<p>The summary() function will return summary statistics if the column contains
+numeric values, and the count and frequency of top 5 most common values if the column
+contains non-numeric values. Summary can be used either on a single column, or on
+a whole dataframe.</p>
 
-<p>I developed checkerboard plots to display similar data as a
-<a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case tree plot</a>,
-but instead of a network it shows a simple time series for each human to human cluster.
-It does not attempt to determine the structure of the transmission network.</p>
+<p>It can also return stratified summary statistics using the by argument.</p>
 
-<h3 id="examples">Examples</h3>
-
-<p>First, load in the example data packaged with epipy.
-Then simply call the checkerboard() function with column labels that correspond to columns
-containing unique case id numbers, cluster membership, and the date of illness onset or report.
-The label argument is optional; if set to off, no case id numbers will be displayed.</p>
-
-<pre><code>import epipy as epi
+<pre><code>import epipy
 import pandas as pd
 
-df = epi.get_data('example_data')
-fig, ax = epi.checkerboard_plot(df, case_id='ID', cluster_id='Cluster', \
-          date_col='Date', labels='on')
-ax.set_title('Example outbreak data')
+df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+epipy.summary(df.Age)
 </code></pre>
 
-<p>Next: <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">Case tree plot</a></p>
+<p>returns:</p>
+
+<pre><code>count       3
+missing     0
+min        10
+median     12
+mean       12
+std         2
+max        14
+dtype: float64
+</code></pre>
+
+<p>and:</p>
+
+<pre><code>epipy.summary(df.Group)
+</code></pre>
+
+<p>returns:</p>
+
+<pre><code>   count      freq
+B      2  0.666667
+A      1  0.333333
+</code></pre>
+
+<p>finally:</p>
+
+<pre><code>epipy.summary(df.Age, by=df.Group)
+</code></pre>
+
+<p>returns:</p>
+
+<pre><code>   count  missing  min  median  mean      std   max
+A      1        0   10      10    10       NaN   10
+B      2        0   12      13    13  1.414214   14
+</code></pre>
+
+<p><a href="http://cmrivers.github.io/epipy/categories.html">Back to documentation</a></p>
 
     </div>
 
@@ -150,8 +177,8 @@ ax.set_title('Example outbreak data')
 
   
      
-    	<li><a href="/categories.html#plots-ref">
-    		plots <span>3</span>
+    	<li><a href="/categories.html#analyses-ref">
+    		analyses <span>3</span>
     	</a></li>
     
   
@@ -169,9 +196,7 @@ ax.set_title('Example outbreak data')
 
   
      
-    	<li><a href="/mers.html#plot-ref">plot <span>3</span></a></li>
-     
-    	<li><a href="/mers.html#checkerboard-ref">checkerboard <span>1</span></a></li>
+    	<li><a href="/mers.html#analyses-ref">analyses <span>3</span></a></li>
     
   
 
@@ -184,11 +209,11 @@ ax.set_title('Example outbreak data')
     <div class="pagination">
       <ul>
       
-        <li class="prev"><a href="/plots/2014/02/01/case-tree-plot" title="Case Tree Plot">&larr; Previous</a></li>
+        <li class="prev"><a href="/analyses/2015/05/07/case-tree_analyses" title="Case Tree_analyses">&larr; Previous</a></li>
       
         <li><a href="/archive.html">Archive</a></li>
       
-        <li class="next"><a href="/plots/2014/02/01/epicurves" title="Epicurves">Next &rarr;</a></li>
+        <li class="next"><a href="/analyses/2015/05/07/tables" title="Tables">Next &rarr;</a></li>
       
       </ul>
     </div>

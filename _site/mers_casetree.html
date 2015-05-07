@@ -1,31 +1,47 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="author" content="Caitlin Rivers" />
+    <meta charset="utf-8">
     <title>MERS-CoV case tree</title>
+    
+    <meta name="author" content="Caitlin Rivers">
 
-    <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
-    <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
-    <script src="/assets/themes/dinky/js/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header"><a href="/">Epipy</a></h1>
-        <p class="header">Python tools for epidemiology</p>
-        <ul>
-          
-          
-          
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a class="brand" href="/">Epipy</a>
+          <ul class="nav">
+            
+            
+            
 
 
   
@@ -76,52 +92,53 @@
 
 
 
-        </ul>
-        
-        
-        <div class="misc vcard">
-          <h4>about</h4>
-          <ul>
-            
-            
-            <li class="github"><a href="http://github.com/cmrivers/" rel="me">github.com/cmrivers</a></li>
-            
-            
-            <li class="twitter"><a href="http://twitter.com/cmyeaton/" rel="me">twitter.com/cmyeaton</a></li>
-            
-            
-            
-            
-            
           </ul>
-        </div><!-- misc -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
         
-      </header>
+<div class="page-header">
+  <h1>MERS-CoV case tree </h1>
+</div>
 
-      <section>
-      
-<section>
-  <h1>MERS-CoV case tree</h1>
+<div class="row-fluid">
+  <div class="span12">
+    
+<p>I have been collecting a line list of MERS cases using publicly available data
+like <a href="http://www.who.int/csr/don/en/">WHO Disease Outbreak News reports</a>.
+Where possible, I’ve been trying to piece together human to human clusters -
+it’s guess-work at best, and I can’t promise it’s anything close to being correct.</p>
 
-  <p>I have been collecting a line list of MERS cases using publicly available data like <a href="http://www.who.int/csr/don/en/">WHO Disease Outbreak News reports</a>. Where possible, I’ve been trying to piece together human to human clusters - it’s guess-work at best, and I can’t promise it’s anything close to being correct.</p>
+<p>The x-axis is time of illness onset or diagnosis, and the y-axis is generation.
+Nodes at generation 0 are thought to be acquired from an animal source. If that
+ human were to pass the disease to two other humans, those two subsequent cases
+ are both generation 1.</p>
 
-<p>The x-axis is time of illness onset or diagnosis, and the y-axis is generation. Nodes at generation 0 are thought to be acquired from an animal source. If that human were to pass the disease to two other humans, those two subsequent cases are both generation 1.</p>
-
-<p>Learn more about <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case tree plots</a> or visit the full <a href="http://cmrivers.github.io/epipy/mers.html">MERS-CoV example</a>.</p>
+<p>Learn more about <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case tree plots</a>
+or visit the full <a href="http://cmrivers.github.io/epipy/mers.html">MERS-CoV example</a>.</p>
 
 <p><img src="https://github.com/cmrivers/epipy/blob/master/figs/MERS_casetree.png?raw=True" alt="Case tree plot of MERS clusters" /></p>
 
-  
-</section>
+  </div>
+</div>
 
 
-      </section>
-
+      </div>
+      <hr>
       <footer>
-      <p><small>Hosted on <a href="http://pages.github.com/">GitHub Pages</a> using the <a href="https://github.com/sodabrew/theme-dinky">Dinky theme</a> for <a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a></small></p>
+        <p>&copy; 2015 Caitlin Rivers
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
       </footer>
+
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+
+    
   </body>
 </html>
 

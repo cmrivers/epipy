@@ -6,7 +6,7 @@ tags : [analyses, case tree]
 ---
 {% include JB/setup %}
 
-[Case tree plots](http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/) allow unusual insight into the dynamics of an outbreak. Epipy currently has two functions to analyze the emerging zoonoses that case tree plots were developed to represent.
+[Case tree plots](http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/) are useful for visualizing and analyzing small clusters of zoonotic disease with limited human to human potential. Examples include MERS-CoV and Ebola.
 
 ##Basic reproduction number
 
@@ -29,14 +29,24 @@ and a histogram of the R0s. The function has an option to exclude index cases
 (index_cases=False), which is useful if you want to calculate the human
 to human reproduction number without considering zoonotically acquired cases.
 
-    import epipy as epi
+    import epipy
     import pandas as pd
 
-    mers_df = epi.get_data('mers_line_list.csv')
-    mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #',
-		        date_col='dates', color='Health status', gen_mean=5, gen_sd=4)
+    data = epipy.generate_example_data(cluster_size=10, outbreak_len=100, clusters=10, gen_time=5)
 
-    R, fig, ax = epi.reproduction_number(mers_G, index_cases=True, plot=True)
+If you're working with case tree plots, you can get the graph from the case_tree_plot function.
+
+    G, fig, ax = epipy.case_tree_plot(data, cluster_id='Cluster', case_id='ID', date_col='Date', color='Cluster', gen_mean=5, gen_sd=2)
+
+![Example case tree](https://github.com/cmrivers/epipy/blob/master/figs/example_case_tree.png?raw=true)
+
+But if you want don't want to produce the plot, you can get the same thing using the build_graph function.
+
+    G = epipy.build_graph(data, 'Cluster', 'ID', 'Date', 'Cluster', 5, 2)
+
+You can then use the graph to assess the reproduction number. You may choose whether or not to include the index cases in the calculation.
+
+    R, fig, ax = epipy.reproduction_number(G, index_cases=True, plot=True)
 
 
 The series object, R in the above example, can be manipulated further.
@@ -73,26 +83,29 @@ generation, as well as an optional bar graph.
 
 **Example**
 
-    fig, ax, table = epi.generation_analysis(mers_G, attribute='Health status', \
-                                             plot=True)
+    fig, ax, table = fig, ax, table = epipy.generation_analysis(G, attribute='sex')
 
 The table variable returns:
 
-    Health status  Alive  Asymptomatic  Critical  Dead  Mild  Recovered  All
+    sex by generation
+    sex         Female  Male  All
     generation
-    0                  5             1         3    12     1          0   22
-    1                  6             7         3    10     8          0   35
-    2                  2             5         2     7     2          2   20
-    3                  0             5         4     5     0          2   16
-    4                  1             0         0     2     0          0    3
-    5                  0             0         0     1     0          0    1
-    6                  1             0         0     1     0          0    2
-    7                  1             0         0     0     0          0    1
-    8                  0             0         0     0     0          1    1
-    All               16            18        12    38    11          5  101
+    0                3     7   10
+    1                3     8   11
+    2                5     8   13
+    3                5     7   12
+    4                9     5   14
+    5                5     7   12
+    6                7     3   10
+    7                4     3    7
+    8                0     3    3
+    9                1     0    1
+    All             42    51   93
 
-And the figure returns:
 
-![Health status by generation](https://github.com/cmrivers/epipy/blob/master/figs/mers_generation_hist.png?raw=true)
+And the figure returns a histogram of number of cases at each generation, by attribute:
 
-Next: [Basic epidemiology analyses](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
+![Health status by generation](https://github.com/cmrivers/epipy/blob/master/figs/example_data_generation_hist.png?raw=true)
+
+
+[Back to documentation](http://cmrivers.github.io/epipy/categories.html)
