@@ -118,10 +118,10 @@ JB :
 <<<<<<< HEAD
 markdown: kramdown
   # Settings for all other include helpers can be defined by creating
-=======
-    
-  # Settings for all other include helpers can be defined by creating 
->>>>>>> be31b9ecd28a7d6e609023c339da0e608034d5cd
+
+
+  # Settings for all other include helpers can be defined by creating
+
   # a hash with key named for the given helper. ex:
   #
   #   pages_list :
