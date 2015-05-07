@@ -15,7 +15,7 @@ build
 eggs
 parts
 bin
-_`theme_packages
+_theme_packages
 
 # ipython
 .ipynb_checkpoints
