@@ -103,32 +103,44 @@
 <section>
   <h1>Case Trees</h1>
 
-  <p><a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">Case tree plots</a> allow unusual insight into the dynamics of an outbreak. Epipy currently has two functions to analyze the emerging zoonoses that case tree plots were developed to represent.</p>
+  
+<p><a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">Case tree plots</a> allow unusual insight into the dynamics of an outbreak. Epipy currently has two functions to analyze the emerging zoonoses that case tree plots were developed to represent.</p>
 
-<h2 id="basic_reproduction_number">Basic reproduction number</h2>
+<h2 id="basic-reproduction-number">Basic reproduction number</h2>
 
 <p><strong>What is the basic reproduction number?</strong></p>
 
-<p>The <a href="http://en.wikipedia.org/wiki/Basic_reproduction_number">basic reproduction number</a>, also called R0, is the average number of secondary cases each case produces in a fully susceptible population. In order for an outbreak to sustain itself, R0 must be greater than 1. The higher the R0, the more infectious the disease.</p>
+<p>The <a href="http://en.wikipedia.org/wiki/Basic_reproduction_number">basic reproduction number</a>,
+also called R0, is the average number of secondary cases each case produces
+in a fully susceptible population. In order for an outbreak to sustain itself,
+R0 must be greater than 1. The higher the R0, the more infectious the disease.</p>
 
-<p>For most outbreaks, R0 must be estimated. Case tree plots have the advantage of showing the exact number of secondary cases per source case.</p>
+<p>For most outbreaks, R0 must be estimated. Case tree plots have the advantage
+of showing the exact number of secondary cases per source case.</p>
 
 <p><strong>Example</strong></p>
 
-<p>For this example, we’ll use data from the MERS-CoV packaged with epipy. You may need to change the path below. To start, first build out the graph. Then simply call reproduction_number(), which will return a series object, and a histogram of the R0s. The function has an option to exclude index cases (index_cases=False), which is useful if you want to calculate the human to human reproduction number without considering zoonotically acquired cases.</p>
+<p>For this example, we’ll use data from the MERS-CoV packaged with epipy.
+You may need to change the path below. To start, first build out the graph.
+Then simply call reproduction_number(), which will return a series object,
+and a histogram of the R0s. The function has an option to exclude index cases
+(index_cases=False), which is useful if you want to calculate the human
+to human reproduction number without considering zoonotically acquired cases.</p>
 
 <pre><code>import epipy as epi
 import pandas as pd
 
-mers_df = epi.get_data(&#39;mers_line_list.csv&#39;)
-mers_G = epi.build_graph(mers_df, cluster_id=&#39;Cluster ID&#39;, case_id=&#39;Case #&#39;,
-	        date_col=&#39;dates&#39;, color=&#39;Health status&#39;, gen_mean=5, gen_sd=4)
+mers_df = epi.get_data('mers_line_list.csv')
+mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #',
+	        date_col='dates', color='Health status', gen_mean=5, gen_sd=4)
 
-R, fig, ax = epi.reproduction_number(mers_G, index_cases=True, plot=True)</code></pre>
+R, fig, ax = epi.reproduction_number(mers_G, index_cases=True, plot=True)
+</code></pre>
 
 <p>The series object, R in the above example, can be manipulated further.</p>
 
-<pre><code>print R.describe()</code></pre>
+<pre><code>print R.describe()
+</code></pre>
 
 <p>The R variable returns:</p>
 
@@ -140,20 +152,27 @@ min        0.000000
 50%        0.000000
 75%        2.000000
 max        5.000000
-dtype: float64</code></pre>
+dtype: float64
+</code></pre>
 
 <p>And the figure returns:</p>
 
 <p><img src="https://github.com/cmrivers/epipy/blob/master/figs/r0_hist.png?raw=true" alt="Histogram of reproduction numbers" /></p>
 
-<h2 id="generation_analyses">Generation analyses</h2>
+<h2 id="generation-analyses">Generation analyses</h2>
 
-<p>Epidemiologists may also be interested in how the disease changes from one generation to the next. Are cases acquired from animals more severe than human acquired cases? Does severity decrease as the disease passes from person to person? Are index cases more likely to be men? The generation_analysis() function returns a table of case attributes by generation, as well as an optional bar graph.</p>
+<p>Epidemiologists may also be interested in how the disease changes from
+one generation to the next. Are cases acquired from animals more severe
+than human acquired cases? Does severity decrease as the disease passes
+from person to person? Are index cases more likely to be men?
+The generation_analysis() function returns a table of case attributes by
+generation, as well as an optional bar graph.</p>
 
 <p><strong>Example</strong></p>
 
-<pre><code>fig, ax, table = epi.generation_analysis(mers_G, attribute=&#39;Health status&#39;, \
-                                         plot=True)</code></pre>
+<pre><code>fig, ax, table = epi.generation_analysis(mers_G, attribute='Health status', \
+                                         plot=True)
+</code></pre>
 
 <p>The table variable returns:</p>
 
@@ -168,11 +187,15 @@ generation
 6                  1             0         0     1     0          0    2
 7                  1             0         0     0     0          0    1
 8                  0             0         0     0     0          1    1
-All               16            18        12    38    11          5  101</code></pre>
+All               16            18        12    38    11          5  101
+</code></pre>
 
 <p>And the figure returns:</p>
 
 <p><img src="https://github.com/cmrivers/epipy/blob/master/figs/mers_generation_hist.png?raw=true" alt="Health status by generation" /></p>
+
+<p>Next: <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">Basic epidemiology analyses</a></p>
+
 
   
 </section>

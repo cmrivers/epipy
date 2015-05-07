@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="author" content="Caitlin Rivers" />
-    <title>Epipy</title>
+    <title>Introduction</title>
 
     <link rel="stylesheet" href="/assets/themes/dinky/css/styles.css">
     <link rel="stylesheet" href="/assets/themes/dinky/css/pygment_trac.css">
@@ -101,65 +101,64 @@
       <section>
       
 <section>
-  <h1>Epipy</h1>
+  <h1>Introduction</h1>
 
-  <p>Epipy is a Python package for epidemiology. It contains (or will contain…) tools for analyzing and visualizing epidemiology data. Epipy can currently produce:</p>
+  
+<p>Epipy is a Python package for epidemiology. It contains tools for analyzing and visualizing epidemiology data. Epipy can currently produce:</p>
 
 <ul>
-<li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">stratified summary statistics</a></li>
-
-<li><a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case tree</a> and <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/">checkerboard plots</a></li>
-
-<li><a href="http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves/">epicurves</a></li>
-
-<li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">analysis of case attribute (e.g. sex) by generation</a></li>
-
-<li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">2x2 tables with odds ratio and relative risk</a></li>
-
-<li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">summary of cluster basic reproduction numbers</a></li>
+  <li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">stratified summary statistics</a></li>
+  <li><a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case trees</a> and <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/">checkerboard plots</a></li>
+  <li><a href="http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves/">epicurves</a></li>
+  <li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">analysis of case attribute (e.g. sex) by generation</a></li>
+  <li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">easily create 2x2 tables</a></li>
+  <li>produce odds ratios, attributable risk, diagnostic accuracy, kappa agreement, and relative risk for 2x2 tables</li>
+  <li><a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">summary of cluster basic reproduction numbers</a></li>
+  <li>odds ratio plots^</li>
+  <li>rolling proportion plots^
+^dev version only</li>
 </ul>
 
-<p>Please note that epipy is still in development.</p>
-
 <h2 id="installation">Installation</h2>
-
 <p>Install using pip:</p>
 
-<pre><code>pip install epipy</code></pre>
+<pre><code>pip install epipy
+</code></pre>
 
 <p>or clone the <a href="http://github.com/cmrivers/epipy">github repository</a> and install using setup.py:</p>
 
 <pre><code>git clone https://github.com/cmrivers/epipy.git
-python setup.py install</code></pre>
+python setup.py install
+</code></pre>
 
-<p>Note that I use the package <a href="http://tonysyu.github.io/mpltools/">mpltools</a> to produce the nice ggplot-style plot aesthetics you see in my examples. Using mpltools is optional, but I highly recommend it.</p>
+<p>Note that I use the package <a href="stanford.edu/~mwaskom/software/seaborn/">seaborn</a> to produce the nice ggplot-style plot aesthetics you see in my examples. Using mpltools is optional, but I highly recommend it.</p>
 
 <h2 id="quickstart">Quickstart</h2>
-
 <p><strong>Case tree plot</strong></p>
 
 <pre><code>import epipy as epi
 import pandas as pd
 
 # optional import
-from mpltools import style
-style.use(&#39;ggplot&#39;)
+import seaborn as sns
 
-example_df = epi.get_data(&#39;example_data&#39;)
-fig, ax = epi.case_tree_plot(example_df, cluster_id = &#39;Cluster&#39;, \
-          case_id =&#39;ID&#39;, date_col=&#39;Date&#39;, color=&#39;Cluster&#39;, \
+example_df = epi.get_data('example_data')
+fig, ax = epi.case_tree_plot(example_df, cluster_id = 'Cluster', \
+          case_id ='ID', date_col='Date', color='Cluster', \
           gen_mean=4, gen_sd = 1)
-ax.set_title(&#39;Example outbreak data&#39;)</code></pre>
+ax.set_title('Example outbreak data')
+</code></pre>
 
 <p><img src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree.png?raw=true" alt="Casetree plot" /></p>
 
 <p><strong>Generation analysis</strong></p>
 
-<pre><code>mers_df = epi.get_data(&#39;mers_line_list&#39;)
-mers_G = epi.build_graph(mers_df, cluster_id=&#39;Cluster ID&#39;, case_id=&#39;Case #&#39;,
-	        date_col=&#39;dates&#39;, color=&#39;Health status&#39;, gen_mean=5, gen_sd=4)
-fig, ax, table = epi.generation_analysis(mers_G, attribute=&#39;Health status&#39;, \
-                                         plot=True)</code></pre>
+<pre><code>mers_df = epi.get_data('mers_line_list')
+mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #',
+	        date_col='dates', color='Health status', gen_mean=5, gen_sd=4)
+fig, ax, table = epi.generation_analysis(mers_G, attribute='Health status', \
+                                         plot=True)
+</code></pre>
 
 <p>table returns:</p>
 
@@ -174,27 +173,34 @@ generation
 6                  1             0         0     1     0          0    2
 7                  1             0         0     0     0          0    1
 8                  0             0         0     0     0          1    1
-All               16            18        12    38    11          5  101</code></pre>
+All               16            18        12    38    11          5  101
+</code></pre>
 
 <p><img src="https://github.com/cmrivers/epipy/blob/master/figs/mers_generation_hist.png?raw=true" alt="Health status by generation" /></p>
 
 <p><strong>Epidemic curve</strong></p>
 
-<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;m&#39;)
-ax.set_title(&#39;Approximate onset or report date of MERS cases&#39;)</code></pre>
+<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='m')
+ax.set_title('Approximate onset or report date of MERS cases')
+</code></pre>
 
 <p><img src="https://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true" alt="Daily epicurve" /></p>
 
 <p><strong>Stratified summary statistics</strong></p>
 
-<pre><code>df = pd.DataFrame({&#39;Age&#39; : [10, 12, 14], &#39;Group&#39; : [&#39;A&#39;, &#39;B&#39;, &#39;B&#39;] })
-epi.summary(df.Age, by=df.Group)</code></pre>
+<pre><code>df = pd.DataFrame({'Age' : [10, 12, 14], 'Group' : ['A', 'B', 'B'] })
+epi.analyses.summary(df.Age, by=df.Group)
+</code></pre>
 
 <p>returns:</p>
 
 <pre><code>    count  missing  min  median  mean      std   max
 A      1        0   10      10    10       NaN   10
-B      2        0   12      13    13  1.414214   14</code></pre>
+B      2        0   12      13    13  1.414214   14
+</code></pre>
+
+<p>Next: see an <a href="http://cmrivers.github.io/epipy/mers.html">example with outbreak data</a> or read the <a href="http://cmrivers.github.io/epipy/categories.html">documentation</a></p>
+
 
   
 </section>

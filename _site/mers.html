@@ -103,45 +103,64 @@
 <section>
   <h1>MERS-CoV example</h1>
 
-  <p><a href="http://www.who.int/csr/disease/coronavirus_infections/faq/en/">MERS-CoV</a> is a SARS-like coronavirus that emerged in Saudi Arabia in 2012. It is zoonotic, which means it is passed from animals to humans. However, MERS is also capable of limited human to human transmission.</p>
+  
+<p><a href="http://www.who.int/csr/disease/coronavirus_infections/faq/en/">MERS-CoV</a>
+ is a SARS-like coronavirus that emerged in Saudi Arabia in 2012.
+ It is zoonotic, which means it is passed from animals to humans.
+ However, MERS is also capable of limited human to human transmission.</p>
 
-<p>I have been collecting a line list of MERS cases using publicly available data like <a href="http://www.who.int/csr/don/en/">WHO Disease Outbreak News reports</a>. Where possible, I’ve been trying to piece together human to human clusters - it’s guess-work at best, and I can’t promise it’s anything close to being correct.</p>
+<p>I have been collecting a line list of MERS cases using publicly available data
+like <a href="http://www.who.int/csr/don/en/">WHO Disease Outbreak News reports</a>.
+Where possible, I’ve been trying to piece together human to human clusters -
+it’s guess-work at best, and I can’t promise it’s anything close to being correct.</p>
 
-<p>The (totally unconfirmed) line list is packaged with epipy.</p>
+<p>The (totally unconfirmed) line list from 2012-Feb 2014 is packaged with epipy.</p>
 
 <pre><code>import epipy as epi
 import pandas as pd
 
-mers_df = epi.get_data(&#39;mers_line_list&#39;)</code></pre>
+mers_df = epi.get_data('mers_line_list')
+</code></pre>
 
 <p>Line lists are messy. A little data cleaning is needed before we proceed. First we need to convert our two date columns to the proper datetime format. Then I’ll collapse the two, preferring onset date over report date.</p>
 
-<pre><code>mers_df[&#39;onset_date&#39;] = mers_df[&#39;Approx onset date&#39;].ma (epi.date_convert)
-mers_df[&#39;report_date&#39;] = mers_df[&#39;Approx reporting date&#39;].map(epi.date_convert)
-mers_df[&#39;dates&#39;] = mers_df[&#39;onset_date&#39;].combine_first(mers_df[&#39;report_date&#39;])</code></pre>
+<pre><code>mers_df['onset_date'] = mers_df['Approx onset date'].ma (epi.date_convert)
+mers_df['report_date'] = mers_df['Approx reporting date'].map(epi.date_convert)
+mers_df['dates'] = mers_df['onset_date'].combine_first(mers_df['report_date'])
+</code></pre>
 
-<p>First we’ll use the Cluster ID column to make a <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case tree plot</a>. I’ll color each node by it’s cluster membership, and turn the legend off to prevent crowding. I set the generation time to 5 days and the standard deviation to 4, which is the best guess I can get from the literature.</p>
+<p>First we’ll use the Cluster ID column to make a <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case tree plot</a>. I’ll color each node by its cluster membership, and turn the legend off to prevent crowding. I set the generation time to 5 days and the standard deviation to 4, which is the best guess I can get from the literature.</p>
 
-<pre><code>fig, ax = epi.case_tree_plot(mers_df, cluster_id=&#39;Cluster ID&#39;, \
-                    case_id=&#39;Case #&#39;, date_col=&#39;dates&#39;, gen_mean = 5, \
-                    gen_sd = 4, color=&#39;Cluster ID&#39;, legend=False)
-ax.set_title(&#39;Human clusters of MERS-CoV&#39;)</code></pre>
+<pre><code>fig, ax = epi.case_tree_plot(mers_df, cluster_id='Cluster ID', \
+                    case_id='Case #', date_col='dates', gen_mean = 5, \
+                    gen_sd = 4, color='Cluster ID', legend=False)
+ax.set_title('Human clusters of MERS-CoV')
+</code></pre>
 
 <p><img src="https://github.com/cmrivers/epipy/blob/master/figs/MERS_casetree.png?raw=True" alt="Case tree plot of MERS clusters" /></p>
 
-<p>It look slike most clusters get to only one or two generations before dying out. There was clearly a huge spike in cases around April. However, case tree plots only include cases that are part of human clusters. Let’s look at an <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves/">epicurve</a>, which will include all cases, to learn more.</p>
+<p>It looks like most clusters get to only one or two generations before dying out.
+  There was clearly a huge spike in cases around April. However, case
+ tree plots only include cases that are part of human clusters. Let’s
+ look at an <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves/">epicurve</a>,
+ which will include all cases, to learn more.</p>
 
 <pre><code>plt.figure()
-curve, fig, ax = epi.epicurve_plot(mers_df, &#39;dates&#39;, freq=&#39;month&#39;)
-plt.title(&#39;Approximate onset or report date of MERS cases&#39;)</code></pre>
+curve, fig, ax = epi.epicurve_plot(mers_df, 'dates', freq='month')
+plt.title('Approximate onset or report date of MERS cases')
+</code></pre>
 
 <p><img src="https://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=True" alt="Epicurve of MERS cases" /></p>
 
 <p>Looks like the number of incident (new) cases has been more or less steady since summer.</p>
 
-<p>Going back to the case tree plot, some of those clusters look hard to parse. I wonder what the distribution of the <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees/">reproduction numbers</a> looks like? We’ll build a network graph using all the cases (not just ones that are part of human to human clusters), but this time we’ll color the nodes by patient sex so we can use it later.</p>
+<p>Going back to the case tree plot, some of those clusters look hard to parse.
+I wonder what the distribution of the <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees/">reproduction numbers</a>
+ looks like? We’ll build a network graph using all the cases (not just
+ ones that are part of human to human clusters), but this time we’ll color
+ the nodes by patient sex so we can use it later.</p>
 
-<pre><code>mers_G = epi.build_graph(mers_df, cluster_id=&#39;Cluster ID&#39;, case_id=&#39;Case #&#39;, date_col=&#39;dates&#39;, color=&#39;Sex&#39;, gen_mean=5, gen_sd=4)
+<pre><code>mers_G = epi.build_graph(mers_df, cluster_id='Cluster ID', case_id='Case #', date_col='dates', color='Sex', gen_mean=5, gen_sd=4)
 R, fig, ax = epi.reproduction_number(mers_G, index_cases=True, plot=True)
 R.describe()
 
@@ -153,29 +172,36 @@ min        0.000000
 50%        0.000000
 75%        2.000000
 max        5.000000
-dtype: float64</code></pre>
+dtype: float64
+</code></pre>
 
 <p><img src="https://github.com/cmrivers/epipy/blob/master/figs/mers_r0_hist.png?raw=True" alt="Distribution of reproduction numbers" /></p>
 
-<p>Looks like most cases produce no secondary cases, but there are a few outliers that produced 4 and 5 secondary cases.</p>
+<p>Looks like roughly half of cases produce no secondary cases, and half produce at least one secondary case.</p>
 
-<p>I have heard men might be more at risk for getting severe disease than women. Could it be so? To find out, we’ll need to collapse the values in the Health Status column to Severe and Less Severe. Then we’ll create a <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">2x2 table</a> to analyze.</p>
+<p>I have heard men might be more at risk for getting severe disease than women.
+Could it be so? To find out, we’ll need to collapse the values in the Health Status
+column to Severe and Less Severe. Then we’ll create a <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">2x2 table</a> to analyze.</p>
 
-<pre><code>mers_df[&#39;condensed_health&#39;] = mers_df[&#39;Health status&#39;].replace([&#39;Alive&#39;, &#39;Asymptomatic&#39;, &#39;Mild&#39;, &#39;Recovered&#39;, &#39;Reocvered&#39;, np.nan], &#39;Less severe&#39;)
-mers_df[&#39;condensed_health&#39;] = mers_df[&#39;condensed_health&#39;].replace([&#39;Dead&#39;, &#39;Critical&#39;], &#39;Severe&#39;)
+<pre><code>mers_df['condensed_health'] = mers_df['Health status'].replace(['Alive', 'Asymptomatic', 'Mild', 'Recovered', 'Reocvered', np.nan], 'Less severe')
+mers_df['condensed_health'] = mers_df['condensed_health'].replace(['Dead', 'Critical'], 'Severe')
 
-table = epi.create_2x2(mers_df, &#39;Sex&#39;, &#39;condensed_health&#39;, [&#39;M&#39;, &#39;F&#39;], [&#39;Severe&#39;, &#39;Less severe&#39;])</code></pre>
+table = epi.create_2x2(mers_df, 'Sex', 'condensed_health', ['M', 'F'], ['Severe', 'Less severe'])
+</code></pre>
 
 <p>Returns:</p>
 
 <pre><code>     Severe  Less severe  All
 M        71           30  101
 F        26           34   60
-All     107           78  185</code></pre>
+All     107           78  185
+</code></pre>
 
-<p>It’s hard to tell just from looking at the table whether men get more severe disease. We need some statistics - like the <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">analyze_2x2</a> function.</p>
+<p>It’s hard to tell just from looking at the table whether men get more severe disease.
+ We need some statistics - like the <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/">analyze_2x2</a> function.</p>
 
-<pre><code>epi.analyze_2x2(table)</code></pre>
+<pre><code>epi.analyze_2x2(table)
+</code></pre>
 
 <p>Returns:</p>
 
@@ -183,17 +209,25 @@ All     107           78  185</code></pre>
 Relative risk: 1.62 (95% CI: (1.18, 2.22))
 
 Chi square: 11.5161253972
-p value: 0.0213367053676</code></pre>
+p value: 0.0213367053676
+</code></pre>
 
-<p>Because are greater than 1 (and the confidence intervals do not contain 1), it looks like men are at risk of getting more severe disease. There is a hypothesis that this could be because men are acquiring the disease from animals more than women, and that zoonotically acquired disease may be more severe. Could it be true that more index cases are men? We can evaluate using the <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees/">generation_analysis</a> function. (Allow me to remind you here that the clusters I’ve created are best-guess only. The epidemiological situation on the ground may be totally different than how I’ve constructed it).</p>
+<p>Because are greater than 1 (and the confidence intervals do not contain 1), it looks
+like men are at risk of getting more severe disease. There is a hypothesis that this
+could be because more men than women are acquiring the disease from animals and that
+zoonotically acquired disease may be more severe. If true, this finding might suggest that the infection source is something men are in contact with more than women. Could it be true that more index cases are men?
+We can evaluate using the <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees/">generation_analysis</a> function.
+(Allow me to remind you here that the clusters I’ve created are best-guess only.
+The epidemiological situation on the ground may be totally different than how I’ve constructed it).</p>
 
-<pre><code>fig, ax, table = epi.generation_analysis(mers_G, attribute=&#39;Sex&#39;, plot=True)</code></pre>
+<pre><code>fig, ax, table = epi.generation_analysis(mers_G, attribute='Sex', plot=True)
+</code></pre>
 
 <p>Returns:</p>
 
 <pre><code>Sex by generation
 Sex          F   M  All
-generation             
+generation
 0            6  14   22
 1           16  17   35
 2            5  12   20
@@ -203,11 +237,16 @@ generation
 6            1   1    2
 7            0   1    1
 8            1   0    1
-All         37  54  101 </code></pre>
+All         37  54  101
+</code></pre>
 
 <p><img src="https://github.com/cmrivers/epipy/blob/master/figs/mers_sex_generation.png?raw=True" alt="MERS case sex by generation" /></p>
 
-<p>There may be something to that theory after all! Among cases that belong to human clusters, 64% of index nodes are male, and 49% of first generation nodes are male. It goes back up to 60% at generation 2 though so it’s hard to say for sure.</p>
+<p>There may be something to that theory after all! Among cases that belong
+to human clusters, 64% of index nodes are male, and 49% of first generation
+nodes are male. It goes back up to 60% at generation 2 though so it’s hard to say for sure.</p>
+
+
 
   
 </section>

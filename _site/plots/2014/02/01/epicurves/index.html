@@ -103,11 +103,14 @@
 <section>
   <h1>Epicurves</h1>
 
-  <h2 id="epicurves">Epicurves</h2>
+  
+<h2 id="epicurves">Epicurves</h2>
 
-<h3 id="what_is_an_epicurve">What is an epicurve?</h3>
+<h3 id="what-is-an-epicurve">What is an epicurve?</h3>
 
-<p><a href="http://www.med.uottawa.ca/sim/data/Public_Health_Epidemic_Curves_e.htm">Epidemic curves</a>, or epicurves, are a common way to visualize outbreaks. They are plotted as the count of incident (new) cases over time. Traditional epicurves are bar plots, not line plots.</p>
+<p><a href="http://www.med.uottawa.ca/sim/data/Public_Health_Epidemic_Curves_e.htm">Epidemic curves</a>,
+or epicurves, are a common way to visualize outbreaks. They are plotted as the count of
+incident (new) cases over time. Traditional epicurves are bar plots, not line plots.</p>
 
 <h3 id="examples">Examples</h3>
 
@@ -116,29 +119,39 @@
 <pre><code>import epipy as epi
 import pandas as pd
 
-mers_df = epi.get_data(&#39;mers_line_list&#39;)
-curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;month&#39;)</code></pre>
+mers_df = epi.get_data('mers_line_list')
+curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='month')
+</code></pre>
 
 <p><img src="http://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true" alt="Monthly epicurve of MERS-CoV" /></p>
 
-<p>The curve variable returns a table with a list of dates and their frequency. Monthly epicurves work by reassigning all cases for that month to the first day of the month. For the MERS data, it looks like this:</p>
+<p>The curve variable returns a table with a list of dates and their frequency.
+Monthly epicurves work by reassigning all cases for that month to the first day of the month.
+For the MERS data, it looks like this:</p>
 
 <pre><code>            count           plotdates
 2013-06-01     27 2013-06-01 00:00:00
 2013-09-01     25 2013-09-01 00:00:00
 2013-04-01     23 2013-04-01 00:00:00
 2013-08-01     18 2013-08-01 00:00:00
-2013-10-01     17 2013-10-01 00:00:00</code></pre>
+2013-10-01     17 2013-10-01 00:00:00
+</code></pre>
 
 <p>You may also plot the frequency by day, month or year using the freq argument.</p>
 
-<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;day&#39;)</code></pre>
+<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='day')
+</code></pre>
 
 <p><img src="http://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png?raw=true" alt="Daily epicurve of MERS-CoV" /></p>
 
-<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col=&#39;dates&#39;, freq=&#39;y&#39;)</code></pre>
+<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='y')
+</code></pre>
 
 <p><img src="http://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png?raw=true" alt="Yearly epicurve of MERS-CoV" /></p>
+
+<p>Next: <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/">Checkerboard plot</a></p>
+
+
 
   
 </section>
