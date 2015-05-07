@@ -49,7 +49,9 @@ Quickstart
               gen_mean=4, gen_sd = 1)
     ax.set_title('Example outbreak data')
 
-[Casetree plot](https://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png)
+
+![Casetree plot](https://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true)
+
 
 **Generation analysis**
 
