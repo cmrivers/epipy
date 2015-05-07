@@ -48,10 +48,3 @@ Documentation
 * Rolling proportion plot
 * Stripe plot
 
-
-<figure class="third">
-	<img src="https://github.com/cmrivers/epipy/blob/master/figs/example_stripe_plot.png">
-	<img src="https://github.com/cmrivers/epipy/blob/master/figs/mers_r0_hist.png">
-	<img src="https://github.com/cmrivers/epipy/blob/master/figs/mers_r0_hist.png">
-	<figcaption>Caption describing these three images.</figcaption>
-</figure>
