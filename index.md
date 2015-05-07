@@ -5,25 +5,10 @@ tagline: Python tools for epidemiology
 ---
 {% include JB/setup %}
 
-<<<<<<< HEAD
+
 Epipy is a Python package for epidemiology. It contains tools for analyzing and visualizing epidemiology data.
 
 To check out the code, report a bug, or contribute features, visit [github](http://github.com/cmrivers/epipy), or visit me on [twitter](www.twitter.com/cmyeaton).
-=======
-Epipy is a Python package for epidemiology. It contains tools for analyzing and visualizing epidemiology data. Epipy can currently produce:
-
-* [stratified summary statistics](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
-* [case trees](http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/) and [checkerboard plots](http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/)
-* [epicurves](http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves/)
-* [analysis of case attribute (e.g. sex) by generation](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
-* [easily create 2x2 tables](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
-* produce odds ratios, attributable risk, diagnostic accuracy, kappa agreement, and relative risk for 2x2 tables
-* [summary of cluster basic reproduction numbers](http://cmrivers.github.io/epipy/analyses/2014/02/02/basic-epidemiology/)
-* odds ratio plots^
-* rolling proportion plots^
-^dev version only
->>>>>>> be31b9ecd28a7d6e609023c339da0e608034d5cd
-
 
 Installation
 ------------
@@ -36,16 +21,13 @@ or clone the [github repository](http://github.com/cmrivers/epipy) and install u
     git clone https://github.com/cmrivers/epipy.git
     python setup.py install
 
-<<<<<<< HEAD
+
 Note that I use the package [seaborn](http://stanford.edu/~mwaskom/software/seaborn/) to produce the nice plot aesthetics you see in my examples. Using seaborn is optional, but I highly recommend it.
-=======
-Note that I use the package [seaborn](stanford.edu/~mwaskom/software/seaborn/) to produce the nice ggplot-style plot aesthetics you see in my examples. Using mpltools is optional, but I highly recommend it.
->>>>>>> be31b9ecd28a7d6e609023c339da0e608034d5cd
 
 
 Documentation
 ------------
-<<<<<<< HEAD
+
 ##Basic epidemiology
 
 * [Summary statistics](cmrivers.github.io/epipy/analyses/2015/05/07/summarystats.md)
