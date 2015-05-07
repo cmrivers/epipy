@@ -115,7 +115,7 @@ JB :
   #
   sharing :
     provider : false
-<<<<<<< HEAD
+
 markdown: kramdown
   # Settings for all other include helpers can be defined by creating
 
