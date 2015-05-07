@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>New Page</title>
-    <meta name="description" content="">
-    <meta name="author" content="Caitlin Rivers">
+    <title>{{ page.title }}</title>
+    {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
+    <meta name="author" content="{{ site.author.name }}">
 
     <!-- Enable responsive viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,8 +15,8 @@
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
-    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
+    <link href="{{ ASSET_PATH }}/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -28,8 +27,8 @@
   -->
 
     <!-- atom & rss feed -->
-    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
-    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+    <link href="{{ BASE_PATH }}{{ site.JB.atom_path }}" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="{{ BASE_PATH }}{{ site.JB.rss_path }}" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
 
   </head>
 
@@ -37,61 +36,11 @@
     <div class="navbar">
       <div class="navbar-inner">
         <div class="container-narrow">
-          <a class="brand" href="/">Epipy</a>
+          <a class="brand" href="{{ HOME_PATH }}">{{ site.title }}</a>
           <ul class="nav">
-            
-            
-            
-
-
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/categories.html">Documentation</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/mers.html">MERS-CoV example</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-
-
-
+            {% assign pages_list = site.pages %}
+            {% assign group = 'navigation' %}
+            {% include JB/pages_list %}
           </ul>
         </div>
       </div>
@@ -100,23 +49,11 @@
     <div class="container-narrow">
 
       <div class="content">
-        
-<div class="page-header">
-  <h1>New Page </h1>
-</div>
-
-<div class="row-fluid">
-  <div class="span12">
-    
-
-  </div>
-</div>
-
-
+        {{ content }}
       </div>
       <hr>
       <footer>
-        <p>&copy; 2015 Caitlin Rivers
+        <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
         </p>
@@ -124,7 +61,6 @@
 
     </div>
 
-    
+    {% include JB/analytics %}
   </body>
 </html>
-

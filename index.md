@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Introduction
+title: Epipy
 tagline: Python tools for epidemiology
 ---
 {% include JB/setup %}
@@ -49,7 +49,7 @@ Quickstart
               gen_mean=4, gen_sd = 1)
     ax.set_title('Example outbreak data')
 
-![Casetree plot](https://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png)
+[Casetree plot](https://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png)
 
 **Generation analysis**
 
