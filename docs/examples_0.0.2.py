@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 '''
   -------------
+  Examples for epipy versions 0.0.1 and 0.0.2X
+
+
  * Caitlin Rivers
  * [cmrivers@vbi.vt.edu](cmrivers@vbi.vt.edu)
   -------------

@@ -3,8 +3,8 @@
 from .data_generator import generate_example_data
 from .basics import date_convert, group_clusters, cluster_builder
 from .analyses import generation_analysis, reproduction_number, create_2x2
-from .analyses import analyze_2x2, odds_ratio, relative_risk, chi2, attributable_risk
-from .analyses import diagnostic_accuracy, kappa_agreement, summary
+from .analyses import analyze_2x2, odds_ratio, relative_risk, chi2
+from .analyses import summary
 from .rolling_proportion import rolling_proportion
 
 # plotting
