@@ -12,6 +12,7 @@ from .case_tree import build_graph, case_tree_plot
 from .epicurve import epicurve_plot
 from .checkerboard import checkerboard_plot
 from .or_plot import or_plot
+from .stripe_plot import stripe_plot
 
 def get_data(fname):
     """Returns pandas dataframe of a line listing.
