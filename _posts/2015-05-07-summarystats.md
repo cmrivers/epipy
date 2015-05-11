@@ -1,7 +1,7 @@
 ---
 layout: post
 category : analyses
-tagline: "Summar statistics"
+tagline: "Summary statistics"
 tags : [analyses]
 ---
 {% include JB/setup %}

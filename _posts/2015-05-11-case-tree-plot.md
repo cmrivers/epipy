@@ -10,16 +10,16 @@ tags : [plot, case tree]
 
 ###What is a case tree plot?
 
-I developed case tree plots are a way to visualize zoonotic disease.
+I developed case tree plots as a way to visualize zoonotic disease.
 However, it can also be used to visualizing environmentally-acquired
 dieases, or anything that emerges multiple times, is passed from person
 to person, and then dies out. Tweets and retweets might be a useful
-non-epi example.
+non-epidemiological example.
 
 ###How do I read a case tree plot?
 
 The x-axis is time of illness onset or diagnosis, and the y-axis is
-generation. Nodes at generation 0 are known as index nodes.
+generation. Nodes at generation 0 are index nodes, or the emergence case.
 In the case of a zoonotic disease, the index node is a human case
 acquired from an animal source. If that human were to pass
 the disease to two other humans, those two subsequent cases are both
@@ -32,19 +32,16 @@ the sex of the patient, etc.
 
 ### Examples
 
-For this we will use example data in the data/ folder of epipy.
-For this example, we will color the nodes by cluster.
-
-In order to build a case tree plot, you'll have to provide the
+In order to build a case tree plot, provide the cluster identifier, case identifier, date column,
 generation mean (gen_mean) and generation standard deviation (gen_sd).
 These values represent the time from when one case becomes infected to
 when a subsequent case becomes infected. Incubation period may be used
 when generation time is not known.
 
-    import epipy as epi
+    import epipy
     import pandas as pd
 
-    df = epi.get_data('example_data')
+    df = epipy.get_data('example_data')
     fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', case_id ='ID', \
               date_col='Date', color='Cluster', gen_mean=4, gen_sd = 1)
 
@@ -54,11 +51,10 @@ when generation time is not known.
 If you want to change the node color to represent the health status of each case,
 simply change the color argument.
 
-    fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', case_id ='ID', \
+    fig, ax = epipy.case_tree_plot(df, cluster_id = 'Cluster', case_id ='ID', \
               date_col='Date', color='health', gen_mean=4, gen_sd = 1)
 
 ![Casetree plot with node attribute](http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_health.png?raw=true)
-
 
 
 You can also turn the legend off, and change the size of the node using optional arguments.
@@ -69,4 +65,4 @@ You can also turn the legend off, and change the size of the node using optional
 
 ![Case tree plot with no legend and small node size](http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_noleg.png?raw=true)
 
-Next: [Case tree analyses](http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees/)
+[Back to documentation](http://cmrivers.github.io/epipy/categories.html)

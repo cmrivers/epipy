@@ -19,12 +19,10 @@ incident (new) cases over time. Traditional epicurves are bar plots, not line pl
 
 For these examples we will use data from the MERS-CoV outbreak.
 
-
-    import epipy as epi
     import pandas as pd
 
-    mers_df = epi.get_data('mers_line_list')
-    curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='month')
+    mers_df = epipy.get_data('mers_line_list')
+    curve, fig, ax = epipy.epicurve_plot(mers_df, date_col='dates', freq='month')
 
 ![Monthly epicurve of MERS-CoV](http://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true)
 
@@ -42,15 +40,15 @@ For the MERS data, it looks like this:
 
 You may also plot the frequency by day, month or year using the freq argument.
 
-    curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='day')
+    curve, fig, ax = epipy.epicurve_plot(mers_df, date_col='dates', freq='day')
 
 ![Daily epicurve of MERS-CoV](http://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png?raw=true)
 
 
-    curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='y')
+    curve, fig, ax = epipy.epicurve_plot(mers_df, date_col='dates', freq='y')
 
 ![Yearly epicurve of MERS-CoV](http://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png?raw=true)
 
 
-Next: [Checkerboard plot](http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/)
+[Back to documentation](http://cmrivers.github.io/epipy/categories.html)
 
