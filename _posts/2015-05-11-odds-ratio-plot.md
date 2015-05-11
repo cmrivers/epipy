@@ -1,7 +1,7 @@
 ---
 layout: post
 category : plots
-tagline: "Steppe plot"
+tagline: "Odds ratio plot"
 tags : [plot]
 ---
 {% include JB/setup %}
@@ -12,6 +12,8 @@ tags : [plot]
 Odds ratio plot show the odds of an outcome for various risk factors. Both the outcome and the risks must be binary.
 
 For this example, we will look at the odds of dying vs surviving for MERS-CoV patients, by sex, age (> 60 years old) and presence of reported comorbidities. First we must ensure all our variables are binary. We will assume that patients with no reported comorbidities are healthy.
+
+    import epipy
 
     df = epipy.get_data('mers_line_list')
     df = df[(df['Health status'].isin(['Alive', 'Dead']))]
