@@ -24,6 +24,6 @@ Steppe plots show the interval between two dates for each case in a line list. C
 
 The result is a nice visualization of the individual case histories across time.
 
-![Steppe plot of selected MERS-CoV cases](http://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png?raw=true)
+![Steppe plot of selected MERS-CoV cases](http://github.com/cmrivers/epipy/blob/master/figs/steppe_example.png?raw=true)
 
 [Back to documentation](http://cmrivers.github.io/epipy/categories.html)
