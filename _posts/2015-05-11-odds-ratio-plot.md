@@ -31,8 +31,16 @@ Significant risk factors are shown in blue. Protective 'risks' are shown in red,
 
 The odds ratio and their 95% confidence interval are also returned for each considered risk.
 
+
+    Sex:
     Odds ratio: 1.76 (95% CI: (0.69, 4.5))
+
+
+    binary_age:
     Odds ratio: 2.6 (95% CI: (1.02, 6.62))
+
+
+    Reported comorbidities:
     Odds ratio: 2.06 (95% CI: (0.86, 4.9))
 
 
