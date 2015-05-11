@@ -72,9 +72,13 @@ def or_plot(df, risk_cols, outcome_col, risk_order, outcome_order, fig=None, ax=
         if len(_df[risk_col].unique()) > 2:
             raise Exception('More than two unique values in {}'.format(risk_col))
 
-        table = analyses.create_2x2(_df, risk_col, outcome_col, order, outcome_order)
 
+        table = analyses.create_2x2(_df, risk_col, outcome_col, order, outcome_order)
+        print risk_col + ':'
         ratio, or_ci = analyses.odds_ratio(table)
+        print '\n'
+
+
         ratio_df.append({'names': risk_col, 'ratio':ratio, 'lower':or_ci[0], 'upper':or_ci[1]})
 
     fig, ax = _plot(ratio_df, fig, ax)
