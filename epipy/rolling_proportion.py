@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 
 def rolling_proportion(df, date_col, value_col, value, window=30, dropna=True, label=False, fig=None, ax=None):
     """
+    Interpolated proportion of binary risk factor over time.
+
+
     df = pandas df
     date_col = name of column containing dates
     value_col = name of column to be tallied
