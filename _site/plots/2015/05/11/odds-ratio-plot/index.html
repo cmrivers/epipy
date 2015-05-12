@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Checkerboard Plot</title>
+    <title>Odds Ratio Plot</title>
     
     <meta name="author" content="Caitlin Rivers">
 
@@ -102,42 +102,57 @@
       <div class="content">
         
 <div class="page-header">
-  <h1>Checkerboard Plot <small>Checkerboard plots</small></h1>
+  <h1>Odds Ratio Plot <small>Odds ratio plot</small></h1>
 </div>
 
 <div class="row-fluid post-full">
   <div class="span12">
     <div class="date">
-      <span>01 February 2014</span>
+      <span>11 May 2015</span>
     </div>
     <div class="content">
       
-<h2 id="checkerboard-plot">Checkerboard plot</h2>
+<h1 id="odds-ratio-plot">Odds ratio plot</h1>
 
-<h3 id="what-is-a-checkerboard-plot">What is a checkerboard plot?</h3>
+<p>Odds ratio plot show the odds of an outcome for various risk factors. Both the outcome and the risks must be binary.</p>
 
-<p>I developed checkerboard plots to display similar data as a
-<a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case tree plot</a>,
-but instead of a network it shows a simple time series for each human to human cluster.
-It does not attempt to determine the structure of the transmission network.</p>
+<p>For this example, we will look at the odds of dying vs surviving for MERS-CoV patients, by sex, age (&gt; 60 years old) and presence of reported comorbidities. First we must ensure all our variables are binary. We will assume that patients with no reported comorbidities are healthy.</p>
 
-<h3 id="examples">Examples</h3>
+<pre><code>import epipy
 
-<p>First, load in the example data packaged with epipy.
-Then simply call the checkerboard() function with column labels that correspond to columns
-containing unique case id numbers, cluster membership, and the date of illness onset or report.
-The label argument is optional; if set to off, no case id numbers will be displayed.</p>
-
-<pre><code>import epipy as epi
-import pandas as pd
-
-df = epi.get_data('example_data')
-fig, ax = epi.checkerboard_plot(df, case_id='ID', cluster_id='Cluster', \
-          date_col='Date', labels='on')
-ax.set_title('Example outbreak data')
+df = epipy.get_data('mers_line_list')
+df = df[(df['Health status'].isin(['Alive', 'Dead']))]
+df['binary_age'] = 0
+df['binary_age'][df['Age'] &gt; 60] = 1
+df['Reported comorbidities'] = df['Reported comorbidities'].fillna('N')
 </code></pre>
 
-<p>Next: <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">Case tree plot</a></p>
+<p>The or_plot() function must have a dictionary with the order for each variable. The order is yes/no or presence/absence.</p>
+
+<pre><code>outcome_order = {'Sex':['M', 'F'], 'binary_age':[1, 0], 'Reported comorbidities':['Y', 'N']}
+fig, ax = epipy.or_plot(df, ['Sex', 'binary_age', 'Reported comorbidities'], 'Health status', outcome_order, ['Dead', 'Alive'])
+</code></pre>
+
+<p>Significant risk factors are shown in blue. Protective ‘risks’ are shown in red, and nonsignificant risks are in gray. In this example, age &gt; 60 is a risk factor for death. The other two variables are not significant.</p>
+
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/oddsratio_example.png?raw=true" alt="Odds ratio plot" /></p>
+
+<p>The odds ratio and their 95% confidence interval are also returned for each considered risk.</p>
+
+<pre><code>Sex:
+Odds ratio: 1.76 (95% CI: (0.69, 4.5))
+
+
+binary_age:
+Odds ratio: 2.6 (95% CI: (1.02, 6.62))
+
+
+Reported comorbidities:
+Odds ratio: 2.06 (95% CI: (0.86, 4.9))
+</code></pre>
+
+<p><a href="http://cmrivers.github.io/epipy/categories.html">Back to documentation</a></p>
+
 
     </div>
 
@@ -151,7 +166,7 @@ ax.set_title('Example outbreak data')
   
      
     	<li><a href="/categories.html#plots-ref">
-    		plots <span>3</span>
+    		plots <span>6</span>
     	</a></li>
     
   
@@ -169,9 +184,7 @@ ax.set_title('Example outbreak data')
 
   
      
-    	<li><a href="/mers.html#plot-ref">plot <span>3</span></a></li>
-     
-    	<li><a href="/mers.html#checkerboard-ref">checkerboard <span>1</span></a></li>
+    	<li><a href="/mers.html#plot-ref">plot <span>6</span></a></li>
     
   
 
@@ -184,11 +197,11 @@ ax.set_title('Example outbreak data')
     <div class="pagination">
       <ul>
       
-        <li class="prev"><a href="/plots/2014/02/01/case-tree-plot" title="Case Tree Plot">&larr; Previous</a></li>
+        <li class="prev"><a href="/plots/2015/05/11/epicurves" title="Epicurves">&larr; Previous</a></li>
       
         <li><a href="/archive.html">Archive</a></li>
       
-        <li class="next"><a href="/plots/2014/02/01/epicurves" title="Epicurves">Next &rarr;</a></li>
+        <li class="next"><a href="/plots/2015/05/11/rolling-proportion-plot" title="Rolling Proportion Plot">Next &rarr;</a></li>
       
       </ul>
     </div>

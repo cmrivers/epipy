@@ -9,9 +9,12 @@ http://cmrivers.github.io/epipy/old_index.html
 http://cmrivers.github.io/epipy/rss.xml
 http://cmrivers.github.io/epipy/sitemap.txt
 
+http://cmrivers.github.io/epipy/plots/2015/05/11/steppe-plot
+http://cmrivers.github.io/epipy/plots/2015/05/11/rolling-proportion-plot
+http://cmrivers.github.io/epipy/plots/2015/05/11/odds-ratio-plot
+http://cmrivers.github.io/epipy/plots/2015/05/11/epicurves
+http://cmrivers.github.io/epipy/plots/2015/05/11/checkerboard-plot
+http://cmrivers.github.io/epipy/plots/2015/05/11/case-tree-plot
 http://cmrivers.github.io/epipy/analyses/2015/05/07/tables
-http://cmrivers.github.io/epipy/analyses/2015/05/07/summarystats
-http://cmrivers.github.io/epipy/analyses/2015/05/07/case-tree_analyses
-http://cmrivers.github.io/epipy/plots/2014/02/01/epicurves
-http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot
-http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot
+http://cmrivers.github.io/epipy/analyses/2015/05/07/summary-stats
+http://cmrivers.github.io/epipy/analyses/2015/05/07/case-tree-analyses

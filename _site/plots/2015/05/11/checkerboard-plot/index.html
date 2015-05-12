@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Documentation</title>
+    <title>Checkerboard Plot</title>
     
     <meta name="author" content="Caitlin Rivers">
 
@@ -52,7 +52,7 @@
     
       
       	
-      	<li class="active"><a href="/categories.html" class="active">Documentation</a></li>
+      	<li><a href="/categories.html">Documentation</a></li>
       	
       
     
@@ -102,114 +102,99 @@
       <div class="content">
         
 <div class="page-header">
-  <h1>Documentation </h1>
+  <h1>Checkerboard Plot <small>Checkerboard plots</small></h1>
 </div>
 
-<div class="row-fluid">
+<div class="row-fluid post-full">
   <div class="span12">
-    
+    <div class="date">
+      <span>11 May 2015</span>
+    </div>
+    <div class="content">
+      
+<h2 id="checkerboard-plot">Checkerboard plot</h2>
 
-New to epidemiology? Check out the <a href="http://cmrivers.github.io/epipy/mers.html">MERS-CoV example.</a>
+<h3 id="what-is-a-checkerboard-plot">What is a checkerboard plot?</h3>
 
+<p>I developed checkerboard plots to display clusters of disease, similar to a
+<a href="http://cmrivers.github.io/epipy/plots/2014/02/01/case-tree-plot/">case tree plot</a>.
+Instead of a network, checkerboard plots show a simple time series for each cluster, with each case as a box. It does not attempt to determine the structure of the transmission network.</p>
 
-  <h2 id="analyses-ref">analyses</h2>
-  <ul>
-    
-    
+<h3 id="examples">Examples</h3>
+
+<p>First, load in the example data packaged with epipy.
+Then simply call the checkerboard() function with column labels that correspond to columns
+containing unique case id numbers, cluster membership, and the date of illness onset or report.
+The label argument is optional; if set to off, no case id numbers will be displayed.</p>
+
+<pre><code>import epipy
+import pandas as pd
+
+df = epipy.get_data('example_data')
+fig, ax = epi.checkerboard_plot(df, case_id='ID', cluster_id='Cluster', \
+          date_col='Date', labels='on')
+ax.set_title('Example outbreak data')
+</code></pre>
+
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png?raw=true" alt="Checkerboard plot" /></p>
+
+<p><a href="http://cmrivers.github.io/epipy/categories.html">Back to documentation</a></p>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="icon-folder-open"></i></li>
+      
+      
 
 
   
-    
-      
-      	
-      	<li><a href="/analyses/2015/05/07/tables">Tables</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/analyses/2015/05/07/summary-stats">Summary Stats</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/analyses/2015/05/07/case-tree-analyses">Case Tree Analyses</a></li>
-      	
-      
+     
+    	<li><a href="/categories.html#plots-ref">
+    		plots <span>6</span>
+    	</a></li>
     
   
 
 
-
-  </ul>
-
-  <h2 id="plots-ref">plots</h2>
-  <ul>
-    
+    </ul>
     
 
+  
+    <ul class="tag_box inline">
+      <li><i class="icon-tags"></i></li>
+      
+      
+
 
   
-    
-      
-      	
-      	<li><a href="/plots/2015/05/11/steppe-plot">Steppe Plot</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/plots/2015/05/11/rolling-proportion-plot">Rolling Proportion Plot</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/plots/2015/05/11/odds-ratio-plot">Odds Ratio Plot</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/plots/2015/05/11/epicurves">Epicurves</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/plots/2015/05/11/checkerboard-plot">Checkerboard Plot</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/plots/2015/05/11/case-tree-plot">Case Tree Plot</a></li>
-      	
-      
+     
+    	<li><a href="/mers.html#plot-ref">plot <span>6</span></a></li>
+     
+    	<li><a href="/mers.html#checkerboard-ref">checkerboard <span>1</span></a></li>
     
   
 
 
 
-  </ul>
+    </ul>
+    
 
-
-
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/plots/2015/05/11/case-tree-plot" title="Case Tree Plot">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/plots/2015/05/11/epicurves" title="Epicurves">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
   </div>
 </div>
 

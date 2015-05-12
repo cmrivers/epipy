@@ -46,5 +46,7 @@ Documentation
 * [Epicurves](http://cmrivers.github.io/epipy/plots/2015/05/11/epicurves/)
 * [Odds ratio plot](http://cmrivers.github.io/epipy/plots/2015/05/11/odds-ratio-plot/)
 * [Rolling proportion plot](http://cmrivers.github.io/epipy/plots/2015/05/11/rolling-proportion-plot/)
-* [Steppe plot](http://cmrivers.github.io/epipy/plots/2015/05/11/steppe-plot/
+* [Steppe plot](http://cmrivers.github.io/epipy/plots/2015/05/11/steppe-plot/)
+
+![Example case tree](https://github.com/cmrivers/epipy/blob/master/figs/example_case_tree.png?raw=true)
 

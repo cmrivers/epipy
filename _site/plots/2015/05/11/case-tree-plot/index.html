@@ -108,7 +108,7 @@
 <div class="row-fluid post-full">
   <div class="span12">
     <div class="date">
-      <span>01 February 2014</span>
+      <span>11 May 2015</span>
     </div>
     <div class="content">
       
@@ -116,16 +116,16 @@
 
 <h3 id="what-is-a-case-tree-plot">What is a case tree plot?</h3>
 
-<p>I developed case tree plots are a way to visualize zoonotic disease.
+<p>I developed case tree plots as a way to visualize zoonotic disease.
 However, it can also be used to visualizing environmentally-acquired
 dieases, or anything that emerges multiple times, is passed from person
 to person, and then dies out. Tweets and retweets might be a useful
-non-epi example.</p>
+non-epidemiological example.</p>
 
 <h3 id="how-do-i-read-a-case-tree-plot">How do I read a case tree plot?</h3>
 
 <p>The x-axis is time of illness onset or diagnosis, and the y-axis is
-generation. Nodes at generation 0 are known as index nodes.
+generation. Nodes at generation 0 are index nodes, or the emergence case.
 In the case of a zoonotic disease, the index node is a human case
 acquired from an animal source. If that human were to pass
 the disease to two other humans, those two subsequent cases are both
@@ -138,19 +138,16 @@ the sex of the patient, etc.</p>
 
 <h3 id="examples">Examples</h3>
 
-<p>For this we will use example data in the data/ folder of epipy.
-For this example, we will color the nodes by cluster.</p>
-
-<p>In order to build a case tree plot, you’ll have to provide the
+<p>In order to build a case tree plot, provide the cluster identifier, case identifier, date column,
 generation mean (gen_mean) and generation standard deviation (gen_sd).
 These values represent the time from when one case becomes infected to
 when a subsequent case becomes infected. Incubation period may be used
 when generation time is not known.</p>
 
-<pre><code>import epipy as epi
+<pre><code>import epipy
 import pandas as pd
 
-df = epi.get_data('example_data')
+df = epipy.get_data('example_data')
 fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', case_id ='ID', \
           date_col='Date', color='Cluster', gen_mean=4, gen_sd = 1)
 </code></pre>
@@ -160,7 +157,7 @@ fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', case_id ='ID', \
 <p>If you want to change the node color to represent the health status of each case,
 simply change the color argument.</p>
 
-<pre><code>fig, ax = epi.case_tree_plot(df, cluster_id = 'Cluster', case_id ='ID', \
+<pre><code>fig, ax = epipy.case_tree_plot(df, cluster_id = 'Cluster', case_id ='ID', \
           date_col='Date', color='health', gen_mean=4, gen_sd = 1)
 </code></pre>
 
@@ -175,7 +172,7 @@ simply change the color argument.</p>
 
 <p><img src="http://github.com/cmrivers/epipy/blob/master/figs/example_casetree_noleg.png?raw=true" alt="Case tree plot with no legend and small node size" /></p>
 
-<p>Next: <a href="http://cmrivers.github.io/epipy/analyses/2014/02/02/case-trees/">Case tree analyses</a></p>
+<p><a href="http://cmrivers.github.io/epipy/categories.html">Back to documentation</a></p>
 
     </div>
 
@@ -189,7 +186,7 @@ simply change the color argument.</p>
   
      
     	<li><a href="/categories.html#plots-ref">
-    		plots <span>3</span>
+    		plots <span>6</span>
     	</a></li>
     
   
@@ -207,7 +204,7 @@ simply change the color argument.</p>
 
   
      
-    	<li><a href="/mers.html#plot-ref">plot <span>3</span></a></li>
+    	<li><a href="/mers.html#plot-ref">plot <span>6</span></a></li>
      
     	<li><a href="/mers.html#case tree-ref">case tree <span>2</span></a></li>
     
@@ -222,11 +219,11 @@ simply change the color argument.</p>
     <div class="pagination">
       <ul>
       
-        <li class="prev disabled"><a>&larr; Previous</a></li>
+        <li class="prev"><a href="/analyses/2015/05/07/tables" title="Tables">&larr; Previous</a></li>
       
         <li><a href="/archive.html">Archive</a></li>
       
-        <li class="next"><a href="/plots/2014/02/01/checkerboard-plot" title="Checkerboard Plot">Next &rarr;</a></li>
+        <li class="next"><a href="/plots/2015/05/11/checkerboard-plot" title="Checkerboard Plot">Next &rarr;</a></li>
       
       </ul>
     </div>

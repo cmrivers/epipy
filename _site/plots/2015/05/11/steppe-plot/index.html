@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Epicurves</title>
+    <title>Steppe Plot</title>
     
     <meta name="author" content="Caitlin Rivers">
 
@@ -102,63 +102,38 @@
       <div class="content">
         
 <div class="page-header">
-  <h1>Epicurves <small>Epidemic curves</small></h1>
+  <h1>Steppe Plot <small>Steppe plot</small></h1>
 </div>
 
 <div class="row-fluid post-full">
   <div class="span12">
     <div class="date">
-      <span>01 February 2014</span>
+      <span>11 May 2015</span>
     </div>
     <div class="content">
       
-<h2 id="epicurves">Epicurves</h2>
+<h1 id="steppe-plot">Steppe plot</h1>
 
-<h3 id="what-is-an-epicurve">What is an epicurve?</h3>
+<p>Steppe plots show the interval between two dates for each case in a line list. Common examples include the time betweet onset and death, or onset and report. The steppe plot function works best when NaNs or NaTs are removed.</p>
 
-<p><a href="http://www.med.uottawa.ca/sim/data/Public_Health_Epidemic_Curves_e.htm">Epidemic curves</a>,
-or epicurves, are a common way to visualize outbreaks. They are plotted as the count of
-incident (new) cases over time. Traditional epicurves are bar plots, not line plots.</p>
-
-<h3 id="examples">Examples</h3>
-
-<p>For these examples we will use data from the MERS-CoV outbreak.</p>
-
-<pre><code>import epipy as epi
+<pre><code>import epipy
 import pandas as pd
 
-mers_df = epi.get_data('mers_line_list')
-curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='month')
+df = epipy.get_data('mers_line_list')
+df['death_date'] = df['Approx death date'].apply(epipy.date_convert)
+df = df.dropna(how='any', subset=['onset_date', 'death_date'])
+df = df.tail(15) #select out last 15 cases
+
+fig, ax = epipy.stripe_plot(df, 'Case #', 'onset_date', 'death_date', 'Sex', legend=True)
+ax.set_ylabel('Case number')
+ax.set_title('Onset to death range (MERS-CoV)')
 </code></pre>
 
-<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true" alt="Monthly epicurve of MERS-CoV" /></p>
+<p>The result is a nice visualization of the individual case histories across time.</p>
 
-<p>The curve variable returns a table with a list of dates and their frequency.
-Monthly epicurves work by reassigning all cases for that month to the first day of the month.
-For the MERS data, it looks like this:</p>
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/steppe_example.png?raw=true" alt="Steppe plot of selected MERS-CoV cases" /></p>
 
-<pre><code>            count           plotdates
-2013-06-01     27 2013-06-01 00:00:00
-2013-09-01     25 2013-09-01 00:00:00
-2013-04-01     23 2013-04-01 00:00:00
-2013-08-01     18 2013-08-01 00:00:00
-2013-10-01     17 2013-10-01 00:00:00
-</code></pre>
-
-<p>You may also plot the frequency by day, month or year using the freq argument.</p>
-
-<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='day')
-</code></pre>
-
-<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png?raw=true" alt="Daily epicurve of MERS-CoV" /></p>
-
-<pre><code>curve, fig, ax = epi.epicurve_plot(mers_df, date_col='dates', freq='y')
-</code></pre>
-
-<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png?raw=true" alt="Yearly epicurve of MERS-CoV" /></p>
-
-<p>Next: <a href="http://cmrivers.github.io/epipy/plots/2014/02/01/checkerboard-plot/">Checkerboard plot</a></p>
-
+<p><a href="http://cmrivers.github.io/epipy/categories.html">Back to documentation</a></p>
 
     </div>
 
@@ -172,7 +147,7 @@ For the MERS data, it looks like this:</p>
   
      
     	<li><a href="/categories.html#plots-ref">
-    		plots <span>3</span>
+    		plots <span>6</span>
     	</a></li>
     
   
@@ -190,11 +165,7 @@ For the MERS data, it looks like this:</p>
 
   
      
-    	<li><a href="/mers.html#plot-ref">plot <span>3</span></a></li>
-     
-    	<li><a href="/mers.html#epicurve-ref">epicurve <span>1</span></a></li>
-     
-    	<li><a href="/mers.html#epidemic curve-ref">epidemic curve <span>1</span></a></li>
+    	<li><a href="/mers.html#plot-ref">plot <span>6</span></a></li>
     
   
 
@@ -207,11 +178,11 @@ For the MERS data, it looks like this:</p>
     <div class="pagination">
       <ul>
       
-        <li class="prev"><a href="/plots/2014/02/01/checkerboard-plot" title="Checkerboard Plot">&larr; Previous</a></li>
+        <li class="prev"><a href="/plots/2015/05/11/rolling-proportion-plot" title="Rolling Proportion Plot">&larr; Previous</a></li>
       
         <li><a href="/archive.html">Archive</a></li>
       
-        <li class="next"><a href="/analyses/2015/05/07/case-tree_analyses" title="Case Tree_analyses">Next &rarr;</a></li>
+        <li class="next disabled"><a>Next &rarr;</a>
       
       </ul>
     </div>

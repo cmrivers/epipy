@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Tables</title>
+    <title>Epicurves</title>
     
     <meta name="author" content="Caitlin Rivers">
 
@@ -102,69 +102,62 @@
       <div class="content">
         
 <div class="page-header">
-  <h1>Tables <small>Contingency tables</small></h1>
+  <h1>Epicurves <small>Epidemic curves</small></h1>
 </div>
 
 <div class="row-fluid post-full">
   <div class="span12">
     <div class="date">
-      <span>07 May 2015</span>
+      <span>11 May 2015</span>
     </div>
     <div class="content">
       
-<h2 id="contingency-tables--analyses">Contingency tables &amp; analyses</h2>
+<h2 id="epicurves">Epicurves</h2>
 
-<p><a href="http://sphweb.bumc.bu.edu/otlt/MPH-Modules/EP/EP713_Association/EP713_Association_print.html">2x2 tables</a> are commonly used to assess risk in epidemiology. The rows represent a risk factor, like exposure to a disease, or sex. The columns represent an outcome, like infection status, or whether the disease was severe or mild.</p>
+<h3 id="what-is-an-epicurve">What is an epicurve?</h3>
 
-<h3 id="create-a-2x2-table">Create a 2x2 table</h3>
+<p><a href="http://www.med.uottawa.ca/sim/data/Public_Health_Epidemic_Curves_e.htm">Epidemic curves</a>,
+or epicurves, are a common way to visualize outbreaks. They are plotted as the count of
+incident (new) cases over time. Traditional epicurves are bar plots, not line plots.</p>
 
-<p>Both rows and columns must be binary. Note that you must tell epipy how you wish the table to be organized by providing a list of values.</p>
+<h3 id="examples">Examples</h3>
 
-<pre><code>import epipy
-import pandas as pd
+<p>For these examples we will use data from the MERS-CoV outbreak.</p>
+
+<pre><code>import pandas as pd
 
 mers_df = epipy.get_data('mers_line_list')
-table = epipy.create_2x2(mers_df, row='Sex', 'Health status',
-                ['M', 'F'], ['Dead', 'Alive'])
+curve, fig, ax = epipy.epicurve_plot(mers_df, date_col='dates', freq='month')
 </code></pre>
 
-<p>table returns:</p>
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/month_epicurve.png?raw=true" alt="Monthly epicurve of MERS-CoV" /></p>
 
-<pre><code>     Dead  Alive  All
-M      46     54  101
-F      16     44   60
-All    70    114  185
+<p>The curve variable returns a table with a list of dates and their frequency.
+Monthly epicurves work by reassigning all cases for that month to the first day of the month.
+For the MERS data, it looks like this:</p>
+
+<pre><code>            count           plotdates
+2013-06-01     27 2013-06-01 00:00:00
+2013-09-01     25 2013-09-01 00:00:00
+2013-04-01     23 2013-04-01 00:00:00
+2013-08-01     18 2013-08-01 00:00:00
+2013-10-01     17 2013-10-01 00:00:00
 </code></pre>
 
-<h3 id="analyze-a-2x2-table">Analyze a 2x2 table</h3>
+<p>You may also plot the frequency by day, month or year using the freq argument.</p>
 
-<p>2x2 tables are used to calculate odds ratios, relative risk, and chi square tests.</p>
-
-<pre><code>epipy.analyze_2x2(table)
+<pre><code>curve, fig, ax = epipy.epicurve_plot(mers_df, date_col='dates', freq='day')
 </code></pre>
 
-<p>returns:</p>
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/day_epicurve.png?raw=true" alt="Daily epicurve of MERS-CoV" /></p>
 
-<pre><code>Odds ratio: 0.57 (95% CI: (0.22, 1.46))
-Relative risk: 0.69 (95% CI: (0.38, 1.26))
-
-Attributable risk: -0.126 (95% CI: (-0.34, 0.08))
-Attributable risk percent: -44.86% (95% CI: (-43.19, -46.517))
-Population attributable risk: -0.089
-Population attributable risk percent: -27.84%
-
-Chi square: 2.91278015543
-p value: 0.57252592908
+<pre><code>curve, fig, ax = epipy.epicurve_plot(mers_df, date_col='dates', freq='y')
 </code></pre>
 
-<p>Alternatively, you can call each function separately:</p>
-
-<pre><code>epipy.odds_ratio(table)
-epipy.relative_risk(table)
-epipy.chi2(table)
-</code></pre>
+<p><img src="http://github.com/cmrivers/epipy/blob/master/figs/year_epicurve.png?raw=true" alt="Yearly epicurve of MERS-CoV" /></p>
 
 <p><a href="http://cmrivers.github.io/epipy/categories.html">Back to documentation</a></p>
+
 
     </div>
 
@@ -177,8 +170,8 @@ epipy.chi2(table)
 
   
      
-    	<li><a href="/categories.html#analyses-ref">
-    		analyses <span>3</span>
+    	<li><a href="/categories.html#plots-ref">
+    		plots <span>6</span>
     	</a></li>
     
   
@@ -196,7 +189,11 @@ epipy.chi2(table)
 
   
      
-    	<li><a href="/mers.html#analyses-ref">analyses <span>3</span></a></li>
+    	<li><a href="/mers.html#plot-ref">plot <span>6</span></a></li>
+     
+    	<li><a href="/mers.html#epicurve-ref">epicurve <span>1</span></a></li>
+     
+    	<li><a href="/mers.html#epidemic curve-ref">epidemic curve <span>1</span></a></li>
     
   
 
@@ -209,11 +206,11 @@ epipy.chi2(table)
     <div class="pagination">
       <ul>
       
-        <li class="prev"><a href="/analyses/2015/05/07/summary-stats" title="Summary Stats">&larr; Previous</a></li>
+        <li class="prev"><a href="/plots/2015/05/11/checkerboard-plot" title="Checkerboard Plot">&larr; Previous</a></li>
       
         <li><a href="/archive.html">Archive</a></li>
       
-        <li class="next"><a href="/plots/2015/05/11/case-tree-plot" title="Case Tree Plot">Next &rarr;</a></li>
+        <li class="next"><a href="/plots/2015/05/11/odds-ratio-plot" title="Odds Ratio Plot">Next &rarr;</a></li>
       
       </ul>
     </div>
