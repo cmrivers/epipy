@@ -30,5 +30,8 @@ The label argument is optional; if set to off, no case id numbers will be displa
               date_col='Date', labels='on')
     ax.set_title('Example outbreak data')
 
+![Checkerboard plot](http://github.com/cmrivers/epipy/blob/master/figs/test_checkerboard.png?raw=true)
+
+
 
 [Back to documentation](http://cmrivers.github.io/epipy/categories.html)

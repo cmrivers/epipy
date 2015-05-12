@@ -37,14 +37,14 @@ Documentation
   * Attributable risk
   * Chi square
   * Diagnostic accuracy
-* [Cluster analysis]
+* [Cluster + case tree analysis](http://cmrivers.github.io/epipy/analyses/2015/05/07/case-tree-analyses/)
 
 **Plotting**
 
-* Case tree plot
-* Checkerboard plot
-* Epicurves
-* Odds ratio plot
-* Rolling proportion plot
-* Stripe plot
+* [Case tree plot](http://cmrivers.github.io/epipy/plots/2015/05/11/case-tree-plot/)
+* [Checkerboard plot](http://cmrivers.github.io/epipy/plots/2015/05/11/checkerboard-plot/)
+* [Epicurves](http://cmrivers.github.io/epipy/plots/2015/05/11/epicurves/)
+* [Odds ratio plot](http://cmrivers.github.io/epipy/plots/2015/05/11/odds-ratio-plot/)
+* [Rolling proportion plot](http://cmrivers.github.io/epipy/plots/2015/05/11/rolling-proportion-plot/)
+* [Steppe plot](http://cmrivers.github.io/epipy/plots/2015/05/11/steppe-plot/
 
