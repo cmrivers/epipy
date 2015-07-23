@@ -30,8 +30,13 @@ Documentation
 
 **Basic epidemiology**
 
+<<<<<<< HEAD
 * [Summary statistics](analyses/2015/05/07/summary-stats/)
 * [2x2 table](analyses/2015/05/07/summary-stats/)
+=======
+* [Summary statistics](cmrivers.github.io/epipy/analyses/2015/05/07/summary-stats/)
+* [2x2 table](cmrivers.github.io/epipy/analyses/2015/05/07/tables/)
+>>>>>>> 60bbb4c66141bb7d126ff84e2175630af31dfb38
   * Odds ratio
   * Relative risk
   * Attributable risk
@@ -49,4 +54,3 @@ Documentation
 * [Steppe plot](plots/2015/05/11/steppe-plot/)
 
 ![Example case tree](https://github.com/cmrivers/epipy/blob/master/figs/example_case_tree.png?raw=true)
-
