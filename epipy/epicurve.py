@@ -37,6 +37,7 @@ def epicurve_plot(df, date_col, freq, title=None, fig= None, ax=None):
     if freq == 'd':
         curve = pd.DataFrame(df[date_col].value_counts(), columns=['count'])
 
+
     elif freq == 'm':
 	#convert dates to months
         format_date = df.new_col.dropna().map(lambda x: str(x.strftime("%Y/%m")))

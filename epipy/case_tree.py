@@ -57,26 +57,8 @@ def build_graph(df, cluster_id, case_id, date_col, color, gen_mean, gen_sd):
     return G
 
 
-def case_tree_plot(df, cluster_id, case_id, date_col, color, \
-                    gen_mean, gen_sd, node_size=100, loc='best',\
-                    legend=True, color_dict='default', fig=None, ax=None):
-    """
-    Plot casetree
-    df = pandas dataframe, line listing
-    cluster_id = col that identifies cluster membership. Can be a
-        basic string like "hospital cluster A"
-    case_id = col with unique case identifier
-    date_col = onset or report date column
-    color = column that will be used to color nodes based on
-        attribute, e.g. case severity or gender
-    gen_mean = generation time mean
-    gen_sd = generation time standard deviation
-    node_size = on (display node) or off (display edge only). Default is on.
-    loc = legend location. See matplotlib args.
-    """
-    G = build_graph(df, cluster_id, case_id, date_col, color, \
-                      gen_mean, gen_sd)
 
+def plot_tree(G, color, node_size, loc, legend, color_dict, fig, ax):
 
     if ax is None or fig is None:
         fig, ax = plt.subplots(figsize=(12, 8))
@@ -107,6 +89,31 @@ def case_tree_plot(df, cluster_id, case_id, date_col, color, \
 
     nx.draw_networkx(G, ax=ax, with_labels=False, pos=coords, node_color=color_floats,
                      node_size=node_size, alpha=.8)
+
+    return fig, ax
+
+
+def case_tree_plot(df, cluster_id, case_id, date_col, color, \
+                    gen_mean, gen_sd, node_size=100, loc='best',\
+                    legend=True, color_dict='default', fig=None, ax=None):
+    """
+    Plot casetree
+    df = pandas dataframe, line listing
+    cluster_id = col that identifies cluster membership. Can be a
+        basic string like "hospital cluster A"
+    case_id = col with unique case identifier
+    date_col = onset or report date column
+    color = column that will be used to color nodes based on
+        attribute, e.g. case severity or gender
+    gen_mean = generation time mean
+    gen_sd = generation time standard deviation
+    node_size = on (display node) or off (display edge only). Default is on.
+    loc = legend location. See matplotlib args.
+    """
+    G = build_graph(df, cluster_id, case_id, date_col, color, \
+                      gen_mean, gen_sd)
+
+    fig, ax = plot_tree(G, color, node_size, loc, legend, color_dict, fig, ax)
 
     return G, fig, ax
 
