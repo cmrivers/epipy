@@ -30,7 +30,7 @@ Documentation
 
 **Basic epidemiology**
 
-* [Summary statistics](http://cmrivers.github.io/epipy/analyses/2015/05/07/summarystats.md)
+* [Summary statistics](cmrivers.github.io/epipy/analyses/2015/05/07/summary-stats/)
 * [2x2 table](http://cmrivers.github.io/epipy/analyses/2015/05/07/summarystats.md)
   * Odds ratio
   * Relative risk
