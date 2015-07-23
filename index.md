@@ -30,23 +30,23 @@ Documentation
 
 **Basic epidemiology**
 
-* [Summary statistics](cmrivers.github.io/epipy/analyses/2015/05/07/summarystats.md)
-* [2x2 table](cmrivers.github.io/epipy/analyses/2015/05/07/summarystats.md)
+* [Summary statistics](analyses/2015/05/07/summary-stats/)
+* [2x2 table](analyses/2015/05/07/summary-stats/)
   * Odds ratio
   * Relative risk
   * Attributable risk
   * Chi square
   * Diagnostic accuracy
-* [Cluster + case tree analysis](http://cmrivers.github.io/epipy/analyses/2015/05/07/case-tree-analyses/)
+* [Cluster + case tree analysis](analyses/2015/05/07/case-tree-analyses/)
 
 **Plotting**
 
-* [Case tree plot](http://cmrivers.github.io/epipy/plots/2015/05/11/case-tree-plot/)
-* [Checkerboard plot](http://cmrivers.github.io/epipy/plots/2015/05/11/checkerboard-plot/)
-* [Epicurves](http://cmrivers.github.io/epipy/plots/2015/05/11/epicurves/)
-* [Odds ratio plot](http://cmrivers.github.io/epipy/plots/2015/05/11/odds-ratio-plot/)
-* [Rolling proportion plot](http://cmrivers.github.io/epipy/plots/2015/05/11/rolling-proportion-plot/)
-* [Steppe plot](http://cmrivers.github.io/epipy/plots/2015/05/11/steppe-plot/)
+* [Case tree plot](plots/2015/05/11/case-tree-plot/)
+* [Checkerboard plot](plots/2015/05/11/checkerboard-plot/)
+* [Epicurves](plots/2015/05/11/epicurves/)
+* [Odds ratio plot](plots/2015/05/11/odds-ratio-plot/)
+* [Rolling proportion plot](plots/2015/05/11/rolling-proportion-plot/)
+* [Steppe plot](plots/2015/05/11/steppe-plot/)
 
 ![Example case tree](https://github.com/cmrivers/epipy/blob/master/figs/example_case_tree.png?raw=true)
 
