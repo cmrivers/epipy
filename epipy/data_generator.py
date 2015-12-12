@@ -4,8 +4,6 @@
 from __future__ import division
 import numpy as np
 import pandas as pd
-from datetime import timedelta, datetime
-import itertools
 import string
 
 
@@ -16,7 +14,7 @@ def _date_choice(ix_date, gen_time):
     return date
 
 
-def generate_example_data(cluster_size, outbreak_len, clusters, gen_time, attribute='sex'):
+def generate_example_data(cluster_size, outbreak_len, clusters, gen_time):
     """
     Generates example outbreak data
 
@@ -31,7 +29,7 @@ def generate_example_data(cluster_size, outbreak_len, clusters, gen_time, attrib
 
     RETURNS
     ------------------------------
-    pandas dataframe with columns ['ID', 'Date', 'Cluster', 'Sex']
+    pandas dataframe with columns ['caseid', 'date', 'cluster', 'sex', 'health', 'exposure']
 
     """
     line_list = []
@@ -56,11 +54,10 @@ def generate_example_data(cluster_size, outbreak_len, clusters, gen_time, attrib
             date = _date_choice(dates[-1], gen_time)[0]
             dates.append(date)
 
-            if attribute.lower() == 'sex':
-                attr =  np.random.choice(['Male', 'Female'], size=1)[0]
-            elif attribute.lower() == 'health':
-                attr = np.random.choice(['asymptomatic', 'alive', 'critical', 'dead'], size=1)[0]
+            attr1 =  np.random.choice(['Male', 'Female'], size=1)[0]
+            attr2 = np.random.choice(['asymptomatic', 'alive', 'critical', 'dead'], size=1)[0]
+            attr3 = np.random.choice(['exposed', 'notexposed'], size=1)[0]
 
-            line_list.append((len(line_list), date, cluster_name, attr))
+            line_list.append((len(line_list), date, cluster_name, attr1, attr2, attr3))
 
-    return pd.DataFrame(line_list, columns=['ID', 'Date', 'Cluster', attribute])
+    return pd.DataFrame(line_list, columns=['caseid', 'date', 'cluster', 'sex', 'health', 'exposure'])

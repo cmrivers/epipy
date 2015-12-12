@@ -1,21 +1,13 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
-  -------------
- * Caitlin Rivers
- * [cmrivers@vbi.vt.edu](cmrivers@vbi.vt.edu)
-  -------------
- Epicurve creates weekly, monthly, or daily epicurves
- (count of new cases over time) from a line list.
-'''
 from __future__ import division
 import epipy
 import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def epicurve_plot(df, date_col, freq, title=None, fig= None, ax=None):
+def epicurve_plot(df, date_col, freq, title=None, fig= None, ax=None, color=None):
     '''
     Creates an epicurve (count of new cases over time)
 
@@ -23,7 +15,13 @@ def epicurve_plot(df, date_col, freq, title=None, fig= None, ax=None):
     date_col = date used to denote case onset or report date
     freq = desired plotting frequency. Can be day, month or year
     title = optional
-    date_format = datetime string format, default is "%Y-%m-%d"
+    fig, ax = fig ax objects
+    color = value of bar color to be passed to matplotlib
+    
+    RETURNS
+    ------------------
+    curve = Series of dates and counts
+    fig, ax = matplotlib figure and axis objects
     '''
 
     if ax == None:
@@ -51,12 +49,12 @@ def epicurve_plot(df, date_col, freq, title=None, fig= None, ax=None):
 	#count number of cases per year
         curve = pd.DataFrame(df.new_col.value_counts(), columns=['count'])
 
-    _plot(curve, freq, fig, ax, title)
+    _plot(curve, freq, fig, ax, title, color)
 
     return curve, fig, ax
 
 
-def _plot(freq_table, freq, fig, ax, title=None):
+def _plot(freq_table, freq, fig, ax, title, color):
     '''
     Plot number of new cases over time
     freq_table = frequency table of cases by date, from epicurve()
@@ -84,8 +82,11 @@ def _plot(freq_table, freq, fig, ax, title=None):
         ax.set_xticks(locs)
         ax.set_xticklabels(labels)
 
+    if color == None:
+        color == 'b'
+        
     ax.bar(freq_table['plotdates'].values, freq_table['count'].values,
-	width=wid, align='center')
+	width=wid, align='center', color=color)
 
     if title != None:
         ax.set_title(title)

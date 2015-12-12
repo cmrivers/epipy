@@ -1,11 +1,13 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-def rolling_proportion(df, date_col, value_col, value, window=30, dropna=True, label=False, fig=None, ax=None):
+def rolling_proportion(df, date_col, value_col, value, window=30, dropna=True, label=False, fig=None, ax=None, color=None):
     """
     Interpolated proportion of binary risk factor over time.
-
 
     df = pandas df
     date_col = name of column containing dates
@@ -51,8 +53,11 @@ def rolling_proportion(df, date_col, value_col, value, window=30, dropna=True, l
     if fig is None and ax is None:
         fig, ax = plt.subplots()
 
+    if color is None:
+        color = 'b'
+        
     ax.xaxis_date()
-    new_prop.plot(ax=ax, label=label)
+    new_prop.plot(ax=ax, label=label, color=color)
     fig.autofmt_xdate()
     ax.set_ylim(-0.05, 1.05)
     ax.set_xlabel('')

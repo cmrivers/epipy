@@ -1,34 +1,13 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
- CASE TREE PLOT
- -------------
- * Caitlin Rivers
- * [cmrivers@vbi.vt.edu](cmrivers@vbi.vt.edu)
- -------------
- Case trees are a type of plot I've developed^ to visualize clusters
- of related cases in an outbreak. They are particularly useful for
- visualizing zoonoses.
 
- My wish list for improvements includes:
- * add an option to include nodes that have no children, i.e. are not
-   part of a human to human cluster
- * improve color choice reliabely produces an attractive color palette
-
- ^ I have seen similar examples in the literature,
-   e.g. Antia et al (Nature 2003)
-"""
 from __future__ import division
-from itertools import cycle
 import numpy as np
 import basics
 import matplotlib.pyplot as plt
 import networkx as nx
-from random import choice, sample
-from matplotlib import cm
-import seaborn as sns
 
-def build_graph(df, cluster_id, case_id, date_col, color, gen_mean, gen_sd):
+def build_graph(df, cluster_id, case_id, date_col, color, gen_mean, gen_sd, palette=None):
     """
     Generate a directed graph from data on transmission tree.
     Node color is determined by node attributes, e.g. case severity or gender.
@@ -58,7 +37,7 @@ def build_graph(df, cluster_id, case_id, date_col, color, gen_mean, gen_sd):
 
 
 
-def plot_tree(G, color, node_size, loc, legend, color_dict, fig, ax):
+def plot_tree(G, color, node_size, loc, legend, color_palette, fig, ax):
 
     if ax is None or fig is None:
         fig, ax = plt.subplots(figsize=(12, 8))
@@ -66,15 +45,11 @@ def plot_tree(G, color, node_size, loc, legend, color_dict, fig, ax):
     fig.autofmt_xdate()
     ax.xaxis_date()
     ax.set_aspect('auto')
-    axprop =  ax.axis()
 
     coords = _layout(G)
     plt.ylim(ymin=-.05, ymax=max([val[1] for val in coords.itervalues()])+1)
 
-    if color_dict == 'default':
-        colormap, color_floats = _colors(G, color)
-    else:
-        colormap, color_floats = _colors(G, color, colordict=color_dict)
+    colormap, color_floats = _colors(G, color, color_palette=color_palette)
 
     if legend == True:
         x_val = G.nodes()[0]
@@ -95,7 +70,7 @@ def plot_tree(G, color, node_size, loc, legend, color_dict, fig, ax):
 
 def case_tree_plot(df, cluster_id, case_id, date_col, color, \
                     gen_mean, gen_sd, node_size=100, loc='best',\
-                    legend=True, color_dict='default', fig=None, ax=None):
+                    legend=True, color_palette=None, fig=None, ax=None):
     """
     Plot casetree
     df = pandas dataframe, line listing
@@ -109,16 +84,19 @@ def case_tree_plot(df, cluster_id, case_id, date_col, color, \
     gen_sd = generation time standard deviation
     node_size = on (display node) or off (display edge only). Default is on.
     loc = legend location. See matplotlib args.
+    legend = True for legend, False for no legend
+    color_palette = dictionary of category:color pairs OR a list of colors
+    fig, ax = fig ax objects
     """
     G = build_graph(df, cluster_id, case_id, date_col, color, \
                       gen_mean, gen_sd)
 
-    fig, ax = plot_tree(G, color, node_size, loc, legend, color_dict, fig, ax)
+    fig, ax = plot_tree(G, color, node_size, loc, legend, color_palette, fig, ax)
 
     return G, fig, ax
 
 
-def _colors(G, color, colordict=None):
+def _colors(G, color, color_palette=None):
     """
     Determines colors of the node based on node attribute,
 	e.g. case severity or gender.
@@ -126,23 +104,30 @@ def _colors(G, color, colordict=None):
     color = name of node attribute in graph used to assign color
     """
     # collect list of unique attributes from graph
-    if colordict is None:
+    if type(color_palette) != dict:
         categories = []
         for node in G.nodes():
             categories.append(G.node[node][color])
 
         categories = np.unique(categories)
         # create color map of attributes and colors
-        colors = sns.color_palette('deep', len(categories))
-        colordict = dict(zip(categories, colors))
+        if type(color_palette) == list:
+            colors = color_palette
+        else:
+            colors = [color for i, c in enumerate(plt.rcParams['axes.color_cycle'])]
+            
+        color_dict = dict(zip(categories, colors))
+        
+    elif type(color_palette) == dict:
+        color_dict = color_palette        
 
     color_floats = []
     for node in G.nodes():
-        G.node[node]['plot_color'] = colordict[G.node[node][color]]
-        color_floats.append(colordict[G.node[node][color]])
+        G.node[node]['plot_color'] = color_dict[G.node[node][color]]
+        color_floats.append(color_dict[G.node[node][color]])
 
 
-    return colordict, color_floats
+    return color_dict, color_floats
 
 
 def _generations(G, node):

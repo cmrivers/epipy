@@ -15,7 +15,7 @@ from datetime import timedelta
 from itertools import cycle
 import numpy as np
 
-def checkerboard_plot(df, case_id, cluster_id, date_col, labels='on'):
+def checkerboard_plot(df, case_id, cluster_id, date_col, labels='on', alpha=.8, palette=None):
     '''
     PARAMETERS
     ---------------------
@@ -25,6 +25,8 @@ def checkerboard_plot(df, case_id, cluster_id, date_col, labels='on'):
     date_col = column of onset or report dates
     labels = accepts 'on' or 'off'. Labels the first and last case in the cluster with
             the unique case identifier.
+    alpha = transparency of block color
+    palette = list of colors
 
     RETURNS
     ---------------------
@@ -44,7 +46,10 @@ def checkerboard_plot(df, case_id, cluster_id, date_col, labels='on'):
 
     xtog = timedelta(((4*axprop[1]-axprop[0])/axprop[1]), 0, 0)
     counter = 0
-    cols = cycle([color for i, color in enumerate(plt.rcParams['axes.color_cycle'])])
+    if palette is None:
+        cols = cycle([color for i, color in enumerate(plt.rcParams['axes.color_cycle'])])
+    else:
+        cols = cycle(palette)
 
     for key, group in clusters:
         if len(group) > 1:
@@ -64,7 +69,7 @@ def checkerboard_plot(df, case_id, cluster_id, date_col, labels='on'):
                 y1 = np.array([counter, counter])
                 y2 = y1 + 1
 
-                plt.fill_between([x1, x2], y1, y2, color=color, alpha=.3)
+                plt.fill_between([x1, x2], y1, y2, color=color, alpha=alpha)
                 ypos = y1[0] + .5
 
                 if curr_casenum == min(casenums) or curr_casenum == max(casenums):

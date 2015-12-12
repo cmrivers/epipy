@@ -1,14 +1,6 @@
 # usr/bin/python
 # -*- coding: utf-8 -*-
 
-'''
-  -------------
- * Caitlin Rivers
- * [cmrivers@vbi.vt.edu](cmrivers@vbi.vt.edu)
-  -------------
-  Modify to handle nonstring values
-  '''
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import analyses
@@ -45,13 +37,16 @@ def _plot(_df, fig, ax):
     return fig, ax
 
 
-
 def or_plot(df, risk_cols, outcome_col, risk_order, outcome_order, fig=None, ax=None):
     """
     df = pandas dataframe of line listing
     cols = list of columns to include in analysis
     risk_order: dictionary with risk_cols as keys, and a list of values as values, e.g. {'sex':['male', 'female']}
     outcome_order: list of values, e.g. ['alive', 'dead']
+    
+    RETURNS
+    --------
+    fig, ax = figure and axis objects
     """
 
     ratio_df = []
@@ -84,13 +79,3 @@ def or_plot(df, risk_cols, outcome_col, risk_order, outcome_order, fig=None, ax=
     fig, ax = _plot(ratio_df, fig, ax)
 
     return fig, ax
-
-
-
-
-
-
-
-
-
-
