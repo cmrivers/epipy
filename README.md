@@ -1,6 +1,6 @@
 EpiPy
 ========
-A python package for epidemiology. Epipy is a Python package for epidemiology.
+A Python package for epidemiology. Epipy is a Python package for epidemiology.
 It contains tools for analyzing and visualizing epidemiology data.
 Epipy can currently produce:
 
@@ -13,6 +13,8 @@ Epipy can currently produce:
 
 Installation
 ------------
+The github version of epipy is substantially further along that the pip version. I suggest installing from this repo when possible.
+
 Install using pip:
 
     pip install epipy
@@ -26,6 +28,10 @@ Or clone the repository and install using setup.py:
 
 EpiPy is in development. Please feel free to contribute.
 Contact me at caitlin.rivers@gmail.com or [@cmyeaton](http://twitter.com/cmyeaton) with any questions.
+
+Learning Python
+------------
+New to Python? I teach a self-paced course on Python for epidemiologists over at [episkills.teachable.com](http://episkills.teachable.com).
 
 Contributing/Development
 ------------
