@@ -31,9 +31,14 @@ def epicurve_plot(df, date_col, freq, title=None, fig= None, ax=None, color=None
     freq = freq.lower()[0]
     df.new_col = df[date_col]
 
+    
+
     #count the number of cases per time period
     if freq == 'd':
-        curve = pd.DataFrame(df[date_col].value_counts(), columns=['count'])
+        curve = pd.DataFrame(df[date_col].value_counts().sort_index())
+        ix = pd.date_range(df[date_col].min(), df[date_col].max(), freq=freq)
+        curve = curve.reindex(ix)
+        curve = curve.fillna(0)
 
 
     elif freq == 'm':
@@ -49,7 +54,7 @@ def epicurve_plot(df, date_col, freq, title=None, fig= None, ax=None, color=None
 	#count number of cases per year
         curve = pd.DataFrame(df.new_col.value_counts(), columns=['count'])
 
-    _plot(curve, freq, fig, ax, title, color)
+    fig, ax = _plot(curve, freq, fig, ax, title, color)
 
     return curve, fig, ax
 
@@ -90,3 +95,5 @@ def _plot(freq_table, freq, fig, ax, title, color):
 
     if title != None:
         ax.set_title(title)
+
+    return fig, ax
