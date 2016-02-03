@@ -28,11 +28,15 @@ def epicurve_plot(df, date_col, freq, fig= None, ax=None, color=None):
     df = df[df[date_col].isnull() == False]
     freq = freq.lower()[0]
 
-    ix = pd.date_range(df[date_col].min(), df[date_col].max(), freq=freq)
+    ix = pd.date_range(df[date_col].min(), df[date_col].max(), freq='d')
 
     curve = pd.DataFrame(df[date_col].value_counts().sort_index())
-    curve = curve
-    .resample(freq, how='sum', closed='right').reindex(ix).fillna(0)
+    
+    if freq == 'm' or freq == 'd':
+        curve = curve.reindex(ix).fillna(0).resample(freq, how='sum', closed='right')
+    if freq == 'y':
+        curve = curve.groupby(curve.index.year).sum()
+    
     curve = curve.rename(columns={date_col:'counts'})
 
     try:
@@ -51,28 +55,27 @@ def _plot(freq_table, freq, fig, ax, color):
     '''
 
     axprop =  ax.axis()
-    freq_table['plotdates'] = freq_table.index
 
     # care about date formatting
     if freq == 'd':
-        wid = ((2*axprop[1]-axprop[0])/axprop[1])
         ax.xaxis_date()
         fig.autofmt_xdate()
 
     elif freq == 'm':
-        ax.xaxis_date()
-        fig.autofmt_xdate()
-        wid = len(freq_table)
+        if len(freq_table) < 5:
+            freq_table.index = freq_table.index.strftime('%b %Y')
+            freq_table.plot(kind='bar', rot=0, legend=False)
+        else: 
+            ax.xaxis_date()
+            fig.autofmt_xdate()
 
     elif freq == 'y':
-        locs = freq_table['plotdates'].values.tolist()
+        locs = freq_table.index.tolist()
         labels = [str(loc) for loc in locs]
-        wid = 1
         ax.set_xticks(locs)
         ax.set_xticklabels(labels)
-
+        
     if color == None:
         color == 'b'
         
-    ax.bar(freq_table['plotdates'].values, freq_table['counts'].values,
-	width=wid, align='center', color=color)
+    ax.bar(freq_table.index.values, freq_table['counts'].values, align='center', color=color)
