@@ -39,12 +39,9 @@ def epicurve_plot(df, date_col, freq, fig= None, ax=None, color=None):
     
     curve = curve.rename(columns={date_col:'counts'})
 
-    try:
-        fig, ax = _plot(curve, freq, fig, ax, color)
-        return curve, fig, ax
-    except Exception as e:
-        print e
-        return curve, NaN, NaN
+    fig, ax = _plot(curve, freq, fig, ax, color='#53B8DD')
+
+    return curve, fig, ax
 
 
 def _plot(freq_table, freq, fig, ax, color):
@@ -54,28 +51,27 @@ def _plot(freq_table, freq, fig, ax, color):
     freq = inherited from epicurve
     '''
 
-    axprop =  ax.axis()
-
     # care about date formatting
     if freq == 'd':
         ax.xaxis_date()
         fig.autofmt_xdate()
+        ax.bar(freq_table.index.values, freq_table['counts'].values, align='center', color=color)
 
     elif freq == 'm':
         if len(freq_table) < 5:
             freq_table.index = freq_table.index.strftime('%b %Y')
-            freq_table.plot(kind='bar', rot=0, legend=False)
+            freq_table.plot(kind='bar', rot=0, legend=False, color=color)
         else: 
             ax.xaxis_date()
             fig.autofmt_xdate()
+            width = 1/len(freq_table)
+            ax.bar(freq_table.index.values, freq_table['counts'].values, align='center',width=5, color=color)
 
     elif freq == 'y':
-        locs = freq_table.index.tolist()
-        labels = [str(loc) for loc in locs]
-        ax.set_xticks(locs)
-        ax.set_xticklabels(labels)
+       freq_table.plot(kind='bar', rot=0, legend=False, color=color)
+       
+    return fig, ax
         
-    if color == None:
-        color == 'b'
+    
         
-    ax.bar(freq_table.index.values, freq_table['counts'].values, align='center', color=color)
+    
