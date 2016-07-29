@@ -168,8 +168,8 @@ def reproduction_number(G, index_cases=True, plot=True):
                 degrees[n] = G.out_degree(n)
         R = pd.Series(degrees)
 
-    print 'Summary of reproduction numbers'
-    print R.describe(), '\n'
+    print('Summary of reproduction numbers')
+    print(R.describe(), '\n')
 
     if plot == True:
         fig, ax = plt.subplots()
@@ -202,9 +202,9 @@ def generation_analysis(G, attribute, plot=True):
 
     gen_df = pd.DataFrame(G.node).T
 
-    print '{} by generation'.format(attribute)
+    print('{} by generation').format(attribute)
     table = pd.crosstab(gen_df.generation, gen_df[attribute], margins=True)
-    print table, '\n'
+    print(table, '\n')
 
     if plot == True:
         fig, ax = plt.subplots()
@@ -304,7 +304,7 @@ def odds_ratio(table):
     ratio = (a*d)/(b*c)
     or_se = np.sqrt((1/a)+(1/b)+(1/c)+(1/d))
     or_ci = _conf_interval(ratio, or_se)
-    print 'Odds ratio: {} (95% CI: {})'.format(round(ratio, 2), or_ci)
+    print('Odds ratio: {} (95% CI: {})').format(round(ratio, 2), or_ci)
 
     return round(ratio, 2), or_ci
 
@@ -333,7 +333,7 @@ def relative_risk(table, display=True):
     rr_ci = _conf_interval(rr, rr_se)
 
     if display is not False:
-        print 'Relative risk: {} (95% CI: {})\n'.format(round(rr, 2), rr_ci)
+        print('Relative risk: {} (95% CI: {})\n').format(round(rr, 2), rr_ci)
 
     return rr, rr_ci
 
@@ -368,10 +368,10 @@ def attributable_risk(table):
     par = ((a+c)/N) - (c/(c+d))
     parp = 100*(par/(((a+c)/N)))
 
-    print 'Attributable risk: {} (95% CI: {})'.format(round(ar, 3), ar_ci)
-    print 'Attributable risk percent: {}% (95% CI: {})'.format(round(arp, 2), arp_ci)
-    print 'Population attributable risk: {}'.format(round(par, 3))
-    print 'Population attributable risk percent: {}% \n'.format(round(parp, 2))
+    print('Attributable risk: {} (95% CI: {})').format(round(ar, 3), ar_ci)
+    print('Attributable risk percent: {}% (95% CI: {})').format(round(arp, 2), arp_ci)
+    print('Population attributable risk: {}').format(round(par, 3))
+    print('Population attributable risk percent: {}% \n').format(round(parp, 2))
 
     return ar, arp, par, parp
 
@@ -391,8 +391,8 @@ def chi2(table):
     prints chi square and p value
     """
     chi2, p, dof, expected = chi2_contingency(table)
-    print 'Chi square: {}'.format(chi2)
-    print 'p value: {}'.format(p)
+    print('Chi square: {}').format(chi2)
+    print('p value: {}').format(p)
 
     return chi2, p, dof, expected
 
@@ -445,9 +445,9 @@ def summary(data, by=None):
     elif type(data) == pd.core.frame.DataFrame:
         for column in data:
             summ = _summary_calc(data[column], by=None)
-            print '----------------------------------'
-            print column, '\n'
-            print summ
+            print('----------------------------------')
+            print(column, '\n')
+            print(summ)
 
 
 def diagnostic_accuracy(table, display=True):
@@ -483,10 +483,10 @@ def diagnostic_accuracy(table, display=True):
     NPV_ci = (NPV-(1.96*NPV_se),NPV+(1.96*NPV_se))
 
     if display is not False:
-        print 'Sensitivity: {} (95% CI: {})\n'.format(round(sen, 2), sen_ci)
-        print 'Specificity: {} (95% CI: {})\n'.format(round(spec, 2), spec_ci)
-        print 'Positive Predictive Value: {} (95% CI: {})\n'.format(round(PPV, 2), PPV_ci)
-        print 'Negative Predictive Value: {} (95% CI: {})\n'.format(round(NPV, 2), NPV_ci)
+        print('Sensitivity: {} (95% CI: {})\n').format(round(sen, 2), sen_ci)
+        print('Specificity: {} (95% CI: {})\n').format(round(spec, 2), spec_ci)
+        print('Positive Predictive Value: {} (95% CI: {})\n').format(round(PPV, 2), PPV_ci)
+        print('Negative Predictive Value: {} (95% CI: {})\n').format(round(NPV, 2), NPV_ci)
 
     return sen,sen_ci,spec,spec_ci,PPV,PPV_ci,NPV,NPV_ci
 
@@ -513,6 +513,6 @@ def kappa_agreement(table, display=True):
     pr_e = (((a+b)/n) * ((a+c)/n)) + (((c+d)/n) * ((b+d)/n))
     k = (pr_a - pr_e)/(1 - pr_e)
     if display is not False:
-        print "Cohen's Kappa: {}\n".format(round(k, 2))
+        print("Cohen's Kappa: {}\n").format(round(k, 2))
 
     return k
