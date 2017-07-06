@@ -1,4 +1,3 @@
-import os
 from distutils.core import setup
 
 setup(
@@ -25,11 +24,11 @@ setup(
                'epipy/data_generator.py',
                 'epipy/epicurve.py',
                 'epipy/analyses.py',
-				'epipy/or_plot.py'],
+    				'epipy/or_plot.py'],
     long_description='README.md',
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
-        "Programming Language :: Python :: 2.7",
+        "Development Status :: Alpha",
+        "Programming Language :: Python :: 3.6",
         "Natural Language :: English",
         'Topic :: Scientific/Engineering',
         'Topic :: Scientific/Engineering :: Mathematics'],

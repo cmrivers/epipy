@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import epipy
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -64,7 +63,6 @@ def _plot(freq_table, freq, fig, ax, color):
         else: 
             ax.xaxis_date()
             fig.autofmt_xdate()
-            width = 1/len(freq_table)
             ax.bar(freq_table.index.values, freq_table['counts'].values, align='center',width=5, color=color)
 
     elif freq == 'y':

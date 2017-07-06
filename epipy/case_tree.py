@@ -3,7 +3,7 @@
 
 from __future__ import division
 import numpy as np
-import basics
+from basics import cluster_builder
 import matplotlib.pyplot as plt
 import networkx as nx
 
@@ -14,7 +14,7 @@ def build_graph(df, cluster_id, case_id, date_col, color, gen_mean, gen_sd, pale
     df = pandas dataframe
     """
 
-    clusters = basics.cluster_builder(df=df, cluster_id=cluster_id, \
+    clusters = cluster_builder(df=df, cluster_id=cluster_id, \
                 case_id=case_id, date_col=date_col, attr_col=color, \
                 gen_mean=gen_mean, gen_sd=gen_sd)
 

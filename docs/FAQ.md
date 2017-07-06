@@ -1,4 +1,4 @@
-Jan 15, 2014
+Updated July 2017
 
 # FAQ
 -----

@@ -3,7 +3,6 @@
 '''
   -------------
  * Caitlin Rivers
- * [cmrivers@vbi.vt.edu](cmrivers@vbi.vt.edu)
   -------------
 '''
 

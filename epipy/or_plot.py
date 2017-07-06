@@ -69,9 +69,9 @@ def or_plot(df, risk_cols, outcome_col, risk_order, outcome_order, fig=None, ax=
 
 
         table = analyses.create_2x2(_df, risk_col, outcome_col, order, outcome_order)
-        print risk_col + ':'
+        print('{}:'.format(risk_col))
         ratio, or_ci = analyses.odds_ratio(table)
-        print '\n'
+        print('\n')
 
 
         ratio_df.append({'names': risk_col, 'ratio':ratio, 'lower':or_ci[0], 'upper':or_ci[1]})

@@ -25,7 +25,7 @@ def test_date_convert_str():
     dtime = basics.date_convert(str_val)
 
     assert type(dtime) == datetime
-    assert dtime == datetime(2013, 01, 01)
+    assert dtime == datetime.date(2013, 1, 1)
 
 
 def test_date_convert_nan():
@@ -45,7 +45,7 @@ def test_date_convert_wrongformat():
 
 
 def test_date_convert_wrongformat2():
-    wrong_int = 01201201
+    wrong_int = 1201201
 
     with pytest.raises(ValueError):
         dtime = basics.date_convert(wrong_int)
