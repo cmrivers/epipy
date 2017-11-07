@@ -3,7 +3,7 @@
 
 from __future__ import division
 import numpy as np
-from basics import cluster_builder
+from .basics import cluster_builder
 import matplotlib.pyplot as plt
 import networkx as nx
 
