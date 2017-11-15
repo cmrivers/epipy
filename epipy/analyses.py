@@ -131,8 +131,8 @@ def _summary_calc(column, by=None):
 
         elif coltype == 'object':
             subcol = column.groupby(by)
-            _summ = _categorical_summary(subcol)
-            summ = _summ.sort_values(by=subcol)
+            summ = _categorical_summary(subcol)
+            #summ = _summ.sort_values(by=subcol)
 
     return summ
 
