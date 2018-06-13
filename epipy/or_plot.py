@@ -11,7 +11,7 @@ def _plot(_df, fig, ax):
     """
 
     _df = pd.DataFrame(_df)
-    df = _df.sort('ratio')
+    df = _df.sort_values('ratio')
     df['color'] = 'grey'
     df.color[(df.lower > 1) & (df.upper > 1)] = 'blue'
     df.color[(df.lower < 1) & (df.upper < 1)] = 'red'
