@@ -304,7 +304,7 @@ def odds_ratio(table):
     ratio = (a*d)/(b*c)
     or_se = np.sqrt((1/a)+(1/b)+(1/c)+(1/d))
     or_ci = _conf_interval(ratio, or_se)
-    print('Odds ratio: {} (95% CI: {})').format(round(ratio, 2), or_ci)
+    print('Odds ratio: {} (95% CI: {})'.format(round(ratio, 2), or_ci))
 
     return round(ratio, 2), or_ci
 
