@@ -3,7 +3,7 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
-from .analyses import *
+from analyses import *
 
 
 def _plot(_df, fig, ax):
