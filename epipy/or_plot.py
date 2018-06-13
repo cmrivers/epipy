@@ -3,7 +3,7 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
-from analyses import *
+from .analyses import create_2x2, odds_ratio
 
 
 def _plot(_df, fig, ax):
@@ -68,9 +68,9 @@ def or_plot(df, risk_cols, outcome_col, risk_order, outcome_order, fig=None, ax=
             raise Exception('More than two unique values in {}'.format(risk_col))
 
 
-        table = analyses.create_2x2(_df, risk_col, outcome_col, order, outcome_order)
+        table = create_2x2(_df, risk_col, outcome_col, order, outcome_order)
         print('{}:'.format(risk_col))
-        ratio, or_ci = analyses.odds_ratio(table)
+        ratio, or_ci =odds_ratio(table)
         print('\n')
 
 
