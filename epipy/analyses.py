@@ -333,7 +333,7 @@ def relative_risk(table, display=True):
     rr_ci = _conf_interval(rr, rr_se)
 
     if display is not False:
-        print('Relative risk: {} (95% CI: {})\n').format(round(rr, 2), rr_ci)
+        print('Relative risk: {} (95% CI: {})\n'.format(round(rr, 2), rr_ci))
 
     return rr, rr_ci
 
@@ -368,10 +368,10 @@ def attributable_risk(table):
     par = ((a+c)/N) - (c/(c+d))
     parp = 100*(par/(((a+c)/N)))
 
-    print('Attributable risk: {} (95% CI: {})').format(round(ar, 3), ar_ci)
-    print('Attributable risk percent: {}% (95% CI: {})').format(round(arp, 2), arp_ci)
-    print('Population attributable risk: {}').format(round(par, 3))
-    print('Population attributable risk percent: {}% \n').format(round(parp, 2))
+    print('Attributable risk: {} (95% CI: {})'.format(round(ar, 3), ar_ci))
+    print('Attributable risk percent: {}% (95% CI: {})'.format(round(arp, 2), arp_ci))
+    print('Population attributable risk: {}'.format(round(par, 3))
+    print('Population attributable risk percent: {}% \n'.format(round(parp, 2))
 
     return ar, arp, par, parp
 
@@ -391,8 +391,8 @@ def chi2(table):
     prints chi square and p value
     """
     chi2, p, dof, expected = chi2_contingency(table)
-    print('Chi square: {}').format(chi2)
-    print('p value: {}').format(p)
+    print('Chi square: {}'.format(chi2))
+    print('p value: {}'.format(p))
 
     return chi2, p, dof, expected
 
@@ -483,10 +483,10 @@ def diagnostic_accuracy(table, display=True):
     NPV_ci = (NPV-(1.96*NPV_se),NPV+(1.96*NPV_se))
 
     if display is not False:
-        print('Sensitivity: {} (95% CI: {})\n').format(round(sen, 2), sen_ci)
-        print('Specificity: {} (95% CI: {})\n').format(round(spec, 2), spec_ci)
-        print('Positive Predictive Value: {} (95% CI: {})\n').format(round(PPV, 2), PPV_ci)
-        print('Negative Predictive Value: {} (95% CI: {})\n').format(round(NPV, 2), NPV_ci)
+        print('Sensitivity: {} (95% CI: {})\n'.format(round(sen, 2), sen_ci))
+        print('Specificity: {} (95% CI: {})\n'.format(round(spec, 2), spec_ci))
+        print('Positive Predictive Value: {} (95% CI: {})\n'.format(round(PPV, 2), PPV_ci))
+        print('Negative Predictive Value: {} (95% CI: {})\n'.format(round(NPV, 2), NPV_ci))
 
     return sen,sen_ci,spec,spec_ci,PPV,PPV_ci,NPV,NPV_ci
 
