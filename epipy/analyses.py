@@ -333,7 +333,7 @@ def relative_risk(table, display=True):
     rr_ci = _conf_interval(rr, rr_se)
 
     if display is not False:
-        print('Relative risk: {} (95% CI: {})\n'.format(round(rr, 2), rr_ci))
+        print('Relative risk: {} (95% CI: {}-{})\n'.format(round(rr, 2), round(rr_ci[0],2), round(rr_ci[1], 2)))
 
     return rr, rr_ci
 
