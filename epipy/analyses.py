@@ -370,7 +370,7 @@ def attributable_risk(table):
 
     print('Attributable risk: {} (95% CI: {})'.format(round(ar, 3), ar_ci))
     print('Attributable risk percent: {}% (95% CI: {})'.format(round(arp, 2), arp_ci))
-    print('Population attributable risk: {}'.format(round(par, 3))
+    print('Population attributable risk: {}'.format(round(par, 3)))
     print('Population attributable risk percent: {}% \n'.format(round(parp, 2)))
 
     return ar, arp, par, parp
